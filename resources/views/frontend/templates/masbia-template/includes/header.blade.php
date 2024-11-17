@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="{{ asset('assets/frontend/templates/masbia/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/frontend/templates/masbia/css/style.bundle.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/frontend/templates/masbia/css/style.css') }}">
+  <script src="{{ asset('assets/frontend/templates/general/Js/jquery.js') }}" type="text/javascript"></script>
 </head>
 
 <body>

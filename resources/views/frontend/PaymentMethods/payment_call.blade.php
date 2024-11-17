@@ -737,7 +737,7 @@
 </script>
 
 <script async
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoLIDedvPIK6KCs5BzPwlmI_b8cO9HXw0&libraries=places&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key={{env('GOOGLE_MAP_API')}}&libraries=places&callback=initMap">
 </script>
 <script type="application/javascript"> 
 function initMap() { 

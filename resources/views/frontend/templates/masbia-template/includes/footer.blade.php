@@ -83,11 +83,11 @@
     </div>
   </footer>
 
-  <script src="{{ asset('assets/frontend/templates/general/Js/jquery.js') }}" type="text/javascript"></script>
   <script src="{{ asset('assets/frontend/templates/masbia/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('assets/frontend/templates/masbia/js/tabs.js') }}"></script>
   <script src="{{ asset('assets/frontend/templates/masbia/js/js.js') }}"></script>
   <script src="{{ asset('assets/frontend/templates/masbia/js/accordion.js') }}"></script>
+  <script src="{{ asset('assets/frontend/js/custom.js') }}"></script>
 
   <script>
     $(document).ready(function() {
