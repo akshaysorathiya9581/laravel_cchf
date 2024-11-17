@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="cart__summary-btn">
-                    <a id="gift-btn" href="javascript:;" class="btn btn--gray overlay">Choose Gift</a>
+                    {{-- <a id="gift-btn" href="javascript:;" class="btn btn--gray overlay">Choose Gift</a> --}}
                     @if($campaign->meta->allow_tip === 1)
                     <a id="donateNow" href="#" class="btn btn--gray overlay">Support Yungerleit</a>
                     @endif
@@ -181,7 +181,7 @@
                             <div class="card-content">
                                 <h6 class="info-title info-title--bill">Payment Info <span></span></h6>
                                 <div>
-                                    @include('frontend.PaymentMethods.payment_methods')
+                                    @include('frontend.templates.masbia-template.PaymentMethods.payment_methods')
                                     <input type="hidden" id="donate_amount" name="amount" value="">
                                     <input type="hidden" id="only_donation" value="">
                                     <input type="hidden" id="currency" name="currency" value="usd">
@@ -246,7 +246,7 @@
                                     </div>
                                     @endif
                                     {{--  --}}
-                                    <div class="form-check processing-fee" style="display: flex;">
+                                    <div class="form-check processing-fee" style="display: none;">
                                         @if ($campaign->meta->allow_fee == 1)
                                         <input class="form-check-input" type="checkbox" id="process_fee_check" name="process_fee_check" value="1">
                                         <label class="form-check-label" for="process_fee_check">
@@ -282,18 +282,28 @@
                                             </p>
                                         </div>
                                     </div>
-                                    <div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; display: block; transition: right 0.3s ease 0s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;">
+                                    <div class="grecaptcha-badge" data-style="bottomright">
                                         <div class="grecaptcha-logo"><iframe title="reCAPTCHA" width="256" height="60" role="presentation" name="a-dlpsdpl12kb" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LfF4ikpAAAAAHlmS9WnkN5udzau-S0S7ZhA9hSJ&amp;co=aHR0cHM6Ly8xMDBrZ29yYWwub3JnOjQ0Mw..&amp;hl=en&amp;v=rKbTvxTxwcw5VqzrtN-ICwWt&amp;size=invisible&amp;cb=fp188cexjcq0"></iframe>
                                         </div>
                                         <div class="grecaptcha-error"></div>
                                         <textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea>
                                     </div>
                                     <iframe style="display: none;"></iframe>
-                                    <button class="w-100 btn checkout_btn checkout-btn overlay" type="submit">
+                                    <div class="seprator"></div>
+                                    <div class="custom-checkbox">
+                                        <input type="checkbox" value="1" name="" class="form-check-input" id="">
+                                        <label class="form-check-label" for="">Add $3.00 to your payment to cover the 3% credit 
+                                            card processing fee</label>
+                                    </div>
+                                    <div class="custom-checkbox">
+                                        <input type="checkbox" value="1" name="" class="form-check-input" id="">
+                                        <label class="form-check-label" for="">Pay in Installments</label>
+                                    </div>
+                                    <button class="btn btn--green" type="submit">
                                         <span class="standard_checkout">Checkout</span>
-                                        <span class="standard_checkout divider"></span>
-                                        <span class="standard_checkout checkout-btn__amount" id="pop_checkout_3"></span>
-                                        <span class="other_checkout" id="other_checkout" style="display: none"></span>
+                                        {{-- <span class="standard_checkout divider"></span> --}}
+                                        {{-- <span class="standard_checkout checkout-btn__amount" id="pop_checkout_3"></span> --}}
+                                        {{-- <span class="other_checkout" id="other_checkout" style="display: none"></span> --}}
                                     </button>
                                 </div>
                             </div>

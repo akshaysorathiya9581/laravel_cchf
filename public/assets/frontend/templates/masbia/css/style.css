@@ -4958,6 +4958,7 @@ option {
 
 .cart .cart__content .custom-checkbox input {
   width: 30px;
+  min-width: 30px;
   height: 30px;
   margin: 0 10px 0 30px;
 }
@@ -4975,6 +4976,7 @@ option {
   padding: 40px;
   background-color: #e6e6e6;
   border-radius: 20px;
+  margin-top: 30px;
 }
 
 .cart .cart__content .payment_tabs_checkbox {
@@ -4985,7 +4987,7 @@ option {
   grid-column-gap: 15px;
   grid-row-gap: 15px;
   margin-left: 25px;
-  margin-bottom: 35px;
+  margin-bottom: 40px;
 }
 
 .cart .cart__content .payment_tabs_checkbox .nav-item button {
@@ -5023,4 +5025,74 @@ option {
   display: block;
   border: 0;
   margin: 0 !important;
+  padding: 0 !important;
+}
+
+.cart .cart__content .cardpayment-details {
+  width: 100%;
+  /* height: 57px; */
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 18px 24px;
+}
+
+.cart .cart__content .cardpayment-details input {
+  width: 100%;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 22px;
+  color: #676767;
+}
+
+.cart .cart__content .cardpayment-details input::placeholder {
+  color: #cccccc;
+  font-weight: 500;
+}
+
+.cart .cart__content .cardpayment-details input:focus,
+.cart .cart__content .cardpayment-details input:focus-visible {
+  outline: none;
+  border: none;
+}
+
+.cart .cart__content .cardpayment-details__cardholder {
+  margin-bottom: 12px;
+}
+
+.cart .cart__content .cardpayment-details__box {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.cart .cart__content .cardpayment-details__box input:first-child {
+  min-width: 220px;
+}
+
+.cart .cart__content .seprator {
+  margin-top: 50px;
+  margin-bottom: 35px;
+  border-top: 1px solid #bcbcbc;
+}
+
+.cart .cart__content .card-content .btn {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.cart .cart__content .card-content .custom-checkbox {
+  align-items: flex-start;
+  margin: 0;
+}
+
+.cart .cart__content .card-content .custom-checkbox input {
+  margin: 0 12px 0 0;
+}
+
+.cart .cart__content .card-content .custom-checkbox label {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 19.8px;
+  color: #333333;
+  margin-top: 4px;
 }

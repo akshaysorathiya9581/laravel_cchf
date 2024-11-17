@@ -339,14 +339,20 @@
         outline: none;
     }
 
-    .base-modal .auth-form .form-group .error-msg,
     .base-modal .auth-form .form-group .text-danger,
+    .base-modal .auth-form .form-group .error-msg,
     .base-modal .auth-form .form-group .error {
         display: block;
         font-size: 12px;
         font-weight: 600;
         color: #b3261e;
         margin-top: 5px;
+    }
+
+    .base-modal .auth-form .form-group .text-danger span,
+    .base-modal .auth-form .form-group .error-msg span,
+    .base-modal .auth-form .form-group .error span {
+        display: none;
     }
 
     .base-modal .form-checkbox {
@@ -549,7 +555,7 @@
         color: white !important;
         font-size: 20px !important;
         padding: 30px !important;
-        border-radius: 5px !important;
+        border-radius: 20px !important;
         text-align: center !important;
         width: 100% !important;
         height: 100% !important;
@@ -558,8 +564,9 @@
         align-items: center;
     }
 
+    /* Make sure that BlockUI does not cover scrollable content */
     .blockUI.blockMsg {
-        pointer-events: none;
+        pointer-events: none; /* Allow interaction with the scrollable content */
     }
 </style>
 
@@ -587,7 +594,7 @@
                 <div class="form-group">
                     <label for="">Enter Password<span>*</span></label>
                     <div>
-                        <input type="password" class="form-input" name="password" placeholder="Enter Password">
+                        <input type="password" class="form-input" name="password" placeholder="Enter Password" >
                         <span class="passProtect"><img src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}" width="24" height="20" alt="Password Protect"></span>
                     </div>
                     {{-- <span class="error"></span> --}}

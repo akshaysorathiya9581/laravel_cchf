@@ -45,11 +45,9 @@ function blockUI_page(selector, is_show) {
                 height: '100%',
                 textAlign: 'center',
             },
-            // overlayCSS: {
-            //     backgroundColor: '#1d6e65',
-            //     opacity: 0.6,
-            //     cursor: 'wait'
-            // }
+            overlayCSS: {
+                borderRadius: '20px',
+            }
         });
     } else {
         $(selector).unblock();
@@ -123,6 +121,6 @@ function formValidation(errors) {
 		msg = msg.replaceAll(el, label);
 		msg = msg.replaceAll(':', '');
 
-		_parent.append('<span class="m-form__help text-danger error-msg d-block">' + msg + '</span>');
+		_parent.append('<span class="text-danger error-msg d-block">' + msg + '</span>');
 	});
 }
