@@ -17,10 +17,11 @@
   <link rel="stylesheet" href="{{ asset('assets/frontend/templates/masbia/css/bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/frontend/templates/masbia/css/style.bundle.css') }}">
   <link rel="stylesheet" href="{{ asset('assets/frontend/templates/masbia/css/style.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/frontend/css/jquery.toast.css') }}">
   <script src="{{ asset('assets/frontend/templates/general/Js/jquery.js') }}" type="text/javascript"></script>
 </head>
 
-<body>
+<body class="m-body">
   <header class="header">
     <button class="hamburger-menu" id="hamburgerMenu">
       <img src="{{ asset('assets/frontend/templates/masbia/images/icons/hamburger-menu.svg') }}" alt="">

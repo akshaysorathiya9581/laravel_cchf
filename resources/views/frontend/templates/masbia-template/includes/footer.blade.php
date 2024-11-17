@@ -87,6 +87,8 @@
   <script src="{{ asset('assets/frontend/templates/masbia/js/tabs.js') }}"></script>
   <script src="{{ asset('assets/frontend/templates/masbia/js/js.js') }}"></script>
   <script src="{{ asset('assets/frontend/templates/masbia/js/accordion.js') }}"></script>
+  <script src="{{ asset('assets/frontend/js/jquery.blockUI.js') }}"></script>
+  <script src="{{ asset('assets/frontend/js/jquery.toast.js') }}"></script>
   <script src="{{ asset('assets/frontend/js/custom.js') }}"></script>
 
   <script>

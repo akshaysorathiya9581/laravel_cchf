@@ -26,3 +26,99 @@ function send_ajax_request(ajaxUrl, sendData, method, fileUpload, type) {
 	(fileUpload) && ($.extend(ajaxOption, { processData: false, contentType: false }));
 	return $.ajax(ajaxOption);
 }
+
+function blockUI_page(selector, is_show) {
+    var selector = selector || '.m-body';
+    var is_show = is_show || false;
+
+    if (is_show) {
+        $(selector).block({
+            message: '<h1>Processing...</h1>',
+            css: {
+                border: 'none',
+                padding: '15px',
+                backgroundColor: '#000',
+                '-webkit-border-radius': '10px',
+                '-moz-border-radius': '10px',
+                opacity: 0.5,
+                color: '#fff'
+            },
+            overlayCSS: {
+                backgroundColor: '#000000',
+                opacity: 0.6,
+                cursor: 'wait'
+            }
+        });
+    } else {
+        $(selector).unblock();
+    }
+}
+
+function toastr_show(p_message, p_type, p_title) {
+    if (!p_message || (p_message && p_message.trim() === '')) {
+        return;
+    }
+
+    var type = (p_type && p_type.trim() !== '') ? p_type : 'success';
+    var title = (p_title && p_title.trim() !== '') ? p_title : '';
+
+    $.toast({
+        heading: title,
+        text: p_message,
+        icon: type,
+        showHideTransition: 'slide', // fade, slide, or plain
+        allowToastClose: true,
+        hideAfter: 5000, // milliseconds
+        loader: true,
+        loaderBg: '#9EC600', // background color of the loader
+        position: 'top-right', // toast position (top-left, top-right, bottom-left, bottom-right, or mid-center)
+        stack: false // prevent duplicate toasts
+    });
+}
+
+function makeDotToArrayStr(str) {
+	if (!str.includes('.')) return str;
+	let regex = /(\w+)/g;
+	let matches = str.match(regex);
+
+	let arr = [];
+
+	matches.forEach((match, index) => {
+		if (index === 0) {
+			arr.push(match);
+		} else {
+			if (parseInt(match) > -1) match = '';
+			arr.push(`[${match}]`);
+		}
+	});
+
+	return arr.join('');
+}
+
+function formValidation(errors) {
+	if (!typeof errors === 'object') return;
+
+	console.log(errors);
+
+	$.each(errors, (el, el_errors) => {
+		var like_name = makeDotToArrayStr(el);
+		var _elem = $('[name="' + like_name + '"]');
+		if (!_elem.length) _elem = $('[name*="' + like_name + '"]');
+		var i = 0;
+		var f_elem = _elem[Object.keys(_elem)[i++]];
+
+		var _parent = $(f_elem).parent();
+		while (_parent.children('.error-msg').length > 0 || (!['radio'].includes($(f_elem).attr('type')) && $(f_elem).val() != '')) {
+			f_elem = _elem[Object.keys(_elem)[i++]];
+			_parent = $(f_elem).parent();
+		}
+		if (_parent.hasClass('form-check')) _parent = _parent.parent();
+
+		var msg = (el_errors.constructor === Array) ? el_errors[0] : el_errors;
+		var label = _parent.find('label').html();
+		msg = msg.replaceAll(el, label);
+		msg = msg.replaceAll(':', '');
+
+		_parent.append('<span class="m-form__help text-danger error-msg d-block">' + msg + '</span>');
+	});
+}
