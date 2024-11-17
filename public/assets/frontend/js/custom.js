@@ -104,6 +104,8 @@ function formValidation(errors) {
 
 	$.each(errors, (el, el_errors) => {
 		var like_name = makeDotToArrayStr(el);
+        console.log('like_name=',like_name);
+        
 		var _elem = $('[name="' + like_name + '"]');
 		if (!_elem.length) _elem = $('[name*="' + like_name + '"]');
 		var i = 0;
@@ -114,7 +116,7 @@ function formValidation(errors) {
 			f_elem = _elem[Object.keys(_elem)[i++]];
 			_parent = $(f_elem).parent();
 		}
-		if (_parent.hasClass('form-check')) _parent = _parent.parent();
+		if (_parent.hasClass('form-input')) _parent = _parent.parent();
 
 		var msg = (el_errors.constructor === Array) ? el_errors[0] : el_errors;
 		var label = _parent.find('label').html();

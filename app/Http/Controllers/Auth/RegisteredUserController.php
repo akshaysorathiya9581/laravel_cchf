@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-use Validator;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\JsonResponse;
 
 class RegisteredUserController extends Controller
 {
@@ -28,22 +29,18 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): JsonResponse
     {
-        $post_data = $request->all();
-
-        $validator_rules = [
-            'name' 					=>  ['required', 'string', 'max:255'],
-            'email' 				=>  ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'number_of_rows' 		=> ['required', 'confirmed', Rules\Password::defaults()]
-        ];
-
-        $validator 	= Validator($post_data, $validator_rules);
-
+        $validator = Validator::make($request->all(), [
+            'name' 	=>  ['required', 'string', 'max:255'],
+            'email'  =>  ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
+            'privacy_check' =>  ['required'],
+        ]);
     	if($validator->fails()) {
     		return response()->json(array("status" => false, "message" => $validator->errors()));
         }   
-        
+
         // $request->validate([
         //     'name' => ['required', 'string', 'max:255'],
         //     'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],

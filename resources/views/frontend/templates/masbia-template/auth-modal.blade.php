@@ -580,13 +580,13 @@
                 </div>
                 <div class="form-group">
                     <label for="">Email Address<span>*</span></label>
-                    <input type="email" class="form-input" name="email" placeholder="Enter your mail address" value="alex@eample.com">
+                    <input type="email" class="form-input" name="email" placeholder="Enter your mail address">
                     {{-- <span class="error"></span> --}}
                 </div>
                 <div class="form-group">
                     <label for="">Enter Password<span>*</span></label>
                     <div>
-                        <input type="text" class="form-input" name="password" placeholder="Enter Password" >
+                        <input type="password" class="form-input" name="password" placeholder="Enter Password" >
                         <span class="passProtect"><img src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}" width="24" height="20" alt="Password Protect"></span>
                     </div>
                     {{-- <span class="error"></span> --}}
@@ -594,7 +594,7 @@
                 <div class="form-group">
                     <label for="">Confirm Password<span>*</span></label>
                     <div>
-                        <input type="text" class="form-input" name="confirm_password" placeholder="Enter Confirm Password">
+                        <input type="password" class="form-input" id="password_confirmation" name="password_confirmation" placeholder="Enter Confirm Password">
                         <span class="passProtect"><img
                                 src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}" width="24"
                                 height="20" alt="Password Protect"></span>
@@ -602,9 +602,8 @@
                     {{-- <span class="error"></span> --}}
                 </div>
                 <div class="form-checkbox">
-                    <input type="checkbox" id="privacyCheck">
-                    <label for="privacyCheck"><span>I agree with <a href="#">Terms of services & Privacy
-                                Policy</a></span></label>
+                    <input type="checkbox" class="form-input" id="privacyCheck" name="privacy_check">
+                    <label for="privacyCheck"><span>I agree with <a href="#">Terms of services & Privacy Policy</a></span></label>
                 </div>
                 <div class="btn-grp">
                     <button type="submit" class="btn btn--green">Sign up</button>
