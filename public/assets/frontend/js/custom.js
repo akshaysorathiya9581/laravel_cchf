@@ -38,12 +38,12 @@ function blockUI_page(selector, is_show) {
                 backgroundColor: 'rgba(29, 110, 101, 0.7)',
                 color: '#fff',
                 border: 'none',
-                borderRadius: '5px',
+                borderRadius: '20px',
                 padding: '30px',
                 fontSize: '20px',
                 width: '100%',
                 height: '100%',
-                textAlign: 'center'
+                textAlign: 'center',
             },
             // overlayCSS: {
             //     backgroundColor: '#1d6e65',
