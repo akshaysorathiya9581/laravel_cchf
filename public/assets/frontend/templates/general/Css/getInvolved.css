@@ -1,0 +1,96 @@
+.get-involved-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px 100px 20px;
+  background-color: #f6f6f6;
+  position: relative;
+  width: 100%;
+}
+
+.get-involved-container .get-involved-bg-img-wrap {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: flex-end;
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+}
+
+.get-involved-container .get-involved-bg-img-wrap .get-involved-bg-img {
+  width: 40%;
+}
+
+.get-involved-container .get-involved-img-text-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.get-involved-container .get-involved-hd {
+  font-size: 30px;
+  text-align: center;
+  font-weight: 500;
+  margin: 10px 0;
+}
+
+.get-hd {
+  font-weight: 700;
+}
+
+.get-involved-container .get-involved-text {
+  max-width: 700px;
+  text-align: center;
+  padding: 20px 0px;
+  font-size: 18px;
+}
+
+.get-involved-container .get-involved-text span {
+  color: var(--theme);
+  font-weight: 600;
+}
+
+.get-involved-container .get-involved-btn-container {
+  display: flex;
+  gap: 20px;
+  z-index: 10;
+}
+
+.get-involved-container .get-involved-btn-container .get-involved-btn {
+  outline: none;
+  padding: 8px 20px;
+  min-width: 120px;
+  border: 1px solid black;
+  border-radius: 5px;
+  color: black;
+  font-weight: 600;
+  background-color: transparent;
+}
+
+.get-involved-container
+  .get-involved-btn-container
+  .get-involved-btn.donate-btn {
+  background-color: var(--theme);
+  color: white;
+  border: none;
+}
+
+@media (max-width: 1024px) {
+  .get-involved-container .get-involved-bg-img-wrap .display-none {
+    display: none;
+  }
+
+  .get-involved-container .get-involved-bg-img-wrap {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .get-involved-container .get-involved-bg-img-wrap .get-involved-bg-img {
+    width: 90%;
+  }
+}

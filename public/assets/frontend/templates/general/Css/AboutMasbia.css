@@ -1,0 +1,82 @@
+.about-masbia-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.about-masbia-sub-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 100px 10px;
+  width: 81%;
+  gap: 50px;
+}
+
+.about-masbia-container .about-container {
+  width: 40%;
+}
+
+.about-masbia-container .about-container .about-masbia-hd {
+  font-size: 35px;
+  color: black;
+}
+
+.about-masbia-container .about-container .about-masbia-hd span {
+  font-weight: 900;
+}
+
+.about-masbia-container .about-container .about-masbia-text {
+  color: black;
+  font-size: 23px;
+}
+
+.about-masbia-container .about-container .about-masbia-text span {
+  color: #7d452b;
+}
+
+.about-masbia-container .video-container {
+  width: 50%;
+}
+
+.about-masbia-container .video-container video {
+  border-radius: 10px;
+}
+
+@media (max-width: 1024px) {
+  .about-masbia-sub-container {
+    flex-direction: column;
+    width: 100%;
+    padding: 100px 30px;
+  }
+
+  .about-masbia-container .about-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .about-masbia-container .about-container .about-masbia-text {
+    text-align: center;
+  }
+
+  .about-masbia-container .video-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .about-masbia-sub-container {
+    padding: 60px 30px;
+  }
+
+  .about-masbia-container .about-container .about-masbia-text {
+    font-size: 12px;
+  }
+
+  .about-masbia-container .about-container .about-masbia-hd {
+    font-size: 28px;
+    color: black;
+  }
+}

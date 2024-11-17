@@ -1,0 +1,9 @@
+:root {
+  --theme: #1d6e65;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  scrollbar-width: none;
+}

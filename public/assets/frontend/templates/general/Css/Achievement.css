@@ -1,0 +1,65 @@
+.achievement-container {
+  background-color: #242424;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  padding: 20px 0px;
+}
+
+.achievement-container .achievement-text-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.achievement-container p {
+  margin: 0px;
+}
+
+.achievement-container .achievement-hd {
+  font-size: 30px;
+  font-weight: 700;
+  color: white;
+}
+
+.achievement-container .achievement-sub-hd {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+}
+
+.achievement-container .achievement-text {
+  font-size: 16px;
+  font-weight: 100;
+  color: white;
+}
+
+@media (max-width: 1100px) {
+  .achievement-container {
+    gap: 50px;
+  }
+}
+
+@media (max-width: 767px) {
+  .achievement-container {
+    gap: 30px;
+    padding: 20px 20px;
+  }
+
+  .achievement-container .achievement-text-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0px;
+  }
+
+  .achievement-container .people-text-wrap {
+    border-right: 1px solid grey;
+    padding-right: 20px;
+  }
+
+  .achievement-container .society-text-wrap {
+    border-right: 1px solid grey;
+    padding-right: 20px;
+  }
+}

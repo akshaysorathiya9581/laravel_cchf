@@ -1,0 +1,312 @@
+.checkout_modal_button {
+    outline: none !important;
+    border: none !important;
+    font-size: 25px !important;
+    background-color: #fff !important;
+}
+
+#checkoutForm ul li::marker {
+    list-style: circle !important;
+    color: var(--accent-color) !important;
+}
+#checkoutForm ul.nav-tabs li::marker{
+list-style: none !important;
+}
+#checkoutForm ul.nav-tabs li{
+    list-style: none !important;
+    }
+#checkoutForm ul li {
+    list-style: circle !important;
+}
+
+.modal-content {
+    border-radius: 0px !important;
+    border: none !important;
+    box-shadow: 0 0 60px 0px rgb(180, 177, 177);
+}
+
+.modal-backdrop {
+    /* display: none !important; */
+    /* background-color: rgb(184, 180, 180); */
+    background-color: #fff;
+}
+
+#checkoutForm input:focus,
+#checkoutForm textarea:focus,
+#checkoutForm select:focus {
+    box-shadow: none;
+    border: 2.5px solid var(--accent-color);
+}
+
+#checkoutForm input,
+#checkoutForm textarea,
+#checkoutForm select {
+    border: 2.5px solid rgb(192, 190, 190);
+}
+
+#checkoutForm input.stripe_checkbox[type="radio"] {
+    width: 20px !important;
+    height: 25px !important;
+    border-radius: 50%;
+    transform: scale(0.7);
+}
+#checkoutForm select,
+#checkoutForm input[type="text"],
+#checkoutForm input[type="email"],
+#checkoutForm input[type="date"],
+#checkoutForm input[type="number"] {
+    height: 50px;
+    /* border-radius: 30px; */
+}
+/* #checkoutForm input[type="checkbox"] {
+    width: 25px !important;
+    height: 25px !important;
+} */
+
+.stripe_card_number {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+}
+
+#checkoutForm textarea {
+    border-radius: 30px;
+}
+
+#checkoutForm input::placeholder {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.checkout_payment_form {
+    background-color: #f2f2f2;
+    border-radius: 10px !important;
+    padding: 40px;
+}
+
+.checkout_btn {
+    width: 100%;
+    /* max-width: 250px; */
+    outline: none;
+    border: none;
+    background-color: var(--accent-color);
+    color: #fff;
+    font-weight: 600;
+    padding: 18px;
+    /* border-radius: 30px; */
+}
+
+.has-global-padding {
+    padding: 0 !important;
+}
+body
+    .is-layout-constrained
+    > :where(:not(.alignleft):not(.alignright):not(.alignfull)) {
+    max-width: 100% !important;
+}
+:where(body .is-layout-constrained) > :first-child:first-child {
+    height: auto !important;
+}
+
+.checkbox-container
+{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+.checkbox-container p{
+    font-size: 15px;
+    font-weight: 600;
+    margin: 0;
+}
+.payment_tabs_checkbox button{
+    background: transparent !important;
+}
+.payment_tabs_checkbox * {
+    outline: none !important;
+    border: none !important;
+}
+.payment_tabs_checkbox li .nav-link.active {
+    background: transparent !important;
+    border: none;
+    outline: none;
+}
+
+.checkbox-container i,
+.checkbox-container p,
+.checkbox-container span
+{
+    color: #000 !important;
+}
+/* *{
+    border: 1px solid red;
+} */
+.installment_content p{
+    white-space: nowrap !important;
+    margin: 0 !important;
+}
+.installment_div{
+    margin-top: 20px;
+    display: none;
+}
+.installment_content{
+    display: flex;
+    width:fit-content ;
+    margin: auto;
+    padding: 2px 17px !important;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(216, 211, 211);
+}
+.installment_content input
+{
+    width: 60px;
+    font-size: 13px !important;
+    height: 35px !important;
+    border-radius: 30px;
+}
+.installment_content select
+{
+    width: 90px;
+    margin-left: 8px;
+    font-size: 13px !important;
+    height: 35px !important;
+    border-radius: 30px;
+}
+
+
+/*
+_______THANK_YOU_PAGE_STYLES_________
+*/
+.thank_top_section{
+    width: 97%;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #000;
+    min-height: 50vh;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.thank_top_section .main_heading h1{
+    color: #fff;
+    font-weight: 900;
+    font-size: 55px;
+}
+.thank_top_section .main_heading h1 span{
+    color: var(--accent-color);
+    font-weight: 900;
+}
+.thank_main_section .heading h2{
+    font-weight: 800;
+    font-size: 35px;
+    padding-left: 0;
+    text-align: left;
+}
+.thank_main_section .heading h2 span{
+    color: var(--accent-color);
+    font-weight: 800;
+}
+.thank_main_section .heading span{
+    color: var(--accent-color);
+    font-weight: 700;
+}
+.thank_main_section .heading p{
+    font-size: 19px;
+    font-weight: 700;
+    line-height: 25px;
+}
+.b{
+    border: 1px solid red !important;
+}
+/* .thank_top_section .main_heading{
+    border: 1px solid #fff;
+} */
+ .donor_information table tr td:first-child{
+    width: 100px;
+ }
+ .donor_information table tr td{
+    font-size: 18px;
+    font-weight: 600;
+ }
+ .donor_information table tr{
+    line-height:34px;
+ }
+ .donor_information .heading h3{
+    font-size: 26px;
+    font-weight: 600 !important;
+    line-height: 45px;
+ }
+ .thank_main_section{
+    margin-bottom: 30px;
+ }
+ .donation_ticket_details .heading h3{
+    line-height: 35px;
+ }
+ .donation_ticket_details table{
+    width: 100%;
+ }
+ .donation_ticket_details table tr{
+    border-bottom: 1px solid gray;
+    line-height: 40px;
+ }
+ .donation_ticket_details table tr td{
+    font-size: 17px;
+    font-weight: 600 !important;
+
+ }
+ .donation_ticket_details table tr td:last-child{
+    color: var(--accent-color);
+    width: 60%;
+ }
+
+ @media (max-width:767px){
+    .thank_top_section .main_heading h1{
+        font-size: 45px;
+    }
+ }
+ @media (max-width:512px){
+    .thank_top_section .main_heading h1{
+        font-size: 30px;
+    }
+    .thank_main_section .heading h2{
+        font-size: 27px;;
+    }
+ }
+ .footer {
+    position: relative;
+    background-color: #242424 !important;
+    border-radius:0 !important;
+    padding: 100px 30px !important;
+    z-index: 10;
+}
+.footer-container .footer-sub-container{
+    width: 100% !important;
+    padding:70px 40px !important;
+}
+/* __________ */
+/*
+mark,
+.text-link,
+.promo__link ,
+.promo__link:hover ,
+.ticket-container__subtitle b,
+.option-card__grand-prize.blue,
+.option-card__checkbox,
+.option-card__prizes-desc
+{
+    color:var(--accent-color)
+}
+.menu-button-container,
+.btn,
+.btn:hover,
+.option-card-teams
+
+ {
+    background-color: var(--accent-color);
+}
+.form-input:focus{
+    border-color: var(--accent-color);
+} */

@@ -1,0 +1,40 @@
+#custom_recurring_cycle {
+    width: 20px !important;
+}
+
+.checkbox-container p {
+    margin-bottom: 0 !important;
+}
+
+.checkbox-container {
+    align-items: center;
+    padding: 6px !important;
+    background: #fff;
+    border-radius: 5px !important;
+}
+
+.payment_tabs_checkbox .nav-item button {
+    border: none !important;
+    padding: 0 !important;
+    outline: none !important;
+    background-color: transparent !important;
+    cursor: default !important;
+}
+
+.checkbox-container {
+    margin: 8px !important
+}
+
+.nav-tabs .nav-link {
+    padding: 0 !important;
+}
+
+iframe.placeHolder {
+    width: 100%;
+    height: 67px !important;
+    margin-top: 10px;
+}
+
+.tab-content {
+    padding: 5px 0 !important;
+}

@@ -1,0 +1,149 @@
+.footer-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #242424;
+}
+
+.footer-container .footer-sub-container {
+  width: 80%;
+  padding: 70px 0px;
+  gap: 50px;
+}
+
+.footer-sub-container .footer-res {
+  display: none;
+}
+
+.footer-sub-container .footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.footer-container .footer-sub-container .footer-logo-wrap {
+  margin-bottom: 30px;
+}
+
+.footer-container .footer-sub-container .footer-logo-wrap img {
+  width: 100px;
+}
+
+.footer-container .footer-sub-container p {
+  color: white;
+  margin: 0px;
+}
+
+.footer-container .footer-sub-container a {
+  color: white;
+  text-decoration: none;
+  margin-bottom: 3px;
+}
+
+.footer-sub-container .footer-about-links-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-sub-container .footer-about-links-wrap p {
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.footer-sub-container .footer-getinvolved-links-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-sub-container .footer-getinvolved-links-wrap p {
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.footer-sub-container .footer-contact-links-wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-sub-container .footer-contact-links-wrap p {
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.footer-container .footer-copywrite-text-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 20px 0px 5px 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.418);
+}
+
+.footer-container .footer-copywrite-text-wrap .copywrite-text {
+  color: rgba(255, 255, 255, 0.418);
+  margin: 0px;
+}
+
+@media (max-width: 1024px) {
+  .footer-sub-container .footer-res {
+    display: block;
+    width: 100%;
+  }
+
+  .footer-sub-container .footer-about-text-wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 50px;
+  }
+
+  .footer-sub-container .footer {
+    display: none;
+  }
+
+  .footer-sub-container .footer-getinvolved-contact-wrap {
+    display: flex;
+    justify-content: space-between;
+    width: 91.5%;
+  }
+}
+
+@media (max-width: 767px) {
+  .footer-container .footer-sub-container {
+    width: 100%;
+    padding: 50px 10px;
+  }
+
+  .footer-sub-container .footer-about-text-wrap {
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 30px;
+    align-items: center;
+  }
+
+  .footer-sub-container .footer-getinvolved-contact-wrap {
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    width: 100%;
+  }
+
+  .footer-container .footer-sub-container .footer-logo-wrap {
+    display: flex;
+    justify-content: center;
+  }
+
+  .footer-container .footer-sub-container .footer-logo-wrap img {
+    width: 120px;
+  }
+
+  .footer-container .footer-sub-container p {
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .footer-container .footer-sub-container a {
+    text-align: center;
+    font-size: 13px;
+  }
+}
