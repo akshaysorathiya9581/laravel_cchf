@@ -33,21 +33,23 @@ function blockUI_page(selector, is_show) {
 
     if (is_show) {
         $(selector).block({
-            message: '<h1>Processing...</h1>',
+            message: '<h4>Processing...</h4>',
             css: {
+                backgroundColor: 'rgba(29, 110, 101, 0.7)',
+                color: '#fff',
                 border: 'none',
-                padding: '15px',
-                backgroundColor: '#000',
-                '-webkit-border-radius': '10px',
-                '-moz-border-radius': '10px',
-                opacity: 0.5,
-                color: '#fff'
+                borderRadius: '5px',
+                padding: '30px',
+                fontSize: '20px',
+                width: '100%',
+                height: '100%',
+                textAlign: 'center'
             },
-            overlayCSS: {
-                backgroundColor: '#000000',
-                opacity: 0.6,
-                cursor: 'wait'
-            }
+            // overlayCSS: {
+            //     backgroundColor: '#1d6e65',
+            //     opacity: 0.6,
+            //     cursor: 'wait'
+            // }
         });
     } else {
         $(selector).unblock();

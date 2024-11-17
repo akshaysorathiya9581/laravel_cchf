@@ -4870,7 +4870,7 @@ option {
 
 .cart .cart__content form {
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
+  grid-template-columns: 1.4fr 1fr;
   grid-column-gap: 40px;
   align-items: flex-start;
 }
@@ -4977,4 +4977,50 @@ option {
   border-radius: 20px;
 }
 
+.cart .cart__content .payment_tabs_checkbox {
+  display: grid;
+  grid-template-columns: repeat(5, auto);
+  place-content: start;
+  align-items: center;
+  grid-column-gap: 15px;
+  grid-row-gap: 15px;
+  margin-left: 25px;
+  margin-bottom: 35px;
+}
 
+.cart .cart__content .payment_tabs_checkbox .nav-item button {
+  cursor: pointer;
+  transition: all .15s ease-in-out;
+}
+
+.cart .cart__content .payment_tabs_checkbox .checkbox-container {
+  all: unset !important;
+}
+
+.cart .cart__content .payment_tabs_checkbox .checkbox-container input {
+  height: 0;
+  display: block;
+}
+
+.cart .cart__content .payment_tabs_checkbox .checkbox-container img {
+  width: 70px !important;
+  height: auto !important;
+  transition: all .15s ease-in-out;
+}
+
+.cart .cart__content .payment_tabs_checkbox .checkbox-container p {
+  display: none !important;
+}
+
+.cart .cart__content .payment_tabs_checkbox button.active .checkbox-container img,
+.cart .cart__content .payment_tabs_checkbox button:hover .checkbox-container img {
+  outline: 3px solid var(--accent-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 5px;
+}
+
+.cart .cart__content .card-view-details {
+  display: block;
+  border: 0;
+  margin: 0 !important;
+}

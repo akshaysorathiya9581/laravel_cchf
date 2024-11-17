@@ -1,3 +1,4 @@
+
 <div class="cart">
     <button class="cart-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCart" aria-expanded="false">
         <svg xmlns="http://www.w3.org/2000/svg" width="11.357" height="7.071" viewBox="0 0 11.357 7.071">
@@ -15,7 +16,7 @@
             <div class="cart__summary">
                 <div class="d-flex gap-5">
                     <div class="selected-tickets">
-                        <h3 class="cart__title js-cart-summary-amount"></h3>
+                        {{-- <h3 class="cart__title js-cart-summary-amount"></h3> --}}
                         <div class="cart__summary-block gap-3 gap-md-5">
                             <p class="cart__team"> </p>
                             <div class="cart__subtitle-wrapper">
@@ -125,7 +126,7 @@
             <div class="collapse all-fields" id="collapseCart">
                 <div class="cart__content">
                     {{-- <h2 class="cart__heading"></h2> --}}
-                    <h3 class="cart_donation-total">Your Donation : $2,000</h3>
+                    <h3 class="cart_donation-total js-cart-summary-amount"></h3>
                     <div class="checkout-form">
                         <form action="{{ route('payment.process', ['campaign' => $campaign->id]) }}" method="POST" id="payment-form">
                             <div class="bill-content">
@@ -179,230 +180,121 @@
                             </div>
                             <div class="card-content">
                                 <h6 class="info-title info-title--bill">Payment Info <span></span></h6>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                <div class="cart__body">
-                    <div class="checkout-form">
+                                <div>
+                                    @include('frontend.PaymentMethods.payment_methods')
+                                    <input type="hidden" id="donate_amount" name="amount" value="">
+                                    <input type="hidden" id="only_donation" value="">
+                                    <input type="hidden" id="currency" name="currency" value="usd">
+                                    <input type="hidden" name="anonymousDonation" id="anonymousDonation" value="0">
+                                    <input type="hidden" name="teamId" id="teamId" value="">
+                                    <input type="hidden" name="teamName" id="teamName" value="">
+                                    <input type="hidden" id="usd_amount" name="usd_amount" value="">
+                                    <input type="hidden" id="environment" name="environment" value="{{ config('app.payment_env') }}">
+                                    <input type="hidden" name="ticket_option_id" id="pricing_options" value="">
+                                    <input type="hidden" name="tips" id="tipsInput">
+                                    <input type="hidden" id="tipsAmount">
+                                    <input type="hidden" id="season_id" name="season_id" value="{{ $campaign->season_id }}">
+                                    <input type="hidden" id="letter_amount" name="letter_amount">
+                                    <input type="hidden" id="recognition_amount" name="recognition_amount">
+                                    <input type="hidden" id="donation_masbia_details" name="donation_masbia_details" value="">
+                                    {{-- <div class="hiddenFields">
+                                        <input type="hidden" id="address" name="address">
+                                        <input type="hidden" id="street" name="street">
+                                        <input type="hidden" id="neighbor" name="neighbor">
+                                        <input type="hidden" name="paidbyid" id="paidbyid" value="0">
+                                        <input type="hidden" name="teamSlugId" id="teamSlugId" value="">
+                                        <input type="hidden" name="paidby" id="paidby" value="0">
+                                        <input type="hidden" name="ccid" id="ccid" value="0">
+                                        <input type="hidden" name="isRec" id="isRec" value="0">
+                                        <input type="hidden" name="couponID" id="couponID" value="0">
+                                        <input type="hidden" name="recurring_type" value="No">
+                                        <input type="hidden" id="recurring_cycle" name="recurring_cycle" value="0">
+                                        <input type="hidden" name="donate_amount" id="donate_amount" value="518">
+                                        <input type="hidden" name="usd_amount" id="usd_amount" value="518">
+                                        <input type="hidden" name="sponsor_oppertunity" id="sponsor_oppertunity" value="">
+                                        <input type="hidden" name="anonymousDonation" id="anonymousDonation" value="0">
+                                        <input type="hidden" name="prize_split_amount" id="prize_split_amount" value="18">
+                                        <input type="hidden" name="prize_split_usd_amount" id="prize_split_usd_amount"  value="18">
+                                        <input type="hidden" name="prize_split_entries" id="prize_split_entries" value="1">  -->
+                                    </div> --}}
+                                    <!-- <input type="hidden" name="multi_currency" id="multi_currency" value="1">
+                                    <input type="hidden" name="userAction" value="causeDonation">
 
-                        <form action="{{ route('payment.process', ['campaign' => $campaign->id]) }}" method="POST" id="payment-form" class="donate-form">
-                            <div class="container-fluid">
-                                {{-- <div class="row">
-                                    <div class="col-12">
-                                        <h4>CHECKOUT</h4>
-                                    </div>
-                                </div> --}}
-                                <div class="row mt-4">
-                                    <div class="col-lg-7">
-                                        <div class="row">
-                                            <div class="col-auto">
-                                                <h6>Personal Info</h5>
-                                            </div>
-                                            <div class="col">
-                                                <hr>
-                                            </div>
-
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-6">
-                                                <div class="form-group mt-3">
-                                                    <input type="text" placeholder="First Name" id="donor_first_name" value="" name="donor_first_name" class="form-control">
-                                                </div>
-                                                @if ($errors->has('donor_first_name'))
-                                                <div class="text-danger">{{ $errors->first('donor_first_name') }}
-                                                </div>
-                                                @endif
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group mt-3">
-                                                    <input type="text" placeholder="last Name" id="donor_last_name" value="" name="donor_last_name" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group mt-3">
-                                                    <input type="email" placeholder="Email" id="donor_email" value="" name="donor_email" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group mt-3">
-                                                    <input type="number" placeholder="Phone Number" value="" id="donor_phone" name="donor_phone" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12">
-                                                <div class="form-group mt-3">
-                                                    <input type="text" class="form-control" id="comments" value="" name="comments" placeholder="Comments">
-                                                </div>
-                                            </div>
-                                         <div class="form-check" style="margin-top:10px">
-                                            <input type="checkbox" value="1" name="is_anonymous" class="form-check-input" id="donate-anonymously">
-                                            <label class="form-check-label" style="margin-top:6px;font-size:14px;font-weight:600;" for="donate-anonymously">Donate Anonymously</label>
-                                        </div>
-                                        </div>
-                                        <div class="row mt-5">
-                                            <div class="col-auto">
-                                                <h6>Billing Info</h5>
-                                            </div>
-                                            <div class="col">
-                                                <hr>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="form-group mt-3">
-                                                    <input type="text" class="form-control" value="" placeholder="Enter your Address" name="address" id="address">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group mt-3">
-                                                    <input type="text" placeholder="City" value="" name="city" id="city" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group mt-3">
-                                                    <input type="text" placeholder="State" value="" name="state" id="state" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group mt-3">
-                                                    <input type="text" placeholder="Zip / Postalcode" value="" name="zipcode" id="zipcode" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group mt-3">
-                                                    <input type="text" placeholder="Country" value="" name="country" id="country" class="form-control">
-                                                </div>
-                                            </div>
+                                    <input type="hidden" name="cause_name" id="cause_name" value="Camp Testing">
+                                    <input type="hidden" name="visitorID" id="visitorID" value="f91936ed-6c08-48bd-8d7f-36969da5802c">
+                                    <input type="hidden" name="baseURL" id="baseURL" value="https://100kgoral.org/admin">
+                                    <input type="hidden" name="teamId" id="teamId" value="6835">
+                                    <input type="hidden" name="teamSlugId" id="teamSlugId" value="">
+                                    <input type="hidden" name="teamName" id="teamName" value="">
+                                    <input type="hidden" name="teamSlug" id="teamSlug" value="">
+                                    <input type="hidden" name="raffleslug" id="raffleslug" value="camptest"> -->
+                                    <input type="hidden" name="campaing_id" id="campaing_id" value="{{ $campaign->id }}">
+                                    <input type="hidden" name="pay_with" id="pay_with" value="@if ($payment_gateways->count() > 0) {{ $payment_gateways[0]['payment_method'] }} @endif">
+                                    {{--  --}}
+                                    @if ($campaign->meta->multi_currency == 1)
+                                    <div class="currency-changer" style="display: flex;">
+                                        <p class="d-inline">Pay in</p>
+                                        <div class="select-wrapper">
+                                            <select class="form-input" id="donate_currency" name="donate_currency" fdprocessedid="d6c3tn">
+                                                <option value="USD" selected="">$ (USD) </option>
+                                                <option value="CAD">C$ (CAD)</option>
+                                                <option value="GBP">£ (GBP)</option>
+                                                <option value="EUR">€ (EUR)</option>
+                                                <option value="ILS">₪ (ILS)</option>
+                                            </select>
                                         </div>
                                     </div>
-                                    <div class="col-lg-5">
-                                        <div class="checkout-form__payment">
-                                            <p class="checkout-form__label">
-                                                <span>Payment Info</span>
+                                    @endif
+                                    {{--  --}}
+                                    <div class="form-check processing-fee" style="display: flex;">
+                                        @if ($campaign->meta->allow_fee == 1)
+                                        <input class="form-check-input" type="checkbox" id="process_fee_check" name="process_fee_check" value="1">
+                                        <label class="form-check-label" for="process_fee_check">
+                                            <span id="process_fee">Add $
+                                                155.40 to your payment to cover the 30% credit card
+                                                processing
+                                                fee</span>
+                                        </label>
+                                        @endif
+                                        <input type="hidden" name="don_process_fee" id="don_process_fee" value="0">
+                                        <input type="hidden" name="fee_percentage" id="fee_percentage" value="0">
+                                        <input type="hidden" name="don_allow_fee" id="don_allow_fee" value="0">
+                                    </div>
+                                    {{--  --}}
+                                    @if ($campaign->meta->is_recurring == 1)
+                                        <div class="form-check recurring-option">
+                                            <input class="form-check-input" type="checkbox" id="don_recurring" name="don_recurring" value="1" onclick="makeRecurring()">
+                                            <label class="form-check-label" for="don_recurring">
+                                                Pay in Installments
+                                            </label>
+                                        </div>
+                                    @endif
+                                    <div class="rec_btns" style="display:none;">
+                                        <div class="rec_options mt-2">
+                                            <p class="d-inline"> Split <span id="rec_amount_full">$518</span>
+                                                over
+                                                <input type="number" value="0" class="custom-select d-inline p-1" id="custom_recurring_cycle" name="recurring_intervals" onkeypress="validateNum(event)"> /
+                                                <select name="recurring" id="recurring_interval" class="recurring-interval" fdprocessedid="dgamao">
+                                                    <option value="Monthly">Months</option>
+                                                    <option value="Weekly">Weeks</option>
+                                                    <option value="Daily">Days</option>
+                                                </select>
                                             </p>
-
-                                            @include('frontend.PaymentMethods.payment_methods')
-
-
-                                            <input type="hidden" id="donate_amount" name="amount" value="">
-                                            <input type="hidden" id="only_donation" value="">
-                                            <input type="hidden" id="currency" name="currency" value="usd">
-                                            <input type="hidden" name="anonymousDonation" id="anonymousDonation" value="0">
-                                            <input type="hidden" name="teamId" id="teamId" value="">
-                                            <input type="hidden" name="teamName" id="teamName" value="">
-                                            <input type="hidden" id="usd_amount" name="usd_amount" value="">
-                                            <input type="hidden" id="environment" name="environment" value="{{ config('app.payment_env') }}">
-
-                                            <input type="hidden" name="ticket_option_id" id="pricing_options" value="">
-
-                                            <input type="hidden" name="tips" id="tipsInput">
-                                            <input type="hidden" id="tipsAmount">
-                                            <input type="hidden" id="season_id" name="season_id" value="{{ $campaign->season_id }}">
-                                            <input type="hidden" id="letter_amount" name="letter_amount">
-                                            <input type="hidden" id="recognition_amount" name="recognition_amount">
-                                            <input type="hidden" id="donation_masbia_details" name="donation_masbia_details" value="">
-                                            <div class="hiddenFields">
-                                                <!-- <input type="hidden" id="address" name="address">
-                                                    <input type="hidden" id="street" name="street">
-                                                    <input type="hidden" id="neighbor" name="neighbor">
-                                                    <input type="hidden" name="paidbyid" id="paidbyid" value="0">
-                                                    <input type="hidden" name="teamSlugId" id="teamSlugId" value="">
-                                            <input type="hidden" name="paidby" id="paidby" value="0">
-                                            <input type="hidden" name="ccid" id="ccid" value="0">
-                                            <input type="hidden" name="isRec" id="isRec" value="0">
-                                            <input type="hidden" name="couponID" id="couponID" value="0">
-                                            <input type="hidden" name="recurring_type" value="No">
-                                            <input type="hidden" id="recurring_cycle" name="recurring_cycle" value="0">
-                                            <input type="hidden" name="donate_amount" id="donate_amount" value="518">
-                                            <input type="hidden" name="usd_amount" id="usd_amount" value="518">
-                                              <input type="hidden" name="sponsor_oppertunity" id="sponsor_oppertunity" value="">
-                                            <input type="hidden" name="anonymousDonation" id="anonymousDonation" value="0">
-                                            <input type="hidden" name="prize_split_amount" id="prize_split_amount" value="18">
-                                            <input type="hidden" name="prize_split_usd_amount" id="prize_split_usd_amount"  value="18">
-                                            <input type="hidden" name="prize_split_entries" id="prize_split_entries" value="1">  -->
-                                            </div>
-                                            <!-- <input type="hidden" name="multi_currency" id="multi_currency" value="1">
-                                            <input type="hidden" name="userAction" value="causeDonation">
-
-                                            <input type="hidden" name="cause_name" id="cause_name" value="Camp Testing">
-                                            <input type="hidden" name="visitorID" id="visitorID" value="f91936ed-6c08-48bd-8d7f-36969da5802c">
-                                            <input type="hidden" name="baseURL" id="baseURL" value="https://100kgoral.org/admin">
-                                            <input type="hidden" name="teamId" id="teamId" value="6835">
-                                            <input type="hidden" name="teamSlugId" id="teamSlugId" value="">
-                                            <input type="hidden" name="teamName" id="teamName" value="">
-                                            <input type="hidden" name="teamSlug" id="teamSlug" value="">
-                                            <input type="hidden" name="raffleslug" id="raffleslug" value="camptest"> -->
-
-                                            <input type="hidden" name="campaing_id" id="campaing_id" value="{{ $campaign->id }}">
-                                            <input type="hidden" name="pay_with" id="pay_with" value="@if ($payment_gateways->count() > 0) {{ $payment_gateways[0]['payment_method'] }} @endif">
-                                            <div class="divider"></div>
-
-                                            @if ($campaign->meta->multi_currency == 1)
-                                            <div class="currency-changer" style="display: flex;">
-                                                <p class="d-inline">Pay in</p>
-                                                <div class="select-wrapper">
-                                                    <select class="form-input" id="donate_currency" name="donate_currency" fdprocessedid="d6c3tn">
-                                                        <option value="USD" selected="">$ (USD) </option>
-                                                        <option value="CAD">C$ (CAD)</option>
-                                                        <option value="GBP">£ (GBP)</option>
-                                                        <option value="EUR">€ (EUR)</option>
-                                                        <option value="ILS">₪ (ILS)</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            @endif
-                                            <div class="form-check processing-fee" style="display: flex;">
-                                                @if ($campaign->meta->allow_fee == 1)
-                                                <input class="form-check-input" type="checkbox" id="process_fee_check" name="process_fee_check" value="1">
-                                                <label class="form-check-label" for="process_fee_check">
-                                                    <span id="process_fee">Add $
-                                                        155.40 to your payment to cover the 30% credit card
-                                                        processing
-                                                        fee</span>
-                                                </label>
-                                                @endif
-                                                <input type="hidden" name="don_process_fee" id="don_process_fee" value="0">
-                                                <input type="hidden" name="fee_percentage" id="fee_percentage" value="0">
-                                                <input type="hidden" name="don_allow_fee" id="don_allow_fee" value="0">
-                                            </div>
-                                            @if ($campaign->meta->is_recurring == 1)
-                                                <div class="form-check recurring-option">
-                                                    <input class="form-check-input" type="checkbox" id="don_recurring" name="don_recurring" value="1" onclick="makeRecurring()">
-                                                    <label class="form-check-label" for="don_recurring">
-                                                        Pay in Installments
-                                                    </label>
-                                                </div>
-                                            @endif
-                                            <div class="rec_btns" style="display:none;">
-                                                <div class="rec_options mt-2">
-                                                    <p class="d-inline"> Split <span id="rec_amount_full">$518</span>
-                                                        over
-                                                        <input type="number" value="0" class="custom-select d-inline p-1" id="custom_recurring_cycle" name="recurring_intervals" onkeypress="validateNum(event)"> /
-                                                        <select name="recurring" id="recurring_interval" class="recurring-interval" fdprocessedid="dgamao">
-                                                            <option value="Monthly">Months</option>
-                                                            <option value="Weekly">Weeks</option>
-                                                            <option value="Daily">Days</option>
-                                                        </select>
-                                                    </p>
-                                                </div>
-                                            </div>
-                                            {{-- <div class="g-recaptcha" data-sitekey="6LfF4ikpAAAAAHlmS9WnkN5udzau-S0S7ZhA9hSJ" data-size="invisible"> --}}
-                                                <div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; display: block; transition: right 0.3s ease 0s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;">
-                                                    <div class="grecaptcha-logo"><iframe title="reCAPTCHA" width="256" height="60" role="presentation" name="a-dlpsdpl12kb" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LfF4ikpAAAAAHlmS9WnkN5udzau-S0S7ZhA9hSJ&amp;co=aHR0cHM6Ly8xMDBrZ29yYWwub3JnOjQ0Mw..&amp;hl=en&amp;v=rKbTvxTxwcw5VqzrtN-ICwWt&amp;size=invisible&amp;cb=fp188cexjcq0"></iframe>
-                                                    </div>
-                                                    <div class="grecaptcha-error"></div>
-                                                    <textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea>
-                                                </div><iframe style="display: none;"></iframe>
-                                                <button class="w-100 btn checkout_btn checkout-btn overlay" type="submit">
-                                                    <span class="standard_checkout">Checkout</span>
-                                                    <span class="standard_checkout divider"></span>
-                                                    <span class="standard_checkout checkout-btn__amount" id="pop_checkout_3"></span>
-                                                    <span class="other_checkout" id="other_checkout" style="display: none"></span>
-                                                </button>
-                                            </div>
-                                            <div id="card-errors"></div>
                                         </div>
                                     </div>
+                                    <div class="grecaptcha-badge" data-style="bottomright" style="width: 256px; height: 60px; display: block; transition: right 0.3s ease 0s; position: fixed; bottom: 14px; right: -186px; box-shadow: gray 0px 0px 5px; border-radius: 2px; overflow: hidden;">
+                                        <div class="grecaptcha-logo"><iframe title="reCAPTCHA" width="256" height="60" role="presentation" name="a-dlpsdpl12kb" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LfF4ikpAAAAAHlmS9WnkN5udzau-S0S7ZhA9hSJ&amp;co=aHR0cHM6Ly8xMDBrZ29yYWwub3JnOjQ0Mw..&amp;hl=en&amp;v=rKbTvxTxwcw5VqzrtN-ICwWt&amp;size=invisible&amp;cb=fp188cexjcq0"></iframe>
+                                        </div>
+                                        <div class="grecaptcha-error"></div>
+                                        <textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea>
+                                    </div>
+                                    <iframe style="display: none;"></iframe>
+                                    <button class="w-100 btn checkout_btn checkout-btn overlay" type="submit">
+                                        <span class="standard_checkout">Checkout</span>
+                                        <span class="standard_checkout divider"></span>
+                                        <span class="standard_checkout checkout-btn__amount" id="pop_checkout_3"></span>
+                                        <span class="other_checkout" id="other_checkout" style="display: none"></span>
+                                    </button>
                                 </div>
                             </div>
                             @csrf

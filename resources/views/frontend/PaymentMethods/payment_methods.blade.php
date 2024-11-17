@@ -141,7 +141,7 @@
         @endforeach
     </ul>
 
-    <div class="tab-content mt-5" id="myTabContent">
+    <div class="tab-content mt-5 card-view-details" id="myTabContent">
         @foreach ($payment_gateways as $index => $gateway)
             @if ($gateway->payment_method == 'cardknox_cc' || $gateway->payment_method == 'cardknox_ach')
                 @if (!isset($cardknoxPaneAdded))

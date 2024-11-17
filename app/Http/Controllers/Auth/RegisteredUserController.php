@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Validator;
 
 class RegisteredUserController extends Controller
 {
@@ -29,11 +30,25 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        $post_data = $request->all();
+
+        $validator_rules = [
+            'name' 					=>  ['required', 'string', 'max:255'],
+            'email' 				=>  ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'number_of_rows' 		=> ['required', 'confirmed', Rules\Password::defaults()]
+        ];
+
+        $validator 	= Validator($post_data, $validator_rules);
+
+    	if($validator->fails()) {
+    		return response()->json(array("status" => false, "message" => $validator->errors()));
+        }   
+        
+        // $request->validate([
+        //     'name' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+        //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        // ]);
 
         $user = User::create([
             'name' => $request->name,
