@@ -15,13 +15,13 @@
                         <li class="breadcrumb-item">
                             <span class="bullet bg-gray-400 w-5px h-2px"></span>
                         </li>
-                        <li class="breadcrumb-item text-muted"> Blogs</li>
+                        <li class="breadcrumb-item text-muted">Blogs</li>
 
                     </ul>
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-lg-3">
                     <div class="m-0">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#add_blog_modal" class="btn btn-sm btn-flex btn-info"> <i class="fas fa-user"></i> Add New</button>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#add_blog_modal" class="btn btn-sm btn-flex btn-info"> <i class="fas fa-user"></i> Add New Blog</button>
                     </div>
                 </div>
             </div>
@@ -29,19 +29,13 @@
         <div id="kt_app_contentss" class="app-content flex-column-fluid">
             <div id="kt_app_content_container" class="app-container container-xxl">
                 <div class="card card-flush">
-                    <div class="card-header pt-4">
-                        <h3 class="text-start">
-                            Blogs
-                        </h3>
-                    </div>
                     <div class="card-body pt-0">
                         <table class="table align-middle table-row-dashed fs-6 gy-5" id="Prizes">
                             <thead>
                                 <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
                                     <th class="min-w-100px"> ID</th>
                                     <th class="min-w-100px">Title</th>
-                                    <th class="min-w-100px"> added by</th>
-                                    <th class="min-w-100px">Image</th>
+                                    <th class="min-w-100px">Author</th>
                                     <th class="min-w-100px">Action</th>
                                 </tr>
                             </thead>
@@ -50,10 +44,7 @@
                                 <tr>
                                     <td>{{ $blog->id }}</td>
                                     <td>{{ $blog->title }}</td>
-                                    <td>{{ $blog->user_id }}</td>
-                                    <td>
-                                        <img src="{{ $blog->image }}" style="width:150px;" alt="Image">
-                                    </td>
+                                    <td>{{ $blog->author }}</td>
                                     <td class="text-end">
                                         <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
                                             Actions
@@ -80,7 +71,6 @@
     </div>
 
 </div>
-
 </div>
 
 @include('admin.blogs.modals.add_blog_modal')
@@ -88,6 +78,8 @@
 
 
 <script>
+
+    let blogEditor = false;
     $('.loadBlogModal').on('click', function() {
         // alert($(this).attr('id'))
         let blogId = $(this).data('id')
@@ -102,8 +94,17 @@
                 // let data =  JSON.stringify(response)
                 // console.log(data)
                 $('#editBlogtitle').val(response.blog.title)
+                $('#editBlogauthor').val(response.blog.author)
                 $('#EditblogId').val(response.blog.id)
-                $('#blogDescription').text(response.blog.description)
+                $('#videoLink').val(response.blog.video_link)
+
+                if (blogEditor) {
+                    blogEditor.destruct();
+                }
+                blogEditor = new Jodit(".description_editor");
+                blogEditor.container.style.height = '1000px';
+                blogEditor.value = response.blog.description;
+
                 $('#OldBlogImage').val(response.blog.image)
                 $('#bg_Blog_image').css('background-image', 'url(' + response.blog.image + ')')
 
@@ -139,6 +140,58 @@
 
 
     })
+
+    $(document).ready(function () {
+
+        $('input[name="title"]').on('keyup', function (e) {
+
+            var slug = generateSlug($(this).val().trim());
+            $('input[name="slug"]').val(slug)
+        });
+
+        $('#addBlogForm, #UpdateBlogForm').on('submit', function (e) {
+            e.preventDefault();
+
+            var formData = new FormData(this);
+            _this = $(this).closest('form');
+            _this.find('.btn-submit').prop('disabled',true)
+
+            $.ajax({
+                url: $(this).attr('action'),  // The form's action URL
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        $.each(response.errors, function (key, value) {
+                            var errorElement =  _this.find('input[name=' + key + '], select[name=' + key + '], textarea[name=' + key + ']');
+                            errorElement.next('.text-danger').remove();  // Remove existing error messages
+                            errorElement.after('<div class="err-blog text-danger">' + value + '</div>');
+                        });
+                        $('.err-blog').closest('div').find('.form-control').focus();
+                    }
+                },
+                error: function (xhr, status, error) {
+                },
+                always: function() {
+                    _this.find('.btn-submit').prop('disabled',false)
+                }
+            });
+        });
+    });
+
+    function generateSlug(title) {
+        // Convert to lowercase, remove special characters, and replace spaces with hyphens
+        var slug = title
+            .toLowerCase() // Convert to lowercase
+            .replace(/[^a-z0-9]+/gi, '-') // Replace non-alphanumeric characters with hyphens
+            .replace(/^-+|-+$/g, ''); // Remove leading and trailing hyphens
+
+        return slug;
+    }
 
 </script>
 

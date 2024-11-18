@@ -639,13 +639,13 @@
             <form action="{{ route('login') }}" id="frm-customer-login" class="auth-form" method="POST">
                 <div class="form-group">
                     <label for="">Email Address<span>*</span></label>
-                    <input type="email" class="form-input" placeholder="Enter your mail address" value="alex@eample.com">
+                    <input type="email" name="email" class="form-input" placeholder="Enter your mail address" value="alex@eample.com">
                     {{-- <span class="error"></span> --}}
                 </div>
                 <div class="form-group">
                     <label for="">Enter Password<span>*</span></label>
                     <div>
-                        <input type="text" class="form-input" placeholder="Enter Password" value="12345678">
+                        <input type="text" name="password" class="form-input" placeholder="Enter Password" value="12345678">
                         <span class="passProtect"><img
                                 src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}" width="24"
                                 height="20" alt="Password Protect"></span>
@@ -742,7 +742,6 @@
     </div>
 </div>
 
-
 <script>
     $(document).ready(function() {
         $('.openModalBtn').click(function() {
@@ -786,19 +785,42 @@
 
             blockUI_page(_this.closest('.modal-content'), true);
             send_ajax_request(url,formData).done(function(data){
+                blockUI_page(_this.closest('.modal-content'), false);
                 if(data.status){
                     toastr_show(data.message, 'success');
+                    $('#createAccountModal').fadeOut();
+                    $('body').css('overflow', 'auto');
                 }
-                blockUI_page(_this.closest('.modal-content'));
                 formValidation(data.message);
             });
         });
 
-         // login form submit
-         $(document).on('submit', '#frm-customer-login', function (e) {
+        // login form submit
+        $(document).on('submit', '#frm-customer-login', function (e) {
             e.preventDefault();
             var _this = $(this);
+            var url  = $(this).attr("action");
+            var formData = $(this).serializeArray();
+
             blockUI_page(_this.closest('.modal-content'), true);
+            send_ajax_request(url,formData).done(function(data){
+
+                blockUI_page(_this.closest('.modal-content'), false);
+                if(data.status){
+                    toastr_show(data.message, 'success');
+                    location.reload();
+                }
+                formValidation(data.message);
+            }).fail(function(xhr, textStatus, errorThrown) {
+
+                blockUI_page(_this.closest('.modal-content'), false);
+                if (xhr.status === 422) {
+                    console.log(xhr.responseJSON.errors)
+                    formValidation(xhr.responseJSON.errors,$('#frm-customer-login')); // Assuming errors are in `xhr.responseJSON.errors`
+                } else {
+                    toastr_show("An error occurred. Please try again later.", 'error');
+                }
+            });
         });
 
     });
