@@ -5016,8 +5016,7 @@ option {
 
 .cart .cart__content .payment_tabs_checkbox button.active .checkbox-container img,
 .cart .cart__content .payment_tabs_checkbox button:hover .checkbox-container img {
-  outline: 3px solid var(--accent-color);
-  border: 1px solid var(--accent-color);
+  outline: 4px solid var(--accent-color);
   border-radius: 5px;
 }
 
@@ -5033,14 +5032,14 @@ option {
   /* height: 57px; */
   background-color: #ffffff;
   border-radius: 10px;
-  padding: 18px 24px;
+  padding: 16px 24px;
 }
 
 .cart .cart__content .cardpayment-details input {
   width: 100%;
   font-size: 20px;
   font-weight: 400;
-  line-height: 22px;
+  line-height: 26px;
   color: #676767;
 }
 
@@ -5062,7 +5061,12 @@ option {
 .cart .cart__content .cardpayment-details__box {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   width: 100%;
+}
+
+.cart .cart__content .cardpayment-details__box input {
+  max-width: 100px;
 }
 
 .cart .cart__content .cardpayment-details__box input:first-child {

@@ -1,12 +1,7 @@
-<div class="ojc_section payment-tab" >
-    <div class="form-group col-md-12 col-sm-12 paywithojc mb-2">
-      <input type="text" name="ojc_card_num" id="ojc_card_num" placeholder="Card Number"
-      {{-- onKeyPress="validateNum(event)" --}}
-       class="form-input">
-    </div>
-    <div class="form-group col-md-12 col-sm-12 paywithojc">
-      <input type="text" name="ojc_expiry" placeholder="MM/YY"
-       {{-- onKeyUp="formatString(event)"  --}}
-       maxlength="5" id="ojc_expiry" class="form-input">
-    </div>
+<div class="cardpayment-details">
+  <div class="cardpayment-details__box">
+    <input type="text" name="ojc_card_num" id="ojc_card_num" placeholder="Card Number" class="form-input">
+    <input type="text" name="ojc_expiry" placeholder="MM/YY" maxlength="5" id="ojc_expiry" class="form-input">
   </div>
+</div>  
+  
