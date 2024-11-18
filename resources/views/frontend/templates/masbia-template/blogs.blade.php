@@ -20,7 +20,7 @@
                 <div class="blog-list">
                 </div>
                 <div class="btn_container">
-                    <a href="javascript:void(0)" data-offset="0" id="loadMoreBlogs" class="btn btn--green"><strong>LOAD more</strong></a>
+                    <a href="javascript:void(0)" data-offset="10" id="loadMoreBlogs" class="btn btn--green"><strong>LOAD more</strong></a>
                 </div>
             </div>
         </section>
@@ -74,6 +74,5 @@
     </script>
 
 @endsection
-
 
 @include('frontend.templates.masbia-template.includes.footer')

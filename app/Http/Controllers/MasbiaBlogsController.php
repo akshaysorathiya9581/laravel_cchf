@@ -32,7 +32,7 @@ class MasbiaBlogsController extends Controller
 	{
 		$searchTerm = $request->input('search', '');
 		$offset = $request->input('offset', 0);  // Default offset to 0
-		$perPage = $request->input('per_page', 1);  // Default to 10 per page
+		$perPage = $request->input('per_page', 10);  // Default to 10 per page
 
 		// Start building the query
 		$query = Blogs::query();
