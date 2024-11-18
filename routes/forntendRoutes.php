@@ -7,6 +7,7 @@ use App\Http\Controllers\Frontend\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\MasbiaDonationController;
+use App\Http\Controllers\MasbiaBlogsController;
 use Illuminate\Support\Facades\Route;
 
 // Route::middleware('guest')->group(function () {
@@ -26,6 +27,9 @@ use Illuminate\Support\Facades\Route;
     Route::post('/campaign/create_team', [FrontendController::class, 'create_team'])->name('campaign.create_team');
 
     Route::get('masbia/donation', [MasbiaDonationController::class, 'index'])->name('donation.index');
+    Route::get('masbia/blogs', [MasbiaBlogsController::class, 'index'])->name('blogs.index');
+    Route::get('masbia/blog/{title}', [MasbiaBlogsController::class, 'view'])->name('blogs.view');
+    Route::get('blogs/get-blogs', [MasbiaBlogsController::class, 'getBlogs'])->name('blogs.get-blogs');
 // });
 
 Route::middleware('auth')->group(function () {
@@ -34,7 +38,6 @@ Route::middleware('auth')->group(function () {
     Route::get('notification', [NotificationController::class, 'edit'])->name('notification.edit');
     Route::post('notification-update', [NotificationController::class, 'update'])->name('notification.update');
 });
-
 
 // Route::domain('{organization}/{slug}')->group(function () {
 // Route::get('/campaign/{organization}/{slug}', [FrontendController::class, 'raffle'])->name('raffle');

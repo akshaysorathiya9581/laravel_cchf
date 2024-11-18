@@ -252,16 +252,34 @@
     .base-modal .auth-form .form-group>div .passProtect {
         position: absolute;
         right: 20px;
-        top: 50%;
+        top: 17px;
         width: 24px;
         height: 20px;
-        transform: translateY(-50%);
         cursor: pointer;
+    }
+
+    @media (max-width: 1550px) {
+         .base-modal .auth-form .form-group>div .passProtect {
+            top: 15px;
+        }
+    }
+
+    @media (max-width: 1370px) {
+         .base-modal .auth-form .form-group>div .passProtect {
+            top: 14px;
+        }
+    }
+
+    @media (max-width: 768px) {
+         .base-modal .auth-form .form-group>div .passProtect {
+            top: 13px;
+        }
     }
 
     @media (max-width: 575px) {
         .base-modal .auth-form .form-group>div .passProtect {
             width: 20px;
+            top: 12px;
             right: 15px;
         }
     }
@@ -564,9 +582,8 @@
         align-items: center;
     }
 
-    /* Make sure that BlockUI does not cover scrollable content */
     .blockUI.blockMsg {
-        pointer-events: none; /* Allow interaction with the scrollable content */
+        pointer-events: none;
     }
 </style>
 

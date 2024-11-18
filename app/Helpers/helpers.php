@@ -180,3 +180,17 @@ if (!function_exists('get_user_notification_list')) {
         return $new_data;
     }
 }
+
+
+if (!function_exists('generateSlug')) {
+    function generateSlug($title)
+    {
+        // Convert to lowercase, remove special characters, and replace spaces with hyphens
+        $slug = preg_replace('/[^a-z0-9]+/i', '-', strtolower(trim($title)));
+
+        // Remove hyphens at the start or end of the string
+        $slug = trim($slug, '-');
+
+        return $slug;
+    }
+}
