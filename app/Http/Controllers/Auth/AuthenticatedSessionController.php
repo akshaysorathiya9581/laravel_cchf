@@ -36,8 +36,8 @@ class AuthenticatedSessionController extends Controller
         
         $request->session()->regenerate();
         
-        // if ($user->role == 'Customer') {
-            //}
+        // if ($user->role == 'customer') {
+        // }
 
         return response()->json(['status' => true, 'message' => "Login successful!"]);
     }

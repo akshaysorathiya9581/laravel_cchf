@@ -627,8 +627,10 @@
                     {{-- <span class="error"></span> --}}
                 </div>
                 <div class="form-checkbox">
-                    <input type="checkbox" class="form-input" id="privacyCheck" name="privacy_check">
-                    <label for="privacyCheck"><span>I agree with <a href="#">Terms of services & Privacy Policy</a></span></label>
+                    <div>
+                    <input type="checkbox" class="form-input" id="privacy_check" name="privacy_check">
+                    <label for="privacy_check"><span>I agree with <a href="javascript:;">Terms of services & Privacy Policy</a></span></label>
+                    </div>
                 </div>
                 <div class="btn-grp">
                     <button type="submit" class="btn btn--green">Sign up</button>
@@ -762,6 +764,7 @@
 <script>
     $(document).ready(function() {
         $('.openModalBtn').click(function() {
+            $('.error-msg').remove();
             var modalId = $(this).data('modal');
             $('#' + modalId).fadeIn().css("display", "flex");
             $('body').css('overflow', 'hidden');

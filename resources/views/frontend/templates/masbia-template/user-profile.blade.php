@@ -169,6 +169,7 @@
                 processData: false,
                 contentType: false, 
                 success: function (response) {
+                    toastr_show(response.message);
                     _this.closest('.sc-edit').find('.edt-buttons').hide();
                     _this.closest('.sc-edit').find('.profile-edit').show();
                     _this.closest('.profile-form-group').find('input').prop('disabled',true)

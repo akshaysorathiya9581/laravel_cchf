@@ -230,7 +230,6 @@
 
 @include('frontend.templates.masbia-template.includes.footer')
 {{-- <script type="module" src="{{ asset('assets/frontend/templates/masbia/js/main.js') }}?v={{ time() }}"></script> --}}
-<script type="module" src="{{ asset('assets/frontend/templates/masbia/js/main_new.js') }}?v={{ time() }}"></script>
 @section('scripts')
   <script>
     // setTimeout(function() {

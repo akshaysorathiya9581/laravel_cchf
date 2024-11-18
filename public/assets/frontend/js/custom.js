@@ -97,7 +97,7 @@ function makeDotToArrayStr(str) {
 
 function formValidation(errors) {
 	if (!typeof errors === 'object') return;
-
+	$('.error-msg').remove();
 	$.each(errors, (el, el_errors) => {
 		var like_name = makeDotToArrayStr(el);
 
@@ -107,11 +107,14 @@ function formValidation(errors) {
 		var f_elem = _elem[Object.keys(_elem)[i++]];
 
 		var _parent = $(f_elem).parent();
+		console.log('_parent=',_parent);
 		while (_parent.children('.error-msg').length > 0 || (!['radio'].includes($(f_elem).attr('type')) && $(f_elem).val() != '')) {
 			f_elem = _elem[Object.keys(_elem)[i++]];
 			_parent = $(f_elem).parent();
 		}
-		if (_parent.hasClass('form-input')) _parent = _parent.parent();
+		if (_parent.hasClass('form-input')) {
+			_parent = _parent.parent();
+		}
 
 		var msg = (el_errors.constructor === Array) ? el_errors[0] : el_errors;
 		var label = _parent.find('label').html();
