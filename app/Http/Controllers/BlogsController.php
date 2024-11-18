@@ -12,6 +12,7 @@ use App\Services\FileUploadService;
 use App\Exceptions\FileUploadException;
 use Exception;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\JsonResponse;
 
 class BlogsController extends Controller
 {
@@ -70,34 +71,43 @@ class BlogsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Blogs $blogs)
+    public function update(Request $request, Blogs $blogs): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'title'  => 'required|string',
-            'image' => 'nullable|image',
+            // 'image' => 'nullable|image',
+            'author' => 'required|string',
+            'video_link' => 'required|string',
+            // 'image' => 'nullable|image',
             'description' => 'required|string',
             'season_id' => 'required|numeric',
             'user_id' => 'required|numeric',
-            'old_image' => 'nullable|string'
+            // 'old_image' => 'nullable|string'
         ]);
         if ($validator->fails()) {
-            return redirect()
-                ->back()
-                ->withErrors($validator)
-                ->withInput();
+
+            $errors = $validator->errors()->toArray();
+            return response()->json([
+                'success' => false,
+                'errors' =>  $errors
+            ]);
         }
         DB::beginTransaction();
         try {
-            $slug = str_replace(' ', '-', $request->title);
+
+            $slug = generateSlug($request->title);
+
             $blogId = $request->input('blogId') ?? null;
-            $fileUrl = $request->hasFile('image') ? $this->fileUploadService->uploadFile($request, 'image', 'blogs'): $request->input('old_image');
+            // $fileUrl = $request->hasFile('image') ? $this->fileUploadService->uploadFile($request, 'image', 'blogs'): $request->input('old_image');
             $fileURL = $fileUrl ?? " ";
                 $blog = Blogs::updateOrCreate(
                 ['id' => $blogId],
                 [
                     'title'  => $request->title,
                     'slug'  => $slug,
-                    'image' => $fileURL,
+                    'video_link'  => $request->video_link,
+                    'author'  => $request->author,
+                    // 'image' => $fileURL,
                     'description' => $request->description,
                     'user_id' => $request->user_id,
                     'season_id' => $request->season_id
@@ -105,15 +115,24 @@ class BlogsController extends Controller
             );
             DB::commit();
           if(isset($blogId)){
-              return redirect()->route('admin.blogs')->with('success', 'blogs updated successfully');
-          }else{
-              return redirect()->route('admin.blogs')->with('success', 'blogs created successfully');
+            return response()->json([
+                'success' => true,
+                'message' => 'Blog updated successfully'
+            ]);
+          } else {
+            return response()->json([
+                'success' => true,
+                'message' => 'Blog created successfully'
+            ]);
           }
         } catch (Exception $e) {
             dd($e->getMessage());
             DB::rollBack();
             Log::error('Error while Creating or updating a blog: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Failed to create Blog. ' . $e->getMessage());
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ]);
         }
     }
     public function getSingleBlog(Request $request){

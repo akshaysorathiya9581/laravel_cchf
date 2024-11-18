@@ -1,18 +1,17 @@
 {{-- ADD NEW BLOG MODAL --}}
 <div class="modal fade" id="add_blog_modal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg p-9">
+    <div class="modal-dialog modal-xl" style="margin: 12px;min-width: calc(100% - 20px);">
         <div class="modal-content modal-rounded">
-            <div class="modal-header py-7 d-flex justify-content-between">
-                <h2>New Prize</h2>
+            <div class="modal-header d-flex justify-content-between" style="padding: 12px 14px 8px 18px;">
+                <h2>New Blog</h2>
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                     <i class="fas fa-times"></i>
                 </div>
             </div>
-            <div class="modal-body scroll-y m-3">
-                <form action="{{ route('admin.saveBlog') }}" id="addBlogForm" enctype="multipart/form-data"
-                    method="POST">
+            <form action="{{ route('admin.saveBlog') }}" id="addBlogForm" enctype="multipart/form-data" method="POST">
+                <div class="modal-body scroll-y m-3" style="max-height: 70vh;overflow: auto;">
                     @csrf
-                    <div class="card-body pt-">
+                    <div class="card-body">
                         <div class="w-100">
                             <div class="mb-10 fv-row">
                                 <label class="required form-label mb-3">Seasons</label>
@@ -26,18 +25,48 @@
                                     <div class="text-danger">{{ $errors->first('season_id') }}</div>
                                 @endif
                             </div>
-                            <div class="fv-row mb-10">
-                                {{-- @if (isset($prize->id)) --}}
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" />
-                                {{-- @endif --}}
-                                <label class="form-label required">Title</label>
-                                <input name="title" class="form-control form-control-lg form-control-solid"
-                                    value="{{ old('title') }}" />
-                                @if ($errors->has('title'))
-                                    <div class="text-danger">{{ $errors->first('title') }}</div>
-                                @endif
+                            <div class="fv-row row mb-10">
+                                <div class="col-md-6">
+                                    {{-- @if (isset($prize->id)) --}}
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" />
+                                    {{-- @endif --}}
+                                    <label class="form-label required">Title</label>
+                                    <input name="title" class="form-control form-control-lg form-control-solid"
+                                        value="{{ old('title') }}" />
+                                        <small class="blog-slug"></small>
+                                    @if ($errors->has('title'))
+                                        <div class="text-danger">{{ $errors->first('title') }}</div>
+                                    @endif
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Slug</label>
+                                    <input name="slug" class="form-control form-control-lg form-control-solid"
+                                        value="{{ old('slug') }}" disabled />
+                                </div>
                             </div>
-                            <div class="fv-row mb-10">
+
+                            <div class="fv-row row mb-10">
+
+                                <div class="col-md-6">
+                                    <label class="form-label required">Author</label>
+                                    <input name="author" class="form-control form-control-lg form-control-solid"
+                                        value="{{ old('author') }}" />
+                                    @if ($errors->has('author'))
+                                        <div class="text-danger">{{ $errors->first('author') }}</div>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label class="form-label required">Video Embed Link</label>
+                                    <input name="video_link" class="form-control form-control-lg form-control-solid"
+                                        value="{{ old('video_link') }}" />
+                                    @if ($errors->has('video_link'))
+                                        <div class="text-danger">{{ $errors->first('video_link') }}</div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="fv-row d-none mb-10">
                                 <label class="d-block fw-semibold fs-6 mb-5">
                                     <span class="required"> Image</span>
                                     <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
@@ -72,6 +101,7 @@
                                     <div class="text-danger">{{ $errors->first('image') }}</div>
                                 @endif
                             </div>
+
                             <div class="fv-row mb-10">
                                 <label class="form-label required">Description</label>
                                 <textarea name="description" class="area_editor form-control form-control-lg form-control-solid" cols="30"
@@ -83,16 +113,16 @@
 
                         </div>
                     </div>
-                    <div class="d-flex justify-content-end">
-                        <button type="submit" id="" class="btn btn-lg btn-primary"
-                            data-kt-element="type-next">
-                            <span class="indicator-label">Submit</span>
-                            <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                        </button>
-                    </div>
-                </form>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="" class="btn btn-lg btn-primary"
+                        data-kt-element="type-next">
+                        <span class="indicator-label">Submit</span>
+                        <span class="indicator-progress">Please wait...
+                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    </button>
+                </div>
+            </form>
             <!--begin::Modal body-->
         </div>
     </div>
