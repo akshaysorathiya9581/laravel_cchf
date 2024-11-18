@@ -98,12 +98,9 @@ function makeDotToArrayStr(str) {
 function formValidation(errors) {
 	if (!typeof errors === 'object') return;
 
-	console.log(errors);
-
 	$.each(errors, (el, el_errors) => {
 		var like_name = makeDotToArrayStr(el);
-        console.log('like_name=',like_name);
-        
+
 		var _elem = $('[name="' + like_name + '"]');
 		if (!_elem.length) _elem = $('[name*="' + like_name + '"]');
 		var i = 0;
@@ -118,8 +115,8 @@ function formValidation(errors) {
 
 		var msg = (el_errors.constructor === Array) ? el_errors[0] : el_errors;
 		var label = _parent.find('label').html();
-		msg = msg.replaceAll(el, label);
-		msg = msg.replaceAll(':', '');
+		// msg = msg.replaceAll(el, label);
+		// msg = msg.replaceAll(':', '');
 
 		_parent.append('<span class="text-danger error-msg d-block">' + msg + '</span>');
 	});

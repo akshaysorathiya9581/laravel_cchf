@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
+    public function store(LoginRequest $request)
     {
         $request->authenticate();
         
@@ -38,7 +38,8 @@ class AuthenticatedSessionController extends Controller
         
         // if ($user->role == 'Customer') {
             //}
-        return redirect()->intended('/');
+
+        return response()->json(['status' => true, 'message' => "Login successful!"]);
     }
 
     /**
