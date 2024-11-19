@@ -40,12 +40,31 @@ class LoginRequest extends FormRequest
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        if (! Auth::guard('web')->attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
+        }
+
+       // Retrieve the authenticated user via the web guard
+        $user = Auth::guard('web')->user();
+
+        // Check if the user's role is 'customer'
+        if ($user->role !== 'customer') {
+            Auth::guard('web')->logout(); // Log out the user if the role is invalid
+
+             // Custom error message for failed login attempt
+            throw ValidationException::withMessages([
+                'email' => [
+                    'status' => false,
+                    'message' => 'The provided email or password is incorrect.',
+                ],
+            ]);
+            // throw ValidationException::withMessages([
+            //     'email' => __('auth.role_not_allowed'),
+            // ]);
         }
 
         RateLimiter::clear($this->throttleKey());
@@ -80,5 +99,22 @@ class LoginRequest extends FormRequest
     public function throttleKey(): string
     {
         return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+    }
+
+     /**
+     * Handle failed validation for AJAX requests.
+     */
+    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator): void
+    {
+        if ($this->expectsJson()) {
+            $response = response()->json([
+                'status' => false,
+                'message' => $validator->errors(),
+            ]);
+
+            throw new \Illuminate\Validation\ValidationException($validator, $response);
+        }
+
+        parent::failedValidation($validator);
     }
 }

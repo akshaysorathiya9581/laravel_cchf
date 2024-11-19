@@ -32,7 +32,7 @@ class RegisteredUserController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'name' 	=>  ['required', 'string', 'max:255'],
+            'username' 	=>  ['required', 'string', 'max:255'],
             'email'  =>  ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => 'required|min:8',
             'password_confirmation' => 'required|min:8|same:password',
@@ -41,7 +41,7 @@ class RegisteredUserController extends Controller
         
     	if($validator->fails()) {
     		return response()->json(array("status" => false, "message" => $validator->errors()));
-        }   
+        }
 
         // $request->validate([
         //     'name' => ['required', 'string', 'max:255'],
@@ -50,8 +50,9 @@ class RegisteredUserController extends Controller
         // ]);
 
         $user = User::create([
-            'name' => $request->name,
+            'name' => $request->username,
             'email' => $request->email,
+            'role' => 'customer',
             'password' => Hash::make($request->password),
         ]);
 
@@ -59,6 +60,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return response()->json(array("status" => true, "message" => 'Your account has been successfully created!'));
     }
 }
