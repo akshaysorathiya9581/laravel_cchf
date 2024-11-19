@@ -65,11 +65,18 @@
 		<img src="{{ asset('assets/frontend/templates/masbia/images/icons/person.svg') }}" alt="image">
 	  </a> --}}
 
-	  {{-- New --}}
-	  <a href="javascript:;" class="btn-icon openModalBtn" data-modal="LoginModal">
-		<img src="{{ asset('assets/frontend/templates/masbia/images/icons/person.svg') }}" alt="image">
-	  </a>
-	</div>
+
+      @if (Auth::guard('web')->check())
+        <a href="{{ route('profile.edit') }}" class="btn-icon">
+          <img src="{{ asset('assets/frontend/templates/masbia/images/icons/person.svg') }}" alt="image">
+        </a>
+      @else
+        <a href="javascript:;" class="btn-icon openModalBtn" data-modal="LoginModal">
+          <img src="{{ asset('assets/frontend/templates/masbia/images/icons/person.svg') }}" alt="image">
+        </a>
+      @endif
+     
+    </div>
   </header>
 
 @include('frontend.templates.masbia-template.auth-modal')
