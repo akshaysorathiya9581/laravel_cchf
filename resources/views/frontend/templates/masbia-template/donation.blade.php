@@ -114,13 +114,13 @@
 			  <div id="tab{{ $value['id'] }}" class="tab-content">
 				<div class="sponsor__tab-content-wrapper">
 				  <div class="donation__dedication">
-					<input type="checkbox" id="notification" />
-					<label for="notification">
+					<input type="checkbox" id="notification_{{ $value['id'] }}" name="notification_{{ $value['id'] }}" value="1" />
+					<label for="notification_{{ $value['id'] }}">
 					  Receive a notification each time your card is charged
 					</label>
 				  </div>
-				  <form class="sponsor__notification-form">
-					<input type="text" class="custom-input" placeholder="Enter your Email or Mobile">
+				  <form class="sponsor__notification-form" method="POST">
+					<input type="text" class="custom-input" name="notification_email" placeholder="Enter your Email or Mobile">
 					<input type="submit" value="Submit" class="btn">
 				  </form>
 				</div>
