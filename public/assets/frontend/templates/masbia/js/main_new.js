@@ -69,6 +69,7 @@ $(document).ready(function () {
     $(document).on('click', '.btn-filter', function(event) {
         var _this = $(this);
         add_filter_value(_this.attr('data-name'), _this.attr('data-id'));
+        $('#don_recurring').prop('checked', (_this.attr('data-id') != '1') ? true : false);
     });
 
     $(document).on('click', '.donation_location', function(event) {

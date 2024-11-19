@@ -130,10 +130,12 @@
                     <div class="checkout-form">
                         <form action="{{ route('payment.process', ['campaign' => $campaign->id]) }}" method="POST" id="payment-form">
                             <div class="bill-content">
-                                <div class="user-auth-btn">
-                                    <a href="#" class="btn btn--green">Log in</a>
-                                    <a href="#" class="btn btn--green-transparent">Continue as a guest</a>
-                                </div>
+                                @if (!Auth::guard('web')->check())
+                                    <div class="user-auth-btn">
+                                        <a href="javascript:;" class="btn btn--green openModalBtn" data-modal="LoginModal">Log in</a>
+                                        <a href="javascript:;" class="btn btn--green-transparent">Continue as a guest</a>
+                                    </div>
+                                @endif
                                 <h6 class="info-title">Personal Information <span></span></h6>
                                 <div class="custom-form">
                                     <div class="form-group">
@@ -197,6 +199,7 @@
                                     <input type="hidden" id="letter_amount" name="letter_amount">
                                     <input type="hidden" id="recognition_amount" name="recognition_amount">
                                     <input type="hidden" id="donation_masbia_details" name="donation_masbia_details" value="">
+                                    <input type="hidden" id="recurring_intervals" name="recurring_intervals" value="">
                                     {{-- <div class="hiddenFields">
                                         <input type="hidden" id="address" name="address">
                                         <input type="hidden" id="street" name="street">
@@ -247,7 +250,7 @@
                                     @endif
                                     {{--  --}}
                                     <div class="form-check processing-fee" style="display: none;">
-                                        @if ($campaign->meta->allow_fee == 1)
+                                        {{-- @if ($campaign->meta->allow_fee == 1)
                                         <input class="form-check-input" type="checkbox" id="process_fee_check" name="process_fee_check" value="1">
                                         <label class="form-check-label" for="process_fee_check">
                                             <span id="process_fee">Add $
@@ -255,21 +258,21 @@
                                                 processing
                                                 fee</span>
                                         </label>
-                                        @endif
+                                        @endif --}}
                                         <input type="hidden" name="don_process_fee" id="don_process_fee" value="0">
                                         <input type="hidden" name="fee_percentage" id="fee_percentage" value="0">
                                         <input type="hidden" name="don_allow_fee" id="don_allow_fee" value="0">
                                     </div>
                                     {{--  --}}
-                                    @if ($campaign->meta->is_recurring == 1)
+                                    {{-- @if ($campaign->meta->is_recurring == 1)
                                         <div class="form-check recurring-option">
                                             <input class="form-check-input" type="checkbox" id="don_recurring" name="don_recurring" value="1" onclick="makeRecurring()">
                                             <label class="form-check-label" for="don_recurring">
                                                 Pay in Installments
                                             </label>
                                         </div>
-                                    @endif
-                                    <div class="rec_btns" style="display:none;">
+                                    @endif --}}
+                                    {{-- <div class="rec_btns" style="display:none;">
                                         <div class="rec_options mt-2">
                                             <p class="d-inline"> Split <span id="rec_amount_full">$518</span>
                                                 over
@@ -281,7 +284,7 @@
                                                 </select>
                                             </p>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="grecaptcha-badge" data-style="bottomright">
                                         <div class="grecaptcha-logo"><iframe title="reCAPTCHA" width="256" height="60" role="presentation" name="a-dlpsdpl12kb" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LfF4ikpAAAAAHlmS9WnkN5udzau-S0S7ZhA9hSJ&amp;co=aHR0cHM6Ly8xMDBrZ29yYWwub3JnOjQ0Mw..&amp;hl=en&amp;v=rKbTvxTxwcw5VqzrtN-ICwWt&amp;size=invisible&amp;cb=fp188cexjcq0"></iframe>
                                         </div>
@@ -290,15 +293,20 @@
                                     </div>
                                     <iframe style="display: none;"></iframe>
                                     <div class="seprator"></div>
-                                    <div class="custom-checkbox">
-                                        <input type="checkbox" value="1" name="" class="form-check-input" id="">
-                                        <label class="form-check-label" for="">Add $3.00 to your payment to cover the 3% credit 
-                                            card processing fee</label>
-                                    </div>
-                                    <div class="custom-checkbox">
-                                        <input type="checkbox" value="1" name="" class="form-check-input" id="">
-                                        <label class="form-check-label" for="">Pay in Installments</label>
-                                    </div>
+                                    @if ($campaign->meta->allow_fee == 1)
+                                        <div class="custom-checkbox">
+                                            <input type="checkbox" name="process_fee_check" id="process_fee_check" class="form-check-input" value="1" />
+                                            <label class="form-check-label" for="process_fee_check">Add $3.00 to your payment to cover the 3% credit 
+                                                card processing fee</label>
+                                        </div>
+                                    @endif
+                                    @if ($campaign->meta->is_recurring == 1)
+                                        <div class="custom-checkbox recurring-option">
+                                            <input type="checkbox" class="form-check-input" id="don_recurring" name="don_recurring" value="1" value="1">
+                                            <label class="form-check-label" for="don_recurring">Pay in Installments</label>
+                                        </div>
+                                    @endif
+
                                     <button class="btn btn--green" type="submit">
                                         <span class="standard_checkout">Checkout</span>
                                         {{-- <span class="standard_checkout divider"></span> --}}
