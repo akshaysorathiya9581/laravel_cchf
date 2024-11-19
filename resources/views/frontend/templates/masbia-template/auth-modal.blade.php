@@ -259,19 +259,19 @@
     }
 
     @media (max-width: 1550px) {
-         .base-modal .auth-form .form-group>div .passProtect {
+        .base-modal .auth-form .form-group>div .passProtect {
             top: 15px;
         }
     }
 
     @media (max-width: 1370px) {
-         .base-modal .auth-form .form-group>div .passProtect {
+        .base-modal .auth-form .form-group>div .passProtect {
             top: 14px;
         }
     }
 
     @media (max-width: 768px) {
-         .base-modal .auth-form .form-group>div .passProtect {
+        .base-modal .auth-form .form-group>div .passProtect {
             top: 13px;
         }
     }
@@ -593,8 +593,8 @@
         <div class="modal-box">
             {{-- <span class="close-btn">&times;</span> --}}
             <div class="img-content">
-                <img src="{{ asset('assets/frontend/templates/masbia/images/authLogo.svg') }}" width="144" height="103"
-                    alt="Img">
+                <img src="{{ asset('assets/frontend/templates/masbia/images/authLogo.svg') }}" width="144"
+                    height="103" alt="Img">
             </div>
             <h2 class="title">Create your account</h2>
             <form action="{{ route('register') }}" id="frm-customer-register" method="POST" class="auth-form">
@@ -611,30 +611,35 @@
                 <div class="form-group">
                     <label for="">Enter Password<span>*</span></label>
                     <div>
-                        <input type="password" class="form-input" name="password" placeholder="Enter Password" >
-                        <span class="passProtect"><img src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}" width="24" height="20" alt="Password Protect"></span>
+                        <input type="password" class="form-input" name="password" placeholder="Enter Password">
+                        <span class="passProtect"><img
+                                src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}"
+                                width="24" height="20" alt="Password Protect"></span>
                     </div>
                     {{-- <span class="error"></span> --}}
                 </div>
                 <div class="form-group">
                     <label for="">Confirm Password<span>*</span></label>
                     <div>
-                        <input type="password" class="form-input" id="password_confirmation" name="password_confirmation" placeholder="Enter Confirm Password">
+                        <input type="password" class="form-input" id="password_confirmation"
+                            name="password_confirmation" placeholder="Enter Confirm Password">
                         <span class="passProtect"><img
-                                src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}" width="24"
-                                height="20" alt="Password Protect"></span>
+                                src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}"
+                                width="24" height="20" alt="Password Protect"></span>
                     </div>
                     {{-- <span class="error"></span> --}}
                 </div>
                 <div class="form-checkbox">
                     <div>
-                    <input type="checkbox" class="form-input" id="privacy_check" name="privacy_check">
-                    <label for="privacy_check"><span>I agree with <a href="javascript:;">Terms of services & Privacy Policy</a></span></label>
+                        <input type="checkbox" class="form-input" id="privacy_check" name="privacy_check">
+                        <label for="privacy_check"><span>I agree with <a href="javascript:;">Terms of services & Privacy
+                                    Policy</a></span></label>
                     </div>
                 </div>
                 <div class="btn-grp">
                     <button type="submit" class="btn btn--green">Sign up</button>
-                    <span>Already have an account? <a href="javascript:;" class="openModalBtn openNextModal" data-modal="LoginModal">Sign in</a></span>
+                    <span>Already have an account? <a href="javascript:;" class="openModalBtn openNextModal"
+                            data-modal="LoginModal">Sign in</a></span>
                 </div>
             </form>
         </div>
@@ -651,31 +656,35 @@
         <div class="modal-box">
             {{-- <span class="close-btn">&times;</span> --}}
             <div class="img-content">
-                <img src="{{ asset('assets/frontend/templates/masbia/images/authLogo.svg') }}" width="144" height="103"
-                    alt="Img">
+                <img src="{{ asset('assets/frontend/templates/masbia/images/authLogo.svg') }}" width="144"
+                    height="103" alt="Img">
             </div>
             <h2 class="title">Login to your account</h2>
             <form action="{{ route('login') }}" id="frm-customer-login" class="auth-form" method="POST">
                 <div class="form-group">
                     <label for="">Email Address<span>*</span></label>
-                    <input type="email" name="email" class="form-input" placeholder="Enter your mail address" value="alex@eample.com">
+                    <input type="email" name="email" class="form-input" placeholder="Enter your mail address"
+                        value="">
                     {{-- <span class="error"></span> --}}
                 </div>
                 <div class="form-group">
                     <label for="">Enter Password<span>*</span></label>
                     <div>
-                        <input type="text" name="password" class="form-input" placeholder="Enter Password" value="12345678">
+                        <input type="password" name="password" class="form-input" placeholder="Enter Password"
+                            value="">
                         <span class="passProtect"><img
-                                src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}" width="24"
-                                height="20" alt="Password Protect"></span>
+                                src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}"
+                                width="24" height="20" alt="Password Protect"></span>
                     </div>
                     {{-- <span class="error"></span> --}}
                 </div>
                 <div class="h-20"></div>
                 <div class="btn-grp">
                     <button type="submit" class="btn btn--green">Sign In</button>
-                    <span><a href="javascript:;" class="openModalBtn openNextModal" data-modal="ResetPassModal">Forgot Password?</a></span>
-                    <span><a href="javascript:;" class="openModalBtn openNextModal" data-modal="createAccountModal">Sign up</a></span>
+                    <span><a href="javascript:;" class="openModalBtn openNextModal" data-modal="ResetPassModal">Forgot
+                            Password?</a></span>
+                    <span><a href="javascript:;" class="openModalBtn openNextModal"
+                            data-modal="createAccountModal">Sign up</a></span>
                 </div>
             </form>
         </div>
@@ -688,19 +697,19 @@
         <div class="modal-box">
             {{-- <span class="close-btn">&times;</span> --}}
             <div class="img-content">
-                <img src="{{ asset('assets/frontend/templates/masbia/images/authLogo.svg') }}" width="144" height="103"
-                    alt="Img">
+                <img src="{{ asset('assets/frontend/templates/masbia/images/authLogo.svg') }}" width="144"
+                    height="103" alt="Img">
             </div>
             <h2 class="title">Reset password</h2>
-            <form action="#" class="auth-form">
+            <form action="{{ route('password.email') }}" method="POST" id="frm-forget-password" class="auth-form">
                 <div class="form-group">
                     <label for="">Email Address<span>*</span></label>
-                    <input type="email" class="form-input" placeholder="Enter your mail address"
-                        value="alex@eample.com">
+                    <input type="email" class="form-input" name="email" placeholder="Enter your mail address"
+                        value="">
                     {{-- <span class="error"></span> --}}
                 </div>
                 <div class="btn-grp">
-                    <a href="#" class="btn btn--green">Send Code</a>
+                    <button type="submit" class="btn btn--green">Send Code</button>
                     <span><a href="javascript:;" class="openModalBtn openNextModal" data-modal="LoginModal">Back to
                             Login</a></span>
                 </div>
@@ -719,40 +728,40 @@
                     height="103" alt="Img">
             </div>
             <h2 class="title">Reset password</h2>
-            <form action="#" class="auth-form">
+            <form action="{{ route('password.store') }}" method="POST" class="auth-form">
                 <div class="form-group">
                     <label for="">Enter code</label>
                     <div>
-                        <input type="text" class="form-input" placeholder="" value="">
+                        <input type="text" class="form-input" placeholder="Enter code">
                         <span class="passProtect"><img
-                                src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}" width="24"
-                                height="20" alt="Password Protect"></span>
+                                src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}"
+                                width="24" height="20" alt="Password Protect"></span>
                     </div>
                     {{-- <span class="error"></span> --}}
                 </div>
                 <div class="form-group">
                     <label for="">Enter your new Password</label>
                     <div>
-                        <input type="text" class="form-input" placeholder="" value="">
+                        <input type="password" class="form-input" placeholder="Enter your new Password">
                         <span class="passProtect"><img
-                                src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}" width="24"
-                                height="20" alt="Password Protect"></span>
+                                src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}"
+                                width="24" height="20" alt="Password Protect"></span>
                     </div>
                     {{-- <span class="error"></span> --}}
                 </div>
                 <div class="form-group">
                     <label for="">Retype your Password</label>
                     <div>
-                        <input type="text" class="form-input" placeholder="" value="">
+                        <input type="password" class="form-input" placeholder="Retype your Password">
                         <span class="passProtect"><img
-                                src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}" width="24"
-                                height="20" alt="Password Protect"></span>
+                                src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}"
+                                width="24" height="20" alt="Password Protect"></span>
                     </div>
                     {{-- <span class="error"></span> --}}
                 </div>
                 <div class="h-10"></div>
                 <div class="btn-grp">
-                    <a href="#" class="btn btn--green">Reset Password</a>
+                    <button type="submit" class="btn btn--green">Reset Password</button>
                     <span><a href="javascript:;" class="openModalBtn openNextModal" data-modal="LoginModal">Back to
                             Login</a></span>
                 </div>
@@ -796,37 +805,50 @@
             });
         });
 
+        // password hide show 
+        $(document).on('mousedown', '.passProtect', function() {
+            var _this = $(this);
+            var passwordInput = _this.closest('div').find('.form-input');
+            passwordInput.attr('type', 'text');
+        });
+
+        $(document).on('mouseup', '.passProtect', function() {
+            var _this = $(this);
+            var passwordInput = _this.closest('div').find('.form-input');
+            passwordInput.attr('type', 'password');
+        });
+
         // register form submit
-        $(document).on('submit', '#frm-customer-register', function (e) {
+        $(document).on('submit', '#frm-customer-register', function(e) {
             e.preventDefault();
             var _this = $(this);
-            var url  = $(this).attr("action");
+            var url = $(this).attr("action");
             var formData = $(this).serializeArray();
 
             blockUI_page(_this.closest('.modal-content'), true);
-            send_ajax_request(url,formData).done(function(data){
+            send_ajax_request(url, formData).done(function(data) {
                 blockUI_page(_this.closest('.modal-content'), false);
-                if(data.status){
+                if (data.status) {
                     toastr_show(data.message, 'success');
                     $('#createAccountModal').fadeOut();
                     $('body').css('overflow', 'auto');
+                    location.reload();
                 }
                 formValidation(data.message);
             });
         });
 
         // login form submit
-        $(document).on('submit', '#frm-customer-login', function (e) {
+        $(document).on('submit', '#frm-customer-login', function(e) {
             e.preventDefault();
             var _this = $(this);
-            var url  = $(this).attr("action");
+            var url = $(this).attr("action");
             var formData = $(this).serializeArray();
 
             blockUI_page(_this.closest('.modal-content'), true);
-            send_ajax_request(url,formData).done(function(data){
-
+            send_ajax_request(url, formData).done(function(data) {
                 blockUI_page(_this.closest('.modal-content'), false);
-                if(data.status){
+                if (data.status) {
                     toastr_show(data.message, 'success');
                     location.reload();
                 }
@@ -835,13 +857,41 @@
 
                 blockUI_page(_this.closest('.modal-content'), false);
                 if (xhr.status === 422) {
-                    console.log(xhr.responseJSON.errors)
-                    formValidation(xhr.responseJSON.errors,$('#frm-customer-login')); // Assuming errors are in `xhr.responseJSON.errors`
+                    var responseJSON = xhr.responseJSON;
+                    toastr_show(responseJSON.message, 'error');
                 } else {
                     toastr_show("An error occurred. Please try again later.", 'error');
                 }
             });
         });
+
+        // forget-password form submit
+        $(document).on('submit', '#frm-forget-password', function(e) {
+            e.preventDefault();
+            var _this = $(this);
+            var url = $(this).attr("action");
+            var formData = $(this).serializeArray();
+
+            blockUI_page(_this.closest('.modal-content'), true);
+            send_ajax_request(url, formData).done(function(data) {
+                blockUI_page(_this.closest('.modal-content'), false);
+                if (data.status) {
+                    toastr_show(data.message, 'success');
+                    location.reload();
+                }
+                formValidation(data.message);
+            }).fail(function(xhr, textStatus, errorThrown) {
+                console.log('xhr=',xhr);
+                blockUI_page(_this.closest('.modal-content'), false);
+                if (xhr.status === 404) {
+                    var responseJSON = xhr.responseJSON;
+                    toastr_show(responseJSON.message, 'error');
+                } else {
+                    toastr_show("An error occurred. Please try again later.", 'error');
+                }
+            });
+        });
+
 
     });
 </script>

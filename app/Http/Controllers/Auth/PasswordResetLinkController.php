@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Password;
 use Illuminate\View\View;
@@ -23,22 +24,38 @@ class PasswordResetLinkController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request): JsonResponse
     {
-        $request->validate([
+         $validator = \Validator::make($request->all(), [
             'email' => ['required', 'email'],
         ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => $validator->errors()->toArray()
+            ]);
+        }
 
-        // We will send the password reset link to this user. Once we have attempted
-        // to send the link, we will examine the response then see the message we
-        // need to show to the user. Finally, we'll send out a proper response.
         $status = Password::sendResetLink(
             $request->only('email')
         );
 
-        return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+        if ($status == Password::RESET_LINK_SENT) {
+            return response()->json([
+                'status' => true,
+                'message' => __('We have emailed your password reset link!'),
+            ]);
+        } elseif ($status == Password::INVALID_USER) {
+            return response()->json([
+                'status' => false,
+                'message' => __("We can't find a user with that email address."),
+            ], 404);
+        }
+
+        // Fallback response in case something else goes wrong
+        return response()->json([
+            'status' => false,
+            'message' => __('Failed to send password reset link. Please try again.'),
+        ], 500); // 500 status for internal server error
     }
 }

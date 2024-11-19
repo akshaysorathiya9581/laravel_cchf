@@ -70,8 +70,8 @@ function toastr_show(p_message, p_type, p_title) {
         allowToastClose: true,
         hideAfter: 5000, // milliseconds
         loader: true,
-        loaderBg: '#9EC600', // background color of the loader
-        position: 'top-right', // toast position (top-left, top-right, bottom-left, bottom-right, or mid-center)
+        loaderBg: '#9EC600', 
+        position: 'top-right',
         stack: false // prevent duplicate toasts
     });
 }

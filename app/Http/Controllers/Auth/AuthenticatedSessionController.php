@@ -38,7 +38,6 @@ class AuthenticatedSessionController extends Controller
         
         // if ($user->role == 'customer') {
         // }
-
         return response()->json(['status' => true, 'message' => "Login successful!"]);
     }
 
