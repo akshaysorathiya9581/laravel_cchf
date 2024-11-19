@@ -57,11 +57,11 @@ class MasbiaBlogsController extends Controller
 	/**
 	 * Blog view page
 	 */
-	public function view(Request $request, $slug): View
+	public function view(Request $request, $id): View
 	{
 
 		$mainMenu = $this->getMainMenu();
-		$blog = Blogs::where('slug', $slug)->firstOrFail();  // Retrieves the blog by slug
+		$blog = Blogs::where('id', $id)->firstOrFail();  // Retrieves the blog by slug
 
 		return view('frontend.templates.masbia-template.blog-detail', [
 			'user' => $request->user(),
