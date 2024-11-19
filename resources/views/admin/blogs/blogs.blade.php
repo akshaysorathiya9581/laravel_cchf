@@ -21,6 +21,7 @@
 				</div>
 				<div class="d-flex align-items-center gap-2 gap-lg-3">
 					<div class="m-0">
+						<button type="button" id="manageOg" class="btn btn-sm btn-flex btn-info">Manage OG</button>
 						<button type="button" data-bs-toggle="modal" data-bs-target="#add_blog_modal" class="btn btn-sm btn-flex btn-info"> <i class="fas fa-user"></i> Add New Blog</button>
 					</div>
 				</div>
@@ -75,6 +76,7 @@
 </div>
 </div>
 
+@include('admin.manage_og_modal')
 @include('admin.blogs.modals.add_blog_modal')
 @include('admin.blogs.modals.update_blog_modal')
 
@@ -151,10 +153,78 @@
 
 	$(document).ready(function () {
 
+		$('body').on('click','#manageOg',function(){
+
+			$.ajax({
+				url: '{{ route("admin.getoginfo") }}',
+				type: 'GET',
+				data: {'page':'blog'},
+				success: function (response) {
+
+					$('#manage_og_modal').modal('show');
+
+					if (response.success) {
+						var og_properties = response.data.og_properties;
+
+						if(og_properties) {
+							$('input[name="og_title"]').val(og_properties.og_title);
+							$('textarea[name="og_description"]').val(og_properties.og_description);
+
+							$('input[name="old_og_image"]').val(og_properties.og_image)
+							$('#og_image').css('background-image', 'url(' + og_properties.og_image + ')')
+						}
+					}
+				}
+			});
+		})
+
 		$('input[name="title"]').on('keyup', function (e) {
 
 			var slug = generateSlug($(this).val().trim());
 			$('input[name="slug"]').val(slug)
+		});
+
+		$('#updateOgData').on('submit', function (e) {
+			e.preventDefault();
+
+			var formData = new FormData(this);
+			formData.append('page','blog');
+			_this = $(this).closest('form');
+			_this.find('.btn-submit').prop('disabled',true).html('Processing...')
+
+			$.ajax({
+				url: $(this).attr('action'),
+				type: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function (response) {
+
+					toastr_show(response.message);
+					_this.find('.btn-submit').prop('disabled', false).html('Submit');
+					$('#manage_og_modal').modal('hide');
+				},
+				error: function (xhr, status, error) {
+
+					if (xhr.status === 422) {
+
+						var errors = xhr.responseJSON.errors;
+
+						$('.err-msg').remove();  // Remove existing error messages
+						$.each(errors, function (key, value) {
+							var errorElement = _this.find('input[name=' + key + '], select[name=' + key + '], textarea[name=' + key + ']');
+							errorElement.after('<div class="err-msg text-danger">' + value[0] + '</div>'); // Display the first error message
+						});
+						$('.err-blog').closest('div').find('.form-control').focus();
+					}
+
+					_this.find('.btn-submit').prop('disabled', false).html('Submit');
+				},
+				always: function () {
+					_this.find('.btn-submit').prop('disabled', false).html('Submit');
+				}
+			});
+
 		});
 
 		$('#addBlogForm, #UpdateBlogForm').on('submit', function (e) {
