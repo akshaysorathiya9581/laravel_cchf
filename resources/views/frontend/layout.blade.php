@@ -1,4 +1,3 @@
-{{-- <?= $campaign->template; die(); ?> --}}
 @if ($campaign->template == 'raffle')
     @include('frontend.templates.raffle-template.home')
 @elseif ($campaign->template == 'general')
@@ -13,7 +12,7 @@
 
 {{-- <link rel="stylesheet" href="{{ asset('assets/frontend/templates/raffle/css/general-style.css') }}"> --}}
 {{-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> --}}
-@include('frontend.checkout')
+{{-- @include('frontend.checkout') --}}
 
 @include('frontend.add-team')
 

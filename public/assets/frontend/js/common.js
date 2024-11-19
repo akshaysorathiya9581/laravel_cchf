@@ -16,21 +16,24 @@ $(document).ready(function () {
     let offset = 12;
     const campaignId = $("#campaing_id").val();
     const team_id = $("#url_team_id").val();
- 
-function formatExpiry(selector) {
-    $(selector).on("input", function () {
-        let value = $(this).val().replace(/\D/g, "");
-        if (value.length >= 2) {
-            value = value.substring(0, 2) + "/" + value.substring(2, 4);
-        }
-        $(this).val(value);
-    });
-}
-const expirySelectors = ["#expiryCC", "#mtb_expiry", "#authnet_exp", "#ojc_expiry", "#plg_expiry"];
-expirySelectors.forEach(formatExpiry); 
 
-
-
+    function formatExpiry(selector) {
+        $(selector).on("input", function () {
+            let value = $(this).val().replace(/\D/g, "");
+            if (value.length >= 2) {
+                value = value.substring(0, 2) + "/" + value.substring(2, 4);
+            }
+            $(this).val(value);
+        });
+    }
+    const expirySelectors = [
+        "#expiryCC",
+        "#mtb_expiry",
+        "#authnet_exp",
+        "#ojc_expiry",
+        "#plg_expiry",
+    ];
+    expirySelectors.forEach(formatExpiry);
 
     function loadDonations(search = "", filter = "", loadmore = "") {
         $.ajax({
@@ -44,23 +47,25 @@ expirySelectors.forEach(formatExpiry);
                 load: loadmore,
             },
             success: function (response) {
-                console.log(response)
+                console.log(response);
                 //
                 if (response.data.length < 12) {
-                    $('.load_more').hide();
-                }else{
-                    $('.load_more').show();
+                    $(".load_more").hide();
+                } else {
+                    $(".load_more").show();
                 }
                 if (response.data.length > 0) {
                     if (response.loadmore == "yes") {
-                        $("#DonationMainContainer .donations_container").append(response.data);
+                        $("#DonationMainContainer .donations_container").append(
+                            response.data
+                        );
                         offset += 12;
                     } else {
-                        $("#DonationMainContainer .donations_container").html(response.data);
+                        $("#DonationMainContainer .donations_container").html(
+                            response.data
+                        );
                     }
                 }
-
-
             },
             error: function (error) {
                 console.log("Error loading more donations:", error);
@@ -88,9 +93,6 @@ expirySelectors.forEach(formatExpiry);
         loadDonations($("#searchInput").val(), $("#filterSelect").val(), "no");
     });
 
-
-
-
     function loadTeams(search = "", filter = "", loadmore = "") {
         $.ajax({
             url: "/load-more-teams",
@@ -98,25 +100,29 @@ expirySelectors.forEach(formatExpiry);
             data: {
                 campaignId: campaignId,
                 offset: offset,
-                team_id:team_id,
+                team_id: team_id,
                 search: search,
                 filter: filter,
                 load: loadmore,
             },
             success: function (response) {
-                console.log(response)
+                console.log(response);
                 //
                 if (response.data.length < 12) {
-                    $('.team_load_more').hide();
-                }else{
-                    $('.team_load_more').show();
+                    $(".team_load_more").hide();
+                } else {
+                    $(".team_load_more").show();
                 }
                 if (response.data.length > 0) {
                     if (response.loadmore == "yes") {
-                        $("#TeamsMainContainer .teams_container").append(response.data);
+                        $("#TeamsMainContainer .teams_container").append(
+                            response.data
+                        );
                         offset += 12;
                     } else {
-                        $("#TeamsMainContainer .teams_container").html(response.data);
+                        $("#TeamsMainContainer .teams_container").html(
+                            response.data
+                        );
                     }
                 }
             },
@@ -134,16 +140,23 @@ expirySelectors.forEach(formatExpiry);
     $("#teamfilterSelect").on("change keyup", function () {
         offset = 12;
         $(".teams_container").empty();
-        loadTeams($("#teamsearchInput").val(), $("#teamfilterSelect").val(), "no");
+        loadTeams(
+            $("#teamsearchInput").val(),
+            $("#teamfilterSelect").val(),
+            "no"
+        );
     });
     $("#teamsearchInput").on("input", function () {
         offset = 12;
         $(".teams_container").empty();
-        loadTeams($("#teamsearchInput").val(), $("#teamfilterSelect").val(), "no");
+        loadTeams(
+            $("#teamsearchInput").val(),
+            $("#teamfilterSelect").val(),
+            "no"
+        );
     });
 
-
- function loadTeamDonations(search = "", filter = "", loadmore = "") {
+    function loadTeamDonations(search = "", filter = "", loadmore = "") {
         $.ajax({
             url: "/load-more-team-donations",
             type: "GET",
@@ -152,26 +165,28 @@ expirySelectors.forEach(formatExpiry);
                 offset: offset,
                 search: search,
                 filter: filter,
-                team_id:team_id,
+                team_id: team_id,
                 load: loadmore,
             },
             success: function (response) {
-                console.log(response) 
+                console.log(response);
                 if (response.data.length < 12) {
-                    $('.team_donors_load_more').hide();
-                }else{
-                    $('.team_donors_load_more').show();
+                    $(".team_donors_load_more").hide();
+                } else {
+                    $(".team_donors_load_more").show();
                 }
                 if (response.data.length > 0) {
                     if (response.loadmore == "yes") {
-                        $("#TeamsDonorsContainer .teams_donors_container").append(response.data);
+                        $(
+                            "#TeamsDonorsContainer .teams_donors_container"
+                        ).append(response.data);
                         offset += 12;
                     } else {
-                        $("#TeamsDonorsContainer .teams_donors_container").html(response.data);
+                        $("#TeamsDonorsContainer .teams_donors_container").html(
+                            response.data
+                        );
                     }
                 }
-
-
             },
             error: function (error) {
                 console.log("Error loading more donations:", error);
@@ -189,17 +204,23 @@ expirySelectors.forEach(formatExpiry);
     $("#teamDonorsfilterSelect").on("change keyup", function () {
         offset = 12;
         $(".teams_donors_container").empty();
-        loadTeamDonations($("#teamsDonorsearchInput").val(), $("#teamDonorsfilterSelect").val(), "no");
+        loadTeamDonations(
+            $("#teamsDonorsearchInput").val(),
+            $("#teamDonorsfilterSelect").val(),
+            "no"
+        );
     });
 
     // ___SEARCH_FILTER
     $("#teamsDonorsearchInput").on("input", function () {
         offset = 12;
         $(".teams_donors_container").empty();
-        loadTeamDonations($("#teamsDonorsearchInput").val(), $("#teamDonorsfilterSelect").val(), "no");
+        loadTeamDonations(
+            $("#teamsDonorsearchInput").val(),
+            $("#teamDonorsfilterSelect").val(),
+            "no"
+        );
     });
-
-
 
     function DonationformatedDate(dateString) {
         const date = new Date(dateString);
@@ -235,37 +256,36 @@ expirySelectors.forEach(formatExpiry);
     }
 
     $(".teams_btn").on("click", function () {
-        $('.teams_btn').addClass('active');
-        $('.donors_btn').removeClass('active');
-        $('.teams_sorting').show();
-        $('.teams_donors_btn').removeClass('active');
-        $('.donation_sorting').hide();
+        $(".teams_btn").addClass("active");
+        $(".donors_btn").removeClass("active");
+        $(".teams_sorting").show();
+        $(".teams_donors_btn").removeClass("active");
+        $(".donation_sorting").hide();
         $("#DonationMainContainer").hide();
-        $("#TeamsDonorsContainer").hide(); 
-        $('.teams_donors_sorting').hide(); 
+        $("#TeamsDonorsContainer").hide();
+        $(".teams_donors_sorting").hide();
         $("#TeamsMainContainer").show();
     });
     $(".donors_btn").on("click", function () {
-        $('.teams_btn').removeClass('active');
-        $('.teams_donors_btn').removeClass('active');
-        $('.donors_btn').addClass('active');
+        $(".teams_btn").removeClass("active");
+        $(".teams_donors_btn").removeClass("active");
+        $(".donors_btn").addClass("active");
         $("#DonationMainContainer").show();
         $("#TeamsMainContainer").hide();
         $("#TeamsDonorsContainer").hide();
-        $('.teams_sorting').hide();
-        $('.donation_sorting').show(); 
-        $('.teams_donors_sorting').hide(); 
-
+        $(".teams_sorting").hide();
+        $(".donation_sorting").show();
+        $(".teams_donors_sorting").hide();
     });
     $(".teams_donors_btn").on("click", function () {
-        $('.teams_btn').removeClass('active');
-        $('.donors_btn').removeClass('active');
-        $('.teams_donors_btn').addClass('active');
+        $(".teams_btn").removeClass("active");
+        $(".donors_btn").removeClass("active");
+        $(".teams_donors_btn").addClass("active");
         $("#TeamsDonorsContainer").show();
         $("#DonationMainContainer").hide();
         $("#TeamsMainContainer").hide();
-        $('.teams_sorting').hide();
-        $('.donation_sorting').hide(); 
-         $('.teams_donors_sorting').show(); 
+        $(".teams_sorting").hide();
+        $(".donation_sorting").hide();
+        $(".teams_donors_sorting").show();
     });
 });
