@@ -23,7 +23,7 @@
 					<span class="author">By {{ $blog->author }}</span>
 				@endif
 			</span>
-			<a href="{{ route('blogs.view',$blog->slug) }}" class="btn btn--green">read more</a>
+			<a href="{{ route('blogs.view',$blog->id) }}" class="btn btn--green">read more</a>
 		</div>
 	</div>
 @endforeach

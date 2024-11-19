@@ -25,11 +25,6 @@ use Illuminate\Support\Facades\Route;
     
     Route::post('/payment/{campaign}', [PaymentController::class, 'processPayment'])->name('payment.process');
     Route::post('/campaign/create_team', [FrontendController::class, 'create_team'])->name('campaign.create_team');
-
-    Route::get('masbia/donation', [MasbiaDonationController::class, 'index'])->name('donation.index');
-    Route::get('masbia/blogs', [MasbiaBlogsController::class, 'index'])->name('blogs.index');
-    Route::get('masbia/blog/{title}', [MasbiaBlogsController::class, 'view'])->name('blogs.view');
-    Route::get('blogs/get-blogs', [MasbiaBlogsController::class, 'getBlogs'])->name('blogs.get-blogs');
 // });
 
 Route::middleware('auth')->group(function () {
@@ -39,7 +34,13 @@ Route::middleware('auth')->group(function () {
     Route::post('notification-update', [NotificationController::class, 'update'])->name('notification.update');
 });
 
+Route::get('masbia/donation', [MasbiaDonationController::class, 'index'])->name('donation.index');
+Route::get('masbia/blogs', [MasbiaBlogsController::class, 'index'])->name('blogs.index');
+Route::get('masbia/blog/{title}', [MasbiaBlogsController::class, 'view'])->name('blogs.view');
+Route::get('blogs/get-blogs', [MasbiaBlogsController::class, 'getBlogs'])->name('blogs.get-blogs');
+
 // Route::domain('{organization}/{slug}')->group(function () {
 // Route::get('/campaign/{organization}/{slug}', [FrontendController::class, 'raffle'])->name('raffle');
 // });
 
+// Masbia Routes

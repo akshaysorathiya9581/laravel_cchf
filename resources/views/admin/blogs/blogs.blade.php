@@ -188,7 +188,7 @@
 			e.preventDefault();
 
 			var formData = new FormData(this);
-			formData.append('page','blog');
+			// formData.append('page','blog');
 			_this = $(this).closest('form');
 			_this.find('.btn-submit').prop('disabled',true).html('Processing...')
 

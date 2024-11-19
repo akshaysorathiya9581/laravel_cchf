@@ -39,12 +39,12 @@ class OpenGraphController extends Controller
         $imageUrl = $request->hasFile('og_image') ? $this->fileUploadService->uploadFile($request, 'og_image', 'og'): $request->input('old_og_image');
 
         OpenGraph::updateOrCreate(
-            ['page' => $request->page],
+            ['page' => $request->og_page],
             [
                 'og_title'  => $request->og_title,
                 'og_image'  => $imageUrl,
                 'og_description'  => $request->og_description,
-                'page'  => $request->page
+                'page'  => $request->og_page
             ]
         );
 

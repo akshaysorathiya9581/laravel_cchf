@@ -19,6 +19,8 @@
                                 <div class="col-md-12">
                                     <label class="form-label required">Page</label>
                                     <select name="og_page" class="form-control form-control-lg form-control-solid">
+                                        <option value="home">Home</option>
+                                        <option value="donation">Donation</option>
                                         <option value="blog" selected>Blog</option>
                                     </select>
                                 </div>

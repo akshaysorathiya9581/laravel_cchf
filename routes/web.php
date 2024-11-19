@@ -39,6 +39,7 @@ use App\Http\Controllers\TestEmailController;
 use App\Http\Controllers\SustainerOptionsController;
 use App\Http\Controllers\AllocateDonationController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\Admin\OpenGraphController;
 
 // Route::get('/', function () {
 //     return view('frontend/home');
@@ -287,7 +288,13 @@ Route::middleware('auth:admin', 'setDatabase')->group(function () {
     // AllocateDonation
     Route::resource('allocate-donation', AllocateDonationController::class);
     Route::get('admin/allocatedonation/delete/{allocateID}', [AllocateDonationController::class, 'destroy'])->name('admin.allocateDonation.destroy');
-}); 
+
+    //_OG_PROPERTIES
+    Route::get('/admin/og/get', [OpenGraphController::class, 'getOgDetail'])->name('admin.getoginfo');
+    Route::post('/admin/og/update', [OpenGraphController::class, 'update'])->name('admin.updateogdata');
+});
+
+
 
 require __DIR__.'/admin-auth.php';
 require __DIR__ . '/auth.php';
