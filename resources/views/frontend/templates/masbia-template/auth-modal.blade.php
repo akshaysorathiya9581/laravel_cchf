@@ -26,11 +26,11 @@
     }
 
     .base-modal .modal-content {
-        background-color: #ffffff;
+        background-color: #fafafa;
         margin: auto;
         border-radius: 20px;
         width: 100%;
-        max-width: 783px;
+        max-width: 670px;
         max-height: 94vh;
         position: relative;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -61,25 +61,13 @@
     }
 
     .base-modal .modal-content .modal-box {
-        padding: 40px 120px 70px 120px;
+        padding: 40px 60px 55px 60px;
         overflow-y: scroll;
-    }
-
-    @media (max-width: 1550px) {
-        .base-modal .modal-content .modal-box {
-            padding: 40px 80px 60px 80px;
-        }
     }
 
     @media (max-width: 1370px) {
         .base-modal .modal-content .modal-box {
-            padding: 40px 60px 60px 60px;
-        }
-    }
-
-    @media (max-width: 1280px) {
-        .base-modal .modal-content .modal-box {
-            padding: 40px 40px;
+            padding: 40px 40px 40px 40px;
         }
     }
 
@@ -110,12 +98,12 @@
     }
 
     .base-modal .modal-content .img-content {
-        margin-bottom: 70px;
+        margin-bottom: 60px;
     }
 
     @media (max-width: 1550px) {
         .base-modal .modal-content .img-content {
-            margin-bottom: 60px;
+            margin-bottom: 55px;
         }
     }
 
@@ -161,47 +149,35 @@
     }
 
     .base-modal .modal-content .title {
-        font-size: 45px;
+        font-size: 32px;
         font-weight: 600;
-        line-height: 45px;
+        line-height: 32px;
         color: var(--accent-color);
         margin-bottom: 35px;
     }
 
     @media (max-width: 1550px) {
         .base-modal .modal-content .title {
-            font-size: 40px;
+            font-size: 30px;
             margin-bottom: 25px;
         }
     }
 
     @media (max-width: 1370px) {
         .base-modal .modal-content .title {
-            font-size: 38px;
-        }
-    }
-
-    @media (max-width: 1280px) {
-        .base-modal .modal-content .title {
-            font-size: 36px;
+            font-size: 28px;
         }
     }
 
     @media (max-width: 1199px) {
         .base-modal .modal-content .title {
-            font-size: 34px;
-        }
-    }
-
-    @media (max-width: 991px) {
-        .base-modal .modal-content .title {
-            font-size: 32px;
+            font-size: 26px;
         }
     }
 
     @media (max-width: 768px) {
         .base-modal .modal-content .title {
-            font-size: 30px;
+            font-size: 24px;
             margin-bottom: 15px;
         }
     }
@@ -243,6 +219,11 @@
         .base-modal .auth-form .form-group {
             margin-bottom: 15px;
         }
+    }
+
+
+    .base-modal .auth-form .form-group.resetpass {
+        margin-bottom: 10px;
     }
 
     .base-modal .auth-form .form-group>div {
@@ -652,6 +633,7 @@
 
 {{-- Login Form --}}
 <div id="LoginModal" class="base-modal">
+    <div class="base-modal__bg"></div>
     <div class="modal-content">
         <div class="modal-box">
             {{-- <span class="close-btn">&times;</span> --}}
@@ -678,7 +660,12 @@
                     </div>
                     {{-- <span class="error"></span> --}}
                 </div>
-                <div class="h-20"></div>
+                <div class="form-checkbox">
+                    <div>
+                        <input type="checkbox" class="form-input" id="remember_device" name="remember_device">
+                        <label for="remember_device"><span>Remember for this device</span></label>
+                    </div>
+                </div>
                 <div class="btn-grp">
                     <button type="submit" class="btn btn--green">Sign In</button>
                     <span><a href="javascript:;" class="openModalBtn openNextModal" data-modal="ResetPassModal">Forgot
@@ -702,7 +689,7 @@
             </div>
             <h2 class="title">Reset password</h2>
             <form action="{{ route('password.email') }}" method="POST" id="frm-forget-password" class="auth-form">
-                <div class="form-group">
+                <div class="form-group resetpass">
                     <label for="">Email Address<span>*</span></label>
                     <input type="email" class="form-input" name="email" placeholder="Enter your mail address"
                         value="">

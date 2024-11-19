@@ -2428,6 +2428,7 @@ p.text {
   justify-content: center;
   gap: 5px;
   margin: 17px auto 0;
+  z-index: 1;
 }
 
 .sponsor__tooltip .tooltiptext {
