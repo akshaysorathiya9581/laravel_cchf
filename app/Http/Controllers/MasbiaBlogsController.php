@@ -30,13 +30,15 @@ class MasbiaBlogsController extends Controller
 	public function getBlogs(Request $request)
 	{
 		$offset = $request->input('offset', 0);  // Default offset to 0
-		$perPage = $request->input('per_page', 1);  // Default to 10 per page
+		$perPage = 1;  // Default to 10 per page
 
 		// Start building the query
 		$query = Blogs::query();
 
 		// Get the blogs with pagination
-		$blogs = $query->orderBy('id', 'desc')
+		$blogs = $query
+			->where('publish_date', '<=' ,date('Y-m-d'))
+			->orderBy('publish_date', 'desc')
 			->skip($offset)
 			->take($perPage)
 			->get();

@@ -75,9 +75,7 @@ class BlogsController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title'  => 'required|string',
-            'author' => 'required|string',
             'video_link' => 'required|string',
-            'description' => 'required|string',
             'season_id' => 'required|numeric',
             'user_id' => 'required|numeric',
         ]);
@@ -95,16 +93,18 @@ class BlogsController extends Controller
             $slug = generateSlug($request->title);
 
             $blogId = $request->input('blogId') ?? null;
-            // $fileUrl = $request->hasFile('image') ? $this->fileUploadService->uploadFile($request, 'image', 'blogs'): $request->input('old_image');
+            $fileUrl = $request->hasFile('image') ? $this->fileUploadService->uploadFile($request, 'image', 'blogs'): $request->input('old_image');
             $fileURL = $fileUrl ?? " ";
-                $blog = Blogs::updateOrCreate(
+
+            $blog = Blogs::updateOrCreate(
                 ['id' => $blogId],
                 [
                     'title'  => $request->title,
                     'slug'  => $slug,
                     'video_link'  => $request->video_link,
                     'author'  => $request->author,
-                    // 'image' => $fileURL,
+                    'publish_date' => $request->publish_date,
+                    'image' => $fileURL,
                     'description' => $request->description,
                     'user_id' => $request->user_id,
                     'season_id' => $request->season_id
