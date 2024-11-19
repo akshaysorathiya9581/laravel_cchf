@@ -146,7 +146,7 @@
                                         <input type="text" placeholder="last Name" id="donor_last_name" value="" name="donor_last_name" class="form-control">
                                     </div>
                                     <div class="form-group full-width">
-                                        <input type="text" placeholder="Company" id="" value="" name="" class="form-control">
+                                        <input type="text" placeholder="Company" id="donor_company" value="" name="donor_company" class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <input type="email" placeholder="Email" id="donor_email" value="" name="donor_email" class="form-control">
