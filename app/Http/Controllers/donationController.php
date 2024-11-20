@@ -173,7 +173,11 @@ class DonationController extends Controller
         if ($details->recurring != 'oneTime' && $details->payment_gateway != 'offline') {
             $recurring_details = $this->getRecurringDetails($details, $TransactionDetails) ?? [];
         }
-         $TipsTotalAmount = DonationTips::where('donation_id', $id)->sum('amount') ?? 0;
+
+        $masbiaDetail = DonationMasbiaDetail::where('donation_id', $id)->first();
+
+        $TipsTotalAmount = DonationTips::where('donation_id', $id)->sum('amount') ?? 0;
+
         return view(
             'admin.donation.donationDetails',
             [
@@ -181,6 +185,7 @@ class DonationController extends Controller
                 'campaign' => $campaign,
                 'teams' => $teams,
                 'stp' => $stp,
+                'masbiaDetail' => $masbiaDetail,
                 'tips' => $DonationTips,
                 'recurring_details' => $recurring_details ?? [],
                 'TipsTotalAmount'=> $TipsTotalAmount
