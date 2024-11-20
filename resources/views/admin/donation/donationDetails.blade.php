@@ -393,7 +393,7 @@
                                                 <b>Recognition Price</b>
                                             </td>
                                             <td class="text-start">
-                                                {{ $masbiaDetail->is_recognition }}
+                                                {{ $masbiaDetail->recognition_price }}
                                             </td>
                                         </tr>
                                     @endif
