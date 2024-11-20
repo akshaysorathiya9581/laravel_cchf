@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('donation_masbia_details', function (Blueprint $table) {
-            $table->boolean('is_notification')->after('is_letter')->default(false);
+            $table->tinyInteger('is_notification')->after('is_letter')->default(0);
             $table->string('notification_mail')->after('is_notification')->nullable();
         });
     }

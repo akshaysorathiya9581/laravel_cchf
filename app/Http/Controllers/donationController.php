@@ -675,7 +675,6 @@ class DonationController extends Controller
             // donation_masbia_details
             $this->add_masbia_details($DonationsId, $request);
             
-
             if ($request->has('tips') && $request->input('tips') != '') {
                 $tips = json_decode($request->input('tips'), true);
                 foreach ($tips as $tip) {
@@ -759,12 +758,12 @@ class DonationController extends Controller
             $dataNew['donation_id'] = $donation_id;
             $dataNew['donation_location_id'] = $donation_masbia_details_data['donation_location_id'];
             $dataNew['allocate_donation_id'] = $donation_masbia_details_data['allocate_donation'];
-            $dataNew['dedication_comments'] = $donation_masbia_details_data['dedication_comments'];
+            $dataNew['dedication_comments'] = isset($donation_masbia_details_data['dedication_comments']) ? $donation_masbia_details_data['dedication_comments'] : NULL;
             $dataNew['letter_price'] = $request->letter_amount;
             $dataNew['recognition_price'] = $request->recognition_amount;
             $dataNew['is_recognition'] = $donation_masbia_details_data['recognition'];
             $dataNew['is_letter'] = $donation_masbia_details_data['letter'];
-            $dataNew['is_notification'] = isset($donation_masbia_details_data['is_notification']) ? $donation_masbia_details_data['is_notification'] : NULL;
+            $dataNew['is_notification'] = isset($donation_masbia_details_data['is_notification']) ? $donation_masbia_details_data['is_notification'] : 0;
             $dataNew['notification_mail'] = isset($donation_masbia_details_data['notification_mail']) ? $donation_masbia_details_data['notification_mail'] : NULL;
             
             $masbia_data = DonationMasbiaDetail::create($dataNew);

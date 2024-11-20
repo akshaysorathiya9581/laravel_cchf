@@ -57,10 +57,12 @@ $(document).ready(function () {
             //console.log('is_notification5555555555=',parseInt(value));
             if(key == 'is_notification' && parseInt(value)) {
                 $('#notification_'+localStorage.getItem('sustainer_option_id')).prop('checked', value).trigger('change');
+                add_filter_value('is_notification', value);
             }
 
             if(key == 'notification_mail') {
                 $('input[name="notification_mail"]').val(value);
+                add_filter_value('notification_mail', value);
             }
         }
      }, 300);
