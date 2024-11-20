@@ -17,58 +17,61 @@
                         </li>
                         <li class="breadcrumb-item text-muted">Blogs</li>
 
-                    </ul>
-                </div>
-                <div class="d-flex align-items-center gap-2 gap-lg-3">
-                    <div class="m-0">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#add_blog_modal" class="btn btn-sm btn-flex btn-info"> <i class="fas fa-user"></i> Add New Blog</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="kt_app_contentss" class="app-content flex-column-fluid">
-            <div id="kt_app_content_container" class="app-container container-xxl">
-                <div class="card card-flush">
-                    <div class="card-body pt-0">
-                        <table class="table align-middle table-row-dashed fs-6 gy-5" id="Prizes">
-                            <thead>
-                                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
-                                    <th class="min-w-100px"> ID</th>
-                                    <th class="min-w-100px">Title</th>
-                                    <th class="min-w-100px">Author</th>
-                                    <th class="min-w-100px">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody class="fw-semibold text-gray-600 coupons_body">
-                                @foreach ($blogs as $blog)
-                                <tr>
-                                    <td>{{ $blog->id }}</td>
-                                    <td>{{ $blog->title }}</td>
-                                    <td>{{ $blog->author }}</td>
-                                    <td class="text-end">
-                                        <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                            Actions
-                                            <i class="ki-duotone ki-down fs-5 ms-1"></i> </a>
-                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
-                                            <div class="menu-item px-3">
-                                                <a href="#" type="button" data-route="{{ route('admin.getSingleBlog') }}" data-id="{{ $blog->id }}" id="update_blog{{$blog->id}}" class="loadBlogModal menu-link px-3">
-                                                    Edit
-                                                </a>
-                                            </div>
-                                            <div class="menu-item px-3">
-                                                <a href="{{ route('admin.blog.destroy', ['blogId' => $blog->id]) }}"  class="menu-link px-3">Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+					</ul>
+				</div>
+				<div class="d-flex align-items-center gap-2 gap-lg-3">
+					<div class="m-0">
+						<button type="button" id="manageOg" class="btn btn-sm btn-flex btn-info">Manage OG 1</button>
+						<button type="button" data-bs-toggle="modal" data-bs-target="#add_blog_modal" class="btn btn-sm btn-flex btn-info"> <i class="fas fa-user"></i> Add New Blog</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="kt_app_contentss" class="app-content flex-column-fluid">
+			<div id="kt_app_content_container" class="app-container container-xxl">
+				<div class="card card-flush">
+					<div class="card-body pt-0">
+						<table class="table align-middle table-row-dashed fs-6 gy-5" id="Prizes">
+							<thead>
+								<tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+									<th class="min-w-100px">ID</th>
+									<th class="min-w-100px">Publish Date</th>
+									<th class="min-w-100px">Title</th>
+									<th class="min-w-100px">Author</th>
+									<th class="min-w-100px">Action</th>
+								</tr>
+							</thead>
+							<tbody class="fw-semibold text-gray-600 coupons_body">
+								@foreach ($blogs as $blog)
+								<tr>
+									<td>{{ $blog->id }}</td>
+									<td>{{ $blog->publish_date }}</td>
+									<td>{{ $blog->title }}</td>
+									<td>{{ $blog->author }}</td>
+									<td class="text-end">
+										<a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+											Actions
+											<i class="ki-duotone ki-down fs-5 ms-1"></i> </a>
+										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+											<div class="menu-item px-3">
+												<a href="#" type="button" data-route="{{ route('admin.getSingleBlog') }}" data-id="{{ $blog->id }}" id="update_blog{{$blog->id}}" class="loadBlogModal menu-link px-3">
+													Edit
+												</a>
+											</div>
+											<div class="menu-item px-3">
+												<a href="{{ route('admin.blog.destroy', ['blogId' => $blog->id]) }}"  class="menu-link px-3">Delete</a>
+											</div>
+										</div>
+									</td>
+								</tr>
+								@endforeach
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </div>
 </div>
