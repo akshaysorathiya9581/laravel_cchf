@@ -20,7 +20,8 @@ class MasbiaBlogsController extends Controller
 
 		return view('frontend.templates.masbia-template.blogs', [
 			'user' => $request->user(),
-			'mainMenu' => $mainMenu
+			'mainMenu' => $mainMenu,
+			'page' => 'blog'
 		]);
 	}
 
@@ -29,14 +30,15 @@ class MasbiaBlogsController extends Controller
 	 */
 	public function getBlogs(Request $request)
 	{
-		$offset = $request->input('offset', 0);  // Default offset to 0
-		$perPage = $request->input('per_page', 1);  // Default to 10 per page
+		$offset = $request->input('offset', 0);
+		$perPage = 10;
 
-		// Start building the query
 		$query = Blogs::query();
 
 		// Get the blogs with pagination
-		$blogs = $query->orderBy('id', 'desc')
+		$blogs = $query
+			->where('publish_date', '<=' ,date('Y-m-d'))
+			->orderBy('publish_date', 'desc')
 			->skip($offset)
 			->take($perPage)
 			->get();
@@ -55,15 +57,22 @@ class MasbiaBlogsController extends Controller
 	/**
 	 * Blog view page
 	 */
-	public function view(Request $request, $slug): View
+	public function view(Request $request, $id): View
 	{
 
 		$mainMenu = $this->getMainMenu();
-		$blog = Blogs::where('slug', $slug)->firstOrFail();  // Retrieves the blog by slug
+		$blog = Blogs::where('id', $id)->firstOrFail();  // Retrieves the blog by slug
+
+		$ogmeta = array(
+			'og_title' => $blog->title,
+			'og_description' => $blog->description,
+			'og_image' => $blog->image
+		);
 
 		return view('frontend.templates.masbia-template.blog-detail', [
 			'user' => $request->user(),
 			'mainMenu' => $mainMenu,
+			'ogcustommeta' => $ogmeta,
 			'blog' => $blog
 		]);
 	}
