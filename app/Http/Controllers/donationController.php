@@ -626,43 +626,45 @@ class DonationController extends Controller
             $visitorId = $visitorId->toString();
             $full_address =  $request->address . ' ' .  $request->state . ' ' . $request->zipcode . ' ' .  $request->country;
 
+            $donation_insert_data = [
+                'campaign_id' => $campaignId,
+                'team_id' => $request->teamId ?? 0,
+                // vistor id is in session
+                'visitor_id' => $visitorId,
+                'status' => $status,
+                'ticket_option_id' => $ticket_option_id,
+                'donor_first_name' => $request->donor_first_name,
+                'donor_last_name' => $request->donor_last_name,
+                'donor_email' => $request->donor_email,
+                'donor_phone' => $request->donor_phone,
+                'full_address' => $full_address,
+                'address' => $request->address,
+                'comments' => $request->comments,
+                'currency' => $request->currency,
+                'city' => $request->city,
+                'recurring' => $recurring,
+                'state' => $request->state,
+                'zipcode' => $request->zipcode,
+                'country' => $request->country,
+                'amount' => $donationAmount,
+                'is_anonymous' => $is_anonymous,
+                'entries' => $entries,
+                'usd_amount' => $donationAmount,
+                'donated_amount' => $donationAmount,
+                'payment_gateway' => $request->payment_gateway,
+                'paid_by' => 1,
+                'recurring_intervals' => $recurring_intervals,
+                'subscription_id' => $subscription_id,
+                'transaction_id' => $transactionId ?? '',
+                'season_id' => $request->season_id,
+                'friendly_key' =>  substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(10 / strlen($x)))), 1, 10),
+            ];
+            
+            if($request->has('donation_masbia_details') && $request->input('donation_masbia_details') != '' ) {
+                $donation_insert_data['donor_company'] = $request->donor_company;
+            }
 
-            $Donations = Donations::create(
-                [
-                    'campaign_id' => $campaignId,
-                    'team_id' => $request->teamId ?? 0,
-                    // vistor id is in session
-                    'visitor_id' => $visitorId,
-                    'status' => $status,
-                    'ticket_option_id' => $ticket_option_id,
-                    'donor_first_name' => $request->donor_first_name,
-                    'donor_last_name' => $request->donor_last_name,
-                    'donor_email' => $request->donor_email,
-                    'donor_phone' => $request->donor_phone,
-                    'full_address' => $full_address,
-                    'address' => $request->address,
-                    'comments' => $request->comments,
-                    'currency' => $request->currency,
-                    'city' => $request->city,
-                    'recurring' => $recurring,
-                    'state' => $request->state,
-                    'zipcode' => $request->zipcode,
-                    'country' => $request->country,
-                    'amount' => $donationAmount,
-                    'is_anonymous' => $is_anonymous,
-                    'entries' => $entries,
-                    'usd_amount' => $donationAmount,
-                    'donated_amount' => $donationAmount,
-                    'payment_gateway' => $request->payment_gateway,
-                    'paid_by' => 1,
-                    'recurring_intervals' => $recurring_intervals,
-                    'subscription_id' => $subscription_id,
-                    'transaction_id' => $transactionId ?? '',
-                    'season_id' => $request->season_id,
-                    'friendly_key' =>  substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(10 / strlen($x)))), 1, 10),
-
-                ]
-            );
+            $Donations = Donations::create($donation_insert_data);
 
             $DonationsId = $Donations->id;
             $DonationSTP = DonationSplitPot::create([
