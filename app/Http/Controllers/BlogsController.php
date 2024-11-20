@@ -37,49 +37,13 @@ class BlogsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Blogs $blogs)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Blogs $blogs)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, Blogs $blogs): JsonResponse
     {
         $validator = Validator::make($request->all(), [
             'title'  => 'required|string',
-            'author' => 'required|string',
-            'video_link' => 'required|string',
-            'description' => 'required|string',
             'season_id' => 'required|numeric',
-            'user_id' => 'required|numeric',
         ]);
         if ($validator->fails()) {
 
@@ -95,16 +59,16 @@ class BlogsController extends Controller
             $slug = generateSlug($request->title);
 
             $blogId = $request->input('blogId') ?? null;
-            // $fileUrl = $request->hasFile('image') ? $this->fileUploadService->uploadFile($request, 'image', 'blogs'): $request->input('old_image');
+            $fileUrl = $request->hasFile('image') ? $this->fileUploadService->uploadFile($request, 'image', 'blogs'): $request->input('old_image');
             $fileURL = $fileUrl ?? " ";
                 $blog = Blogs::updateOrCreate(
                 ['id' => $blogId],
                 [
                     'title'  => $request->title,
-                    'slug'  => $slug,
                     'video_link'  => $request->video_link,
+                    'publish_date'  => $request->publish_date,
                     'author'  => $request->author,
-                    // 'image' => $fileURL,
+                    'image' => $fileURL,
                     'description' => $request->description,
                     'user_id' => $request->user_id,
                     'season_id' => $request->season_id
@@ -132,6 +96,7 @@ class BlogsController extends Controller
             ]);
         }
     }
+
     public function getSingleBlog(Request $request){
         try {
             $blogId = $request->input('blogId');
@@ -144,6 +109,7 @@ class BlogsController extends Controller
             return response()->json(['error' => $e->getMessage()], 400);
         }
     }
+
     /**
      * Remove the specified resource from storage.
      */

@@ -16,7 +16,10 @@
                             <div class="mb-10 fv-row">
                                 <input type="hidden" id="EditblogId" name="blogId" value="">
                                 <label class="required form-label mb-3">Seasons</label>
-                                <select  id="Seasons" class="form-select form-select-solid form-select-sm" data-control="select2" data-placeholder="select season" data-hide-search="false" name="season_id">
+                                <select id="seasons" class="form-select form-select-solid form-select-sm" data-control="select2" data-placeholder="select season" data-hide-search="false" name="season_id">
+                                    @foreach ($seasons as $season)
+                                        <option value="{{ $season->id }}">{{ $season->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="fv-row row mb-10">
@@ -39,7 +42,7 @@
                                     <input name="author" class="form-control form-control-lg form-control-solid" id="editBlogauthor" />
                                 </div>
                                 <div class="col-md-6">
-                                    <label class="form-label required">Video Link</label>
+                                    <label class="form-label">Video Link</label>
                                     <input name="video_link" class="form-control form-control-lg form-control-solid" id="videoLink" />
                                 </div>
                             </div>

@@ -56,7 +56,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label required">Video Embed Link</label>
+                                    <label class="form-label">Video Embed Link</label>
                                     <input name="video_link" class="form-control form-control-lg form-control-solid"
                                         value="{{ old('video_link') }}" />
                                     @if ($errors->has('video_link'))

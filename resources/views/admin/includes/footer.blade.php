@@ -41,6 +41,7 @@
 {{-- <script src="{{ asset('assets/js/custom/utilities/modals/create-app.js') }}"></script> --}}
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+<script src="{{ asset('assets/frontend/js/jquery.toast.js') }}"></script>
 <script>
     let table = new DataTable('#donation_data_table');
     let referrers = new DataTable('#referrers_datatable');
@@ -173,6 +174,41 @@
     @endforeach
 @endif
 <script>
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        statusCode: {
+            401: function() {
+                // Session expired, redirect to login
+                window.location.href = '/admin/login';
+            }
+        },
+    });
+
+    function send_ajax_request(reqUrl, payload, method, fileUpload, type) {
+
+        if (!reqUrl) { return; }
+        payload = payload || {};
+        method = method || 'POST';
+        type = type || 'JSON';
+
+        var ajaxOption = {
+            type: method,
+            url: reqUrl,
+            dataType: type,
+            data: payload
+        };
+
+        (fileUpload) && ($.extend(ajaxOption, { processData: false, contentType: false }));
+        return $.ajax(ajaxOption);
+    }
+
+    function toastr_show(p_message, p_type = 'success') {
+        toastr.success(p_message);
+    }
+
     @if (Session::has('success'))
         toastr.success("{{ Session::get('success') }}");
     @endif

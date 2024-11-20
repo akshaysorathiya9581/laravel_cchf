@@ -54,7 +54,7 @@
 											<i class="ki-duotone ki-down fs-5 ms-1"></i> </a>
 										<div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
 											<div class="menu-item px-3">
-												<a href="#" type="button" data-route="{{ route('admin.getSingleBlog') }}" data-id="{{ $blog->id }}" id="update_blog{{$blog->id}}" class="loadBlogModal menu-link px-3">
+												<a href="#" type="button" data-route="{{ route('admin.getSingleBlog') }}" data-id="{{ $blog->id }}" id="update_blog{{$blog->id}}" class="edt-blog menu-link px-3">
 													Edit
 												</a>
 											</div>
@@ -84,24 +84,23 @@
 <script>
 
 	let blogEditor = false;
-	$('.loadBlogModal').on('click', function() {
-		// alert($(this).attr('id'))
-		let blogId = $(this).data('id')
-		let action = $(this).data('route')
-		let data = {
-			'blogId': blogId
-			, '_token': '{{ csrf_token() }}'
-		}
-		ajaxCall(
-			action, 'POST', data
-			, function(response) {
-				// let data =  JSON.stringify(response)
-				// console.log(data)
-				$('#editBlogtitle').val(response.blog.title)
-				$('#editBlogauthor').val(response.blog.author)
-				$('#EditblogId').val(response.blog.id)
-				$('#videoLink').val(response.blog.video_link)
-				$('#publishDate').val(response.blog.publish_date)
+
+	$(document).ready(function () {
+
+		$('.edt-blog').on('click', function() {
+
+			let blogId = $(this).data('id');
+			let reqUrl = $(this).data('route');
+
+			$.when(send_ajax_request(reqUrl, {'blogId': blogId})).done(function(response) {
+
+				var blogInfo = response.blog;
+				
+				$('#editBlogtitle').val(blogInfo.title)
+				$('#editBlogauthor').val(blogInfo.author)
+				$('#EditblogId').val(blogInfo.id)
+				$('#videoLink').val(blogInfo.video_link)
+				$('#publishDate').val(blogInfo.publish_date)
 
 				if (blogEditor) {
 					blogEditor.destruct();
@@ -109,80 +108,39 @@
 				blogEditor = new Jodit(".description_editor");
 				blogEditor.container.style.height = '1000px';
 
-				if(response.blog.description) {
-					blogEditor.value = response.blog.description;
+				if(blogInfo.description) {
+					blogEditor.value = blogInfo.description;
 				} else {
 					blogEditor.value = '';
 				}
 
-				$('#OldBlogImage').val(response.blog.image)
-				$('#bg_Blog_image').css('background-image', 'url(' + response.blog.image + ')')
-
-				let seasons = response.seasons;
-				let season_option = "";
-				let seasonsCount = seasons.length;
-				for (let i = 0; i < seasonsCount; i++) {
-					let selectedseason = "";
-					if (seasons[i].id == response.blog.season_id) {
-						selectedseason += "selected";
-					}
-					season_option += '<option ' + selectedseason + ' value="' + seasons[i].id + '" >' + seasons[i].name + '</option>';
-				}
-				$('#Seasons').append(season_option);
+				$('#OldBlogImage').val(blogInfo.image);
+				$('#seasons').select2().val(blogInfo.season_id).trigger('change');
+				$('#bg_Blog_image').css('background-image', 'url(' + blogInfo.image + ')')
 
 				$('#update_blog_modal').modal('show');
-			}
-			, function(xhr, status, error) {
-				console.error('Error:', error);
-
-				swal.fire({
-					text: 'Error:' + error
-					, icon: "error"
-					, buttonsStyling: false
-					, confirmButtonText: "Ok, got it!"
-					, customClass: {
-						confirmButton: "btn btn-light-primary"
-					}
-				});
-			}
-		);
-
-
-
-	})
-
-	$(document).ready(function () {
+			});
+		});
 
 		$('body').on('click','#manageOg',function(){
 
-			$.ajax({
-				url: '{{ route("admin.getoginfo") }}',
-				type: 'GET',
-				data: {'page':'blog'},
-				success: function (response) {
+			$.when(send_ajax_request('{{ route("admin.getoginfo") }}', {'page':'blog'}, 'GET')).done(function(response) {
 
-					$('#manage_og_modal').modal('show');
+				$('#manage_og_modal').modal('show');
 
-					if (response.success) {
-						var og_properties = response.data.og_properties;
+				if (response.success) {
+					var og_properties = response.data.og_properties;
 
-						if(og_properties) {
-							$('input[name="og_title"]').val(og_properties.og_title);
-							$('textarea[name="og_description"]').val(og_properties.og_description);
+					if(og_properties) {
+						$('input[name="og_title"]').val(og_properties.og_title);
+						$('textarea[name="og_description"]').val(og_properties.og_description);
 
-							$('input[name="old_og_image"]').val(og_properties.og_image)
-							$('#og_image').css('background-image', 'url(' + og_properties.og_image + ')')
-						}
+						$('input[name="old_og_image"]').val(og_properties.og_image)
+						$('#og_image').css('background-image', 'url(' + og_properties.og_image + ')')
 					}
 				}
-			});
+			})
 		})
-
-		$('input[name="title"]').on('keyup', function (e) {
-
-			var slug = generateSlug($(this).val().trim());
-			$('input[name="slug"]').val(slug)
-		});
 
 		$('#updateOgData').on('submit', function (e) {
 			e.preventDefault();
@@ -192,39 +150,27 @@
 			_this = $(this).closest('form');
 			_this.find('.btn-submit').prop('disabled',true).html('Processing...')
 
-			$.ajax({
-				url: $(this).attr('action'),
-				type: 'POST',
-				data: formData,
-				processData: false,
-				contentType: false,
-				success: function (response) {
+			$.when(send_ajax_request($(this).attr('action'), formData, 'POST', true)).done(function(response) {
 
-					toastr_show(response.message);
-					_this.find('.btn-submit').prop('disabled', false).html('Submit');
-					$('#manage_og_modal').modal('hide');
-				},
-				error: function (xhr, status, error) {
+				toastr_show(response.message);
+				_this.find('.btn-submit').prop('disabled', false).html('Submit');
+				$('#manage_og_modal').modal('hide');
 
-					if (xhr.status === 422) {
+			}).fail(function(xhr) {
 
-						var errors = xhr.responseJSON.errors;
+				if (xhr.status == 422) {
+					
+					var errors = xhr.responseJSON.errors;
 
-						$('.err-msg').remove();  // Remove existing error messages
-						$.each(errors, function (key, value) {
-							var errorElement = _this.find('input[name=' + key + '], select[name=' + key + '], textarea[name=' + key + ']');
-							errorElement.after('<div class="err-msg text-danger">' + value[0] + '</div>'); // Display the first error message
-						});
-						$('.err-blog').closest('div').find('.form-control').focus();
-					}
-
-					_this.find('.btn-submit').prop('disabled', false).html('Submit');
-				},
-				always: function () {
+					$('.err-msg').remove();  // Remove existing error messages
+					$.each(errors, function (key, value) {
+						var errorElement = _this.find('input[name=' + key + '], select[name=' + key + '], textarea[name=' + key + ']');
+						errorElement.after('<div class="err-msg text-danger">' + value[0] + '</div>'); // Display the first error message
+					});
+					$('.err-blog').closest('div').find('.form-control').focus();
 					_this.find('.btn-submit').prop('disabled', false).html('Submit');
 				}
 			});
-
 		});
 
 		$('#addBlogForm, #UpdateBlogForm').on('submit', function (e) {
@@ -234,13 +180,9 @@
 			_this = $(this).closest('form');
 			_this.find('.btn-submit').prop('disabled',true).html('Processing...')
 
-			$.ajax({
-				url: $(this).attr('action'),
-				type: 'POST',
-				data: formData,
-				processData: false,
-				contentType: false,
-				success: function (response) {
+			$.when(send_ajax_request($(this).attr('action'), formData, 'POST', true)).done(function(response) {
+
+				if (response.success) {
 
 					if(_this.attr('id') == 'addBlogForm') {
 						toastr_show('Blog created successfully !');
@@ -248,39 +190,27 @@
 						toastr_show('Blog updated successfully !');
 					}
 
-					if (response.success) {
-						setTimeout(() => {
-							location.reload();
-						}, 1000);
-					} else {
-						$.each(response.errors, function (key, value) {
-							var errorElement =  _this.find('input[name=' + key + '], select[name=' + key + '], textarea[name=' + key + ']');
-							errorElement.next('.text-danger').remove();  // Remove existing error messages
-							errorElement.after('<div class="err-blog text-danger">' + value + '</div>');
-						});
-						$('.err-blog').closest('div').find('.form-control').focus();
-					}
-					_this.find('.btn-submit').prop('disabled',false).html('Submit')
-				},
-				error: function (xhr, status, error) {
-					_this.find('.btn-submit').prop('disabled',false).html('Submit')
-				},
-				always: function() {
-					_this.find('.btn-submit').prop('disabled',false).html('Submit')
+					setTimeout(() => {
+						location.reload();
+					}, 1000);
+
+				} else {
+
+					$.each(response.errors, function (key, value) {
+						var errorElement =  _this.find('input[name=' + key + '], select[name=' + key + '], textarea[name=' + key + ']');
+						errorElement.next('.text-danger').remove();  // Remove existing error messages
+						errorElement.after('<div class="err-blog text-danger">' + value + '</div>');
+					});
+					$('.err-blog').closest('div').find('.form-control').focus();
 				}
+				_this.find('.btn-submit').prop('disabled',false).html('Submit')
+
+			}).fail(function(xhr) {
+
+				_this.find('.btn-submit').prop('disabled',false).html('Submit')
 			});
 		});
 	});
-
-	function generateSlug(title) {
-		// Convert to lowercase, remove special characters, and replace spaces with hyphens
-		var slug = title
-			.toLowerCase() // Convert to lowercase
-			.replace(/[^a-z0-9]+/gi, '-') // Replace non-alphanumeric characters with hyphens
-			.replace(/^-+|-+$/g, ''); // Remove leading and trailing hyphens
-
-		return slug;
-	}
 
 </script>
 

@@ -15,7 +15,7 @@
                     <div class="card-body">
                         <div class="w-100">
 
-                            <div class="fv-row row mb-10">
+                            <div class="fv-row row mb-10 d-none">
                                 <div class="col-md-12">
                                     <input type="hidden" name="campaign_id" value="17">
                                     <label class="form-label required">Page</label>
