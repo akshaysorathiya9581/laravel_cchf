@@ -14,7 +14,7 @@ $(document).ready(function () {
         for (let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i);
             let value = localStorage.getItem(key);
-            console.log(`<p>Key: ${key}, Value: ${value}</p>`);
+            // console.log(`<p>Key: ${key}, Value: ${value}</p>`);
             if(value == '') { return }
 
             if(key == 'sustainer_option_id') {
@@ -53,8 +53,17 @@ $(document).ready(function () {
                 $('#customAmount').val(value);
                 $("#customAmount").trigger("blur");
             }
+
+            //console.log('is_notification5555555555=',parseInt(value));
+            if(key == 'is_notification' && parseInt(value)) {
+                $('#notification_'+localStorage.getItem('sustainer_option_id')).prop('checked', value).trigger('change');
+            }
+
+            if(key == 'notification_mail') {
+                $('input[name="notification_mail"]').val(value);
+            }
         }
-     }, 200);
+     }, 300);
 
     $(document).on('click', '.option-card', function(event) {
         var _this =  $(this);
@@ -336,3 +345,21 @@ function renderTicketPages() {
         // } 
     }
 }
+
+$('body').on('click','.btn-receive-notification', function(e) {
+    var _this = $(this);
+    var is_notification = +_this.closest('.tab-content').find('input[type="checkbox"]').is(':checked');
+    var notification_mail = _this.closest('.tab-content').find('input[name="notification_mail"]').val();
+    console.log('is_notification=',is_notification);
+    console.log('notification_mail=',notification_mail);
+    add_filter_value('is_notification', is_notification);
+    add_filter_value('notification_mail', notification_mail);
+
+});
+
+$('body').on('click','.goto-donate', function(e) {
+    e.preventDefault();
+    $('html, body').animate({
+        scrollTop: $('#sc-donate').offset().top
+    }, 100);
+});

@@ -762,6 +762,8 @@ class DonationController extends Controller
             $dataNew['recognition_price'] = $request->recognition_amount;
             $dataNew['is_recognition'] = $donation_masbia_details_data['recognition'];
             $dataNew['is_letter'] = $donation_masbia_details_data['letter'];
+            $dataNew['is_notification'] = $donation_masbia_details_data['is_notification'];
+            $dataNew['notification_mail'] = $donation_masbia_details_data['notification_mail'];
             
             $masbia_data = DonationMasbiaDetail::create($dataNew);
             // $request->recurring = get_sustainer_options_list($donation_masbia_details_data['sustainer_option_id']);
