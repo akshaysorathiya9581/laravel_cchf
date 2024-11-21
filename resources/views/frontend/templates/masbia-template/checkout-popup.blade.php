@@ -272,19 +272,6 @@
                                             </label>
                                         </div>
                                     @endif --}}
-                                    {{-- <div class="rec_btns" style="display:none;">
-                                        <div class="rec_options mt-2">
-                                            <p class="d-inline"> Split <span id="rec_amount_full">$518</span>
-                                                over
-                                                <input type="number" value="0" class="custom-select d-inline p-1" id="custom_recurring_cycle" name="recurring_intervals" onkeypress="validateNum(event)"> /
-                                                <select name="recurring" id="recurring_interval" class="recurring-interval" fdprocessedid="dgamao">
-                                                    <option value="Monthly">Months</option>
-                                                    <option value="Weekly">Weeks</option>
-                                                    <option value="Daily">Days</option>
-                                                </select>
-                                            </p>
-                                        </div>
-                                    </div> --}}
                                     <div class="grecaptcha-badge" data-style="bottomright">
                                         <div class="grecaptcha-logo"><iframe title="reCAPTCHA" width="256" height="60" role="presentation" name="a-dlpsdpl12kb" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LfF4ikpAAAAAHlmS9WnkN5udzau-S0S7ZhA9hSJ&amp;co=aHR0cHM6Ly8xMDBrZ29yYWwub3JnOjQ0Mw..&amp;hl=en&amp;v=rKbTvxTxwcw5VqzrtN-ICwWt&amp;size=invisible&amp;cb=fp188cexjcq0"></iframe>
                                         </div>
@@ -304,6 +291,19 @@
                                         <div class="custom-checkbox recurring-option">
                                             <input type="checkbox" class="form-check-input" id="don_recurring" name="don_recurring" value="1" value="1">
                                             <label class="form-check-label" for="don_recurring">Pay in Installments</label>
+                                        </div>
+                                        <div class="rec_btns" style="display:none">
+                                            <div class="rec_options mt-2">
+                                                <p class="d-inline"> Split <span id="rec_amount_full">$0</span>
+                                                    over
+                                                    <input type="number" value="0" class="custom-select d-inline p-1" id="custom_recurring_cycle" name="recurring_intervals" onkeypress="validateNum(event)"> /
+                                                    <select name="recurring" class="recurring-interval" fdprocessedid="dgamao">
+                                                        @foreach (get_sustainer_options_list() as $key => $value)
+                                                            <option value="{{ $value['id'] }}">{{ ($value['text'] == 'oneTime') ? 'One Time' : $value['text'] }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </p>
+                                            </div>
                                         </div>
                                     @endif
 

@@ -80,7 +80,7 @@ $(document).ready(function () {
     $(document).on('click', '.btn-filter', function(event) {
         var _this = $(this);
         add_filter_value(_this.attr('data-name'), _this.attr('data-id'));
-        $('#don_recurring').prop('checked', (_this.attr('data-id') != '1') ? true : false);
+        $('#don_recurring').prop('checked', (_this.attr('data-id') != '1') ? true : false).trigger('change');
     });
 
     $(document).on('click', '.donation_location', function(event) {
@@ -208,6 +208,31 @@ $(document).ready(function () {
             }
         }
     });
+
+    // Pay in Installments
+    $(document).on('change', '#don_recurring', function(event) {
+        $('.rec_btns').hide();
+        if($(this).is(':checked')) {
+            $('.rec_btns').show();
+        }    
+    });
+
+    $('body').on('click','.btn-receive-notification', function(e) {
+        var _this = $(this);
+        var is_notification = +_this.closest('.tab-content').find('input[type="checkbox"]').is(':checked');
+        var notification_mail = _this.closest('.tab-content').find('input[name="notification_mail"]').val();
+        add_filter_value('is_notification', is_notification);
+        add_filter_value('notification_mail', notification_mail);
+    
+    });
+    
+    $('body').on('click','.goto-donate', function(e) {
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop: $('#sc-donate').offset().top
+        }, 100);
+    });
+
     renderTicketPages();
 });
 
@@ -266,6 +291,7 @@ function caculate_final_donate_amount() {
 
     $('#donate_amount').val(final_donate_amount);
     $('#usd_amount').val(final_donate_amount);
+    $('#rec_amount_full').text('$'+final_donate_amount);
     $(".js-cart-summary-amount").html(
         `${siteContent.cart.ticketsTitle} <span>${formattedAmount}</span>`
     );
@@ -347,21 +373,3 @@ function renderTicketPages() {
         // } 
     }
 }
-
-$('body').on('click','.btn-receive-notification', function(e) {
-    var _this = $(this);
-    var is_notification = +_this.closest('.tab-content').find('input[type="checkbox"]').is(':checked');
-    var notification_mail = _this.closest('.tab-content').find('input[name="notification_mail"]').val();
-    console.log('is_notification=',is_notification);
-    console.log('notification_mail=',notification_mail);
-    add_filter_value('is_notification', is_notification);
-    add_filter_value('notification_mail', notification_mail);
-
-});
-
-$('body').on('click','.goto-donate', function(e) {
-    e.preventDefault();
-    $('html, body').animate({
-        scrollTop: $('#sc-donate').offset().top
-    }, 100);
-});

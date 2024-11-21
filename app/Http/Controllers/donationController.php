@@ -520,6 +520,7 @@ class DonationController extends Controller
                 $recurring_intervals = 1;
             } else {
                 $recurring = $request->recurring;
+                $recurring = is_numeric($recurring) ? get_sustainer_options_list($recurring): $recurring;
                 $recurring_intervals = $request->recurring_intervals;
             }
 
