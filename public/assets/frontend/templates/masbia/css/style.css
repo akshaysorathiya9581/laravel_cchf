@@ -5678,3 +5678,39 @@ option {
   }
 }
 
+/*  */
+.rec_options p {
+  font-size: 15px;
+}
+
+.rec_options {
+  border: 1px solid #ccc;
+  padding: 5px 10px;
+  background-color: #ddd;
+  border-radius: 100px;
+}
+
+.rec_options .custom-select {
+  width: 50px;
+  min-width: 50px;
+  border: 1px solid #888;
+  height: 30px;
+  border-radius: 100px;
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  appearance: auto;
+  padding: 0 10px !important;
+  background-color: #ffffff;
+}
+
+.rec_options .recurring-interval {
+  border: 1px solid #888;
+  max-width: 200px;
+  height: 30px;
+  padding: 0 5px;
+  border-radius: 100px;
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  appearance: auto;
+  background-color: #ffffff;
+}
