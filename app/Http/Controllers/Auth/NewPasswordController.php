@@ -15,11 +15,11 @@ use Illuminate\View\View;
 class NewPasswordController extends Controller
 {
     /**
-     * Display the password reset view.
+     * Change Password
      */
-    public function create(Request $request): View
+    public function create(Request $request)
     {
-        return view('auth.reset-password', ['request' => $request]);
+        return redirect()->route('donation.index')->with('passwordtoken', $request->route('token'));
     }
 
     /**
@@ -27,7 +27,7 @@ class NewPasswordController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $request->validate([
             'token' => ['required'],
@@ -53,9 +53,19 @@ class NewPasswordController extends Controller
         // If the password was successfully reset, we will redirect the user back to
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
-        return $status == Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+
+        // Return JSON response based on the status
+        if ($status == Password::PASSWORD_RESET) {
+            return response()->json([
+                'status' => true,
+                'message' => __('Your password has been reset successfully.'),
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => __('There was an error resetting your password.'),
+                'errors' => __('The provided email does not exist or is invalid.')
+            ]);
+        }
     }
 }

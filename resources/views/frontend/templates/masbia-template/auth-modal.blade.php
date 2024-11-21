@@ -705,60 +705,70 @@
     </div>
 </div>
 
-{{-- Reset Password New Form --}}
-<div id="ResetPassNewModal" class="base-modal">
-    <div class="modal-content">
-        <div class="modal-box">
-            {{-- <span class="close-btn">&times;</span> --}}
-            <div class="img-content">
-                <img src="{{ asset('assets/frontend/templates/masbia/images/authLogo.svg') }}" width="144"
-                    height="103" alt="Img">
+@if(session('passwordtoken'))
+
+    {{-- Reset Password New Form --}}
+    <div id="ResetPassNewModal" class="base-modal">
+        <div class="modal-content">
+            <div class="modal-box">
+                {{-- <span class="close-btn">&times;</span> --}}
+                <div class="img-content">
+                    <img src="{{ asset('assets/frontend/templates/masbia/images/authLogo.svg') }}" width="144"
+                        height="103" alt="Img">
+                </div>
+                <h2 class="title">Reset password</h2>
+                <form action="{{ route('password.store') }}" id="frm-change-password" method="POST" class="auth-form">
+
+                    <input type="hidden" name="token" value="{{ session('passwordtoken') }}">
+                    <div class="form-group">
+                        <label for="">Enter code</label>
+                        <div>
+                            <input type="text" name="email" class="form-input" placeholder="Enter code">
+                            <span class="passProtect"><img
+                                    src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}"
+                                    width="24" height="20" alt="Password Protect"></span>
+                        </div>
+                        {{-- <span class="error"></span> --}}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Enter your new Password</label>
+                        <div>
+                            <input type="password" class="form-input" name="password" placeholder="Enter your new Password">
+                            <span class="passProtect"><img
+                                    src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}"
+                                    width="24" height="20" alt="Password Protect"></span>
+                        </div>
+                        {{-- <span class="error"></span> --}}
+                    </div>
+                    <div class="form-group">
+                        <label for="">Retype your Password</label>
+                        <div>
+                            <input type="password" name="password_confirmation" class="form-input" placeholder="Retype your Password">
+                            <span class="passProtect"><img
+                                    src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}"
+                                    width="24" height="20" alt="Password Protect"></span>
+                        </div>
+                        {{-- <span class="error"></span> --}}
+                    </div>
+                    <div class="h-10"></div>
+                    <div class="btn-grp">
+                        <button type="submit" class="btn btn--green">Reset Password</button>
+                        <span><a href="javascript:;" class="openModalBtn openNextModal" data-modal="LoginModal">Back to
+                                Login</a></span>
+                    </div>
+                </form>
             </div>
-            <h2 class="title">Reset password</h2>
-            <form action="{{ route('password.store') }}" method="POST" class="auth-form">
-                <div class="form-group">
-                    <label for="">Enter code</label>
-                    <div>
-                        <input type="text" class="form-input" placeholder="Enter code">
-                        <span class="passProtect"><img
-                                src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}"
-                                width="24" height="20" alt="Password Protect"></span>
-                    </div>
-                    {{-- <span class="error"></span> --}}
-                </div>
-                <div class="form-group">
-                    <label for="">Enter your new Password</label>
-                    <div>
-                        <input type="password" class="form-input" placeholder="Enter your new Password">
-                        <span class="passProtect"><img
-                                src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}"
-                                width="24" height="20" alt="Password Protect"></span>
-                    </div>
-                    {{-- <span class="error"></span> --}}
-                </div>
-                <div class="form-group">
-                    <label for="">Retype your Password</label>
-                    <div>
-                        <input type="password" class="form-input" placeholder="Retype your Password">
-                        <span class="passProtect"><img
-                                src="{{ asset('assets/frontend/templates/masbia/images/icons/eye.svg') }}"
-                                width="24" height="20" alt="Password Protect"></span>
-                    </div>
-                    {{-- <span class="error"></span> --}}
-                </div>
-                <div class="h-10"></div>
-                <div class="btn-grp">
-                    <button type="submit" class="btn btn--green">Reset Password</button>
-                    <span><a href="javascript:;" class="openModalBtn openNextModal" data-modal="LoginModal">Back to
-                            Login</a></span>
-                </div>
-            </form>
         </div>
     </div>
-</div>
+@endif
 
 <script>
     $(document).ready(function() {
+
+        if($('#ResetPassNewModal').length) {
+            $('#ResetPassNewModal').fadeIn().css("display", "flex");
+        }
+
         $('.openModalBtn').click(function() {
             $('.error-msg').remove();
             var modalId = $(this).data('modal');
@@ -879,6 +889,45 @@
             });
         });
 
+
+        // change password form submit
+        $(document).on('submit', '#frm-change-password', function(e) {
+            e.preventDefault();
+            var _this = $(this);
+            var url = $(this).attr("action");
+            var formData = $(this).serializeArray();
+
+            blockUI_page(_this.closest('.modal-content'), true);
+            send_ajax_request(url, formData).done(function(data) {
+
+                blockUI_page(_this.closest('.modal-content'), false);
+
+                if (data.status) {
+                    toastr_show(data.message, 'success');
+                    $('#ResetPassNewModal').fadeOut();
+                    $('body').css('overflow', 'auto');
+                    location.reload();
+                } else {
+                    toastr_show(data.errors, 'error');
+                }
+
+            }).fail(function(xhr, textStatus, errorThrown) {
+
+                blockUI_page(_this.closest('.modal-content'), false);
+
+                if (xhr.status === 422) {
+
+                    var errors = xhr.responseJSON.errors;
+					$('.err-resetpass').remove();  // Remove existing error messages
+					$.each(errors, function (key, value) {
+						var errorElement = _this.find('input[name=' + key + ']');
+						errorElement.after('<div class="err-resetpass text-danger">' + value[0] + '</div>'); // Display the first error message
+					});
+                } else {
+                    toastr_show("An error occurred. Please try again later.", 'error');
+                }
+            });
+        });
 
     });
 </script>
