@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Models\Seasons;
 
 class AdminLoginRequest extends FormRequest
 {
@@ -47,7 +48,7 @@ class AdminLoginRequest extends FormRequest
             $seasonId = $latestSeason ? $latestSeason->id : null;
     
             if ($seasonId) {
-                $request->session()->put('season_id', $seasonId);
+                request()->session()->put('season_id', $seasonId);
             }
             
             throw ValidationException::withMessages([
