@@ -81,6 +81,7 @@ $(document).ready(function () {
         var _this = $(this);
         add_filter_value(_this.attr('data-name'), _this.attr('data-id'));
         $('#don_recurring').prop('checked', (_this.attr('data-id') != '1') ? true : false).trigger('change');
+        $('.recurring-interval').val(_this.attr('data-id')).trigger('change');
     });
 
     $(document).on('click', '.donation_location', function(event) {

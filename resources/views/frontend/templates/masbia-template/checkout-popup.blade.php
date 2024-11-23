@@ -294,15 +294,13 @@
                                         </div>
                                         <div class="rec_btns" style="display:none">
                                             <div class="rec_options mt-2">
-                                                <p class="d-inline"> Split <span id="rec_amount_full">$0</span>
-                                                    over
-                                                    <input type="number" value="0" class="custom-select d-inline p-1" id="custom_recurring_cycle" name="recurring_intervals" onkeypress="validateNum(event)"> /
-                                                    <select name="recurring" class="recurring-interval" fdprocessedid="dgamao">
-                                                        @foreach (get_sustainer_options_list() as $key => $value)
-                                                            <option value="{{ $value['id'] }}">{{ ($value['text'] == 'oneTime') ? 'One Time' : $value['text'] }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </p>
+                                                Split <span id="rec_amount_full">$0 </span>over 
+                                                <input type="number" value="0" class="custom-select d-inline p-1" id="custom_recurring_cycle" name="recurring_intervals" onkeypress="validateNum(event)"> /
+                                                <select name="recurring" class="recurring-interval readonly" fdprocessedid="dgamao">
+                                                    @foreach (get_sustainer_options_list() as $key => $value)
+                                                        <option value="{{ $value['id'] }}">{{ ($value['text'] == 'oneTime') ? 'One Time' : $value['text'] }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     @endif
