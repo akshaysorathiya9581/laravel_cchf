@@ -40,6 +40,7 @@ use App\Http\Controllers\SustainerOptionsController;
 use App\Http\Controllers\AllocateDonationController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Admin\OpenGraphController;
+use App\Http\Controllers\Admin\EmailTemplatesController;
 
 // Route::get('/', function () {
 //     return view('frontend/home');
@@ -219,6 +220,9 @@ Route::middleware('auth:admin', 'setDatabase')->group(function () {
     Route::post('/admin/getSingleTipData', [TipsController::class, 'getSingleTipData'])->name('admin.getSingleTipData');
     Route::post('/admin/updateTip', [TipsController::class, 'update'])->name('admin.updateTip');
 
+    //_EMAIL_TEMPLATE
+    Route::get('/admin/email-template', [EmailTemplatesController::class, 'index'])->name('admin.emailtemplate');
+    Route::post('/admin/save-template', [EmailTemplatesController::class, 'update'])->name('emailtemplate.save');
 
     /*
         |___DELETE_METHOD_
