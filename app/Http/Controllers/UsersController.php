@@ -118,8 +118,7 @@ class UsersController extends Controller
 
     public function changeSendMail(Request $request){
         DB::beginTransaction();
-
-
+        
         try {
             $userId = $request->input('userId');
             $User = User::findOrFail($userId);
