@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\Seasons;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,10 +27,9 @@ class AppServiceProvider extends ServiceProvider
         // $seasons = Seasons::all();
         //     View::share('seasons', $seasons);
 
+        Schema::defaultStringLength(191);
 
         Blade::directive('is_admin', function ($role) {
-
-
             return "<?php if(auth()->check() && auth()->user()->role == $role): ?>";
         });
 

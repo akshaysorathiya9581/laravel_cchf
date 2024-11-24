@@ -6,6 +6,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\RoleMiddleware;
 use  App\Http\Middleware\SetDatabaseConnection;
+use  App\Http\Middleware\AdminSessionMiddleware;
 use Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful;
 
 
@@ -25,6 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => RoleMiddleware::class,
             'isSetOrganization' => checkOrganizationId::class,
             'setDatabase' => SetDatabaseConnection::class,
+            'admin.session' => AdminSessionMiddleware::class,
             'auth:sanctum' => \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'visitor' => \App\Http\Middleware\TrackVisitor::class,
         ]);
