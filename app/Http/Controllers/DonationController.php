@@ -761,6 +761,7 @@ class DonationController extends Controller
             }
 
             $dataNew = [];
+            
             $dataNew['donation_id'] = $donation_id;
             $dataNew['donation_location_id'] = isset($donation_masbia_details_data['donation_locationid']) ? $donation_masbia_details_data['donation_location_id'] : NULL;
             $dataNew['allocate_donation_id'] = isset($donation_masbia_details_data['allocate_donation']) ? $donation_masbia_details_data['allocate_donation'] : NULL;
