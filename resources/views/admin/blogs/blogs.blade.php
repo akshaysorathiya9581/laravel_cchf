@@ -122,57 +122,6 @@
 			});
 		});
 
-		$('body').on('click','#manageOg',function(){
-
-			$.when(send_ajax_request('{{ route("admin.getoginfo") }}', {'page':'blog'}, 'GET')).done(function(response) {
-
-				$('#manage_og_modal').modal('show');
-
-				if (response.success) {
-					var og_properties = response.data.og_properties;
-
-					if(og_properties) {
-						$('input[name="og_title"]').val(og_properties.og_title);
-						$('textarea[name="og_description"]').val(og_properties.og_description);
-
-						$('input[name="old_og_image"]').val(og_properties.og_image)
-						$('#og_image').css('background-image', 'url(' + og_properties.og_image + ')')
-					}
-				}
-			})
-		})
-
-		$('#updateOgData').on('submit', function (e) {
-			e.preventDefault();
-
-			var formData = new FormData(this);
-			// formData.append('page','blog');
-			_this = $(this).closest('form');
-			_this.find('.btn-submit').prop('disabled',true).html('Processing...')
-
-			$.when(send_ajax_request($(this).attr('action'), formData, 'POST', true)).done(function(response) {
-
-				toastr_show(response.message);
-				_this.find('.btn-submit').prop('disabled', false).html('Submit');
-				$('#manage_og_modal').modal('hide');
-
-			}).fail(function(xhr) {
-
-				if (xhr.status == 422) {
-					
-					var errors = xhr.responseJSON.errors;
-
-					$('.err-msg').remove();  // Remove existing error messages
-					$.each(errors, function (key, value) {
-						var errorElement = _this.find('input[name=' + key + '], select[name=' + key + '], textarea[name=' + key + ']');
-						errorElement.after('<div class="err-msg text-danger">' + value[0] + '</div>'); // Display the first error message
-					});
-					$('.err-blog').closest('div').find('.form-control').focus();
-					_this.find('.btn-submit').prop('disabled', false).html('Submit');
-				}
-			});
-		});
-
 		$('#addBlogForm, #UpdateBlogForm').on('submit', function (e) {
 			e.preventDefault();
 

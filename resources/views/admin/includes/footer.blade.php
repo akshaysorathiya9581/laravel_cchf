@@ -209,6 +209,15 @@
         toastr.success(p_message);
     }
 
+    function toggleButton(button, enable, text = 'Processing...') {
+        $(button).prop('disabled', enable).html(text);
+        if(enable) {
+            $('#loadingMessage').show();
+        } else {
+            $('#loadingMessage').fadeOut('slow');
+        }
+    }
+
     @if (Session::has('success'))
         toastr.success("{{ Session::get('success') }}");
     @endif

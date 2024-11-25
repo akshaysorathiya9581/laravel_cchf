@@ -26,7 +26,9 @@
             </a>
         </li>
         @if ($pageNo > 4)
-            <li class="custom-pagination__item disabled"><span>...</span></li>
+            <li class="custom-pagination__item disabled">
+                <a href="javascript:void(0)" aria-label="">.....</a>
+            </li>
         @endif
     @endif
 

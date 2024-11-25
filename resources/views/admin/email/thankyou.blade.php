@@ -28,20 +28,12 @@
 		<div id="kt_app_contentss" class="app-content flex-column-fluid">
 			<div id="kt_app_content_container" class="app-container container-xxl">
 				<div class="card card-flush">
-
-					<div class="card-header">
-						<div class="card-toolbar m-0">
-							<ul class="nav nav-tabs nav-line-tabs nav-stretch fs-6 border-0 fw-bold" role="tablist">
-								<li class="nav-item" role="presentation">
-									<a class="nav-link justify-content-center active text-active-gray-800">Thank You</a>
-								</li>
-								<li class="nav-item" role="presentation">
-									<a class="nav-link justify-content-center text-active-gray-800">Admin Email</a>
-								</li>
-								<li class="nav-item" role="presentation">
-									<a class="nav-link justify-content-center text-active-gray-800">User Email</a>
-								</li>
-							</ul>
+					
+					<div class="card-header p-4">
+						<div class="d-flex w-100 row">
+							<div class="col-md-6">
+								<h3> Email Template </h3>
+							</div>
 						</div>
 					</div>
 
@@ -51,6 +43,15 @@
 
 							<input type="hidden" value="thankyou" name="page">
 							<input type="hidden" value="{{ $campaign_id }}" name="campaign_id">
+
+							<div class="fv-row row mb-10">
+								<div class="col-md-12">
+									<label class="form-label required">Email Template</label>
+									<select name="mail_page" class="form-control form-control-lg form-control-solid">
+										<option value="thankyou">Thank You</option>
+									</select>
+								</div>
+							</div>
 
 							<div class="fv-row row mb-10">
 								<div class="col-md-12">
@@ -68,13 +69,13 @@
 
 							<div class="mt-4 mb-10">
 
-								<label class="form-label required">Variable</label>
+								<label class="form-label">Variables</label>
 
 								<div style="cursor: pointer">
-									<span data-col="name" class="badge db-column badge-secondary">Name</span>
-									<span data-col="email" class="badge db-column badge-secondary">Email</span>
-									<span data-col="amount" class="badge db-column badge-secondary">Donation Amount</span>
-									<span data-col="currentdate" class="badge db-column badge-secondary">Current Date</span>
+									<span data-col="NAME" class="badge db-column badge-secondary">DONER NAME</span>
+									<span data-col="EMAIL" class="badge db-column badge-secondary">EMAIL</span>
+									<span data-col="CAMPAIGN" class="badge db-column badge-secondary">CAMPAIGN</span>
+									<span data-col="AMOUNT" class="badge db-column badge-secondary">DONATED AMOUNT</span>
 								</div>
 							</div>
 
@@ -110,6 +111,25 @@
 					console.error('There was a problem initializing the editor:', error);
 				});
 
+			// Fetch email setting on change of name="mail_page"
+			$('body').on('change','select[name="mail_page"]',function (e) { 
+				e.preventDefault();
+				var page = $(this).val();
+
+				toggleButton($('.btn-submit'),true);
+				$('.err-msg').remove();
+				$.when(send_ajax_request("{{ route('email.get-settings') }}", { page:page, campaign_id:$('input[name="campaign_id"]').val() }, 'GET')).done(function(response) {
+
+					toggleButton($('.btn-submit'),false,'SUBMIT');
+					if(response.data) {
+						$('input[name="mail_subject"]').val(response.data.subject);
+						editorInstance.setData( response.data.message );
+					}
+				});
+			});
+
+			$('select[name="mail_page"]').change()
+
 			// Handle click event on db-column elements
 
 			$('body').on('click', '.db-column', function () {
@@ -135,14 +155,14 @@
 
 				var formData = new FormData(this);
 				_this = $(this).closest('form');
-				_this.find('.btn-submit').prop('disabled',true).html('Processing...')
+				toggleButton(_this.find('.btn-submit'),true);
 
 				$('.err-msg').remove();  // Remove existing error messages
 				$.when(send_ajax_request($(this).attr('action'), formData, 'POST', true)).done(function(response) {
 
+					toggleButton(_this.find('.btn-submit'),false,'SUBMIT');
 					if(response.success) {
 						toastr_show(response.message);
-						_this.find('.btn-submit').prop('disabled', false).html('Submit');
 					} else {
 
 						$.each(response.errors, function (key, value) {
@@ -150,7 +170,6 @@
 							errorElement.after('<div class="err-msg text-danger">' + value[0] + '</div>'); // Display the first error message
 						});
 						$('.err-blog').closest('div').find('.form-control').focus();
-						_this.find('.btn-submit').prop('disabled', false).html('Submit');
 					}
 				});
 			})

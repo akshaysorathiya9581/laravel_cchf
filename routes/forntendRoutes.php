@@ -9,7 +9,9 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\MasbiaDonationController;
 use App\Http\Controllers\MasbiaBlogsController;
 use App\Http\Controllers\BillingController;
+use App\Http\Controllers\VolunteerController;
 use Illuminate\Support\Facades\Route;
+use App\Models\Campaign;
 
 // Route::middleware('guest')->group(function () {
     Route::get('/', [FrontendController::class, 'index'])->name('home');
@@ -18,8 +20,13 @@ use Illuminate\Support\Facades\Route;
     Route::get('/emailView', function () {
         return view('emails.donor-notification');
     });
-    
-    Route::get('/{campaign}/{team?}', [FrontendController::class, 'raffle'])->name('raffle')->middleware('visitor')->where('campaign', 'donate|masbia1'); // Add constraints here;
+
+    $campaignSlug = Campaign::pluck('slug')->toArray();
+
+    Route::get('/{campaign}/{team?}', [FrontendController::class, 'raffle'])
+        ->name('raffle')->middleware('visitor')
+        ->where('campaign', implode('|',$campaignSlug));
+
     Route::get('/load-more-donations', [DonationController::class, 'loadMoreDonations']);
     Route::get('/load-more-teams', [DonationController::class, 'loadMoreTeams']);
     Route::get('/load-more-team-donations', [DonationController::class, 'loadMoreTeamDonations']);
@@ -31,6 +38,10 @@ use Illuminate\Support\Facades\Route;
     Route::get('blogs', [MasbiaBlogsController::class, 'index'])->name('blogs.index');
     Route::get('blog/{title}', [MasbiaBlogsController::class, 'view'])->name('blogs.view');
     Route::get('blogs/get-blogs', [MasbiaBlogsController::class, 'getBlogs'])->name('blogs.get-blogs');
+
+    //__ VOLUNTEER_ROUTES
+    Route::get('volunteer', [VolunteerController::class, 'index'])->name('volunteer.index');
+
 // });
 
 Route::middleware('auth')->group(function () {

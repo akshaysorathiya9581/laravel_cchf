@@ -16,11 +16,8 @@ class MasbiaBlogsController extends Controller
 	public function index(Request $request): View
 	{
 
-		$mainMenu = $this->getMainMenu();
-
 		return view('frontend.templates.masbia-template.blogs', [
 			'user' => $request->user(),
-			'mainMenu' => $mainMenu,
 			'page' => 'blog'
 		]);
 	}
@@ -60,7 +57,6 @@ class MasbiaBlogsController extends Controller
 	public function view(Request $request, $id): View
 	{
 
-		$mainMenu = $this->getMainMenu();
 		$blog = Blogs::where('id', $id)->firstOrFail();  // Retrieves the blog by slug
 
 		$ogmeta = array(
@@ -71,26 +67,8 @@ class MasbiaBlogsController extends Controller
 
 		return view('frontend.templates.masbia-template.blog-detail', [
 			'user' => $request->user(),
-			'mainMenu' => $mainMenu,
 			'ogcustommeta' => $ogmeta,
 			'blog' => $blog
 		]);
-	}
-
-	protected function getMainMenu() {
-
-		$main_Menu = CampaignMenu::where('type', 'primary')
-			->where('campaign_id', 17)
-			->get();
-
-		$mainMenu = $main_Menu->map(function ($primary) {
-			return [
-				'id' => $primary->id ?? '',
-				'text' => $primary->title ?? '',
-				'link' => $primary->url ?? '',
-			];
-		});
-
-		return $mainMenu;
 	}
 }
