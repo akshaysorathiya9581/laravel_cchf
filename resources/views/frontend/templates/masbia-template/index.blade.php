@@ -210,80 +210,53 @@
 	</section>
 
 	<section class="media">
-	  <div class="container">
-		<div class="media__heading">
-		  <div class="media__title">
-			<img class="section-ic" src="{{ asset('assets/frontend/templates/masbia/images/icons/thumb-ic.svg') }}" alt="">
-			<h2 class="section-title"><strong>In the</strong> Media</h2>
-		  </div>
-		  <div class="swiper-media__arrows">
-			<div class="swiper-button-prev media-button-prev">
-			  <svg width="13" height="22" viewBox="0 0 13 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M2.09468 1.68738L11.4075 11.0002L2.09467 20.313" stroke="currentColor" stroke-width="2.5"
-				  stroke-linecap="round" stroke-linejoin="round" />
-			  </svg>
+		<div class="container">
+			<div class="media__heading">
+				<div class="media__title">
+					<img class="section-ic" src="{{ asset('assets/frontend/templates/masbia/images/icons/thumb-ic.svg') }}" alt="">
+					<h2 class="section-title"><strong>In the</strong> Media</h2>
+				</div>
+				<div class="swiper-media__arrows">
+					<div class="swiper-button-prev media-button-prev">
+					<svg width="13" height="22" viewBox="0 0 13 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M2.09468 1.68738L11.4075 11.0002L2.09467 20.313" stroke="currentColor" stroke-width="2.5"
+						stroke-linecap="round" stroke-linejoin="round" />
+					</svg>
+					</div>
+					<div class="swiper-button-next media-button-next">
+					<svg width="13" height="22" viewBox="0 0 13 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M2.09468 1.68738L11.4075 11.0002L2.09467 20.313" stroke="currentColor" stroke-width="2.5"
+						stroke-linecap="round" stroke-linejoin="round" />
+					</svg>
+					</div>
+				</div>
 			</div>
-			<div class="swiper-button-next media-button-next">
-			  <svg width="13" height="22" viewBox="0 0 13 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M2.09468 1.68738L11.4075 11.0002L2.09467 20.313" stroke="currentColor" stroke-width="2.5"
-				  stroke-linecap="round" stroke-linejoin="round" />
-			  </svg>
+
+			<div class="swiper swiper-media">
+				<div class="swiper-wrapper">
+
+					@if(count($media))
+
+						@foreach($media as $mediaInfo)
+
+							<div class="swiper-slide">
+								<div class="media-card">
+									<div class="media-card__img">
+										<img src="{{ $mediaInfo->image }}" alt="">
+									</div>
+									<time datetime="">{{ \Carbon\Carbon::parse($mediaInfo->publish_date)->format('F j, Y') }}</time>
+									<div class="media-card__title">{{ $mediaInfo->title }}</div>
+									<a href="{{ route('media.view',$mediaInfo->id) }}" class="btn">View post</a>
+								</div>
+							</div>
+						@endforeach
+					
+					@else
+						<h6 class="text-center w-100">No recent media found at the moment</h4>
+					@endif
+				</div>
 			</div>
-		  </div>
 		</div>
-
-		<div class="swiper swiper-media">
-		  <div class="swiper-wrapper">
-			<div class="swiper-slide">
-			  <div class="media-card">
-				<div class="media-card__img">
-				  <img src="{{ asset('assets/frontend/templates/masbia/') }}/images/media/media1.png" alt="">
-				</div>
-				<time datetime="">March 05/26/2024</time>
-				<div class="media-card__title">Masbia Relief On Pix 11: Community Sets Up Welcome Center For Asylum
-				  Seekers In Brooklyn</div>
-				<a href="#" class="btn">View post</a>
-			  </div>
-			</div>
-
-			<div class="swiper-slide">
-			  <div class="media-card">
-				<div class="media-card__img">
-				  <img src="{{ asset('assets/frontend/templates/masbia/') }}/images/media/media2.png" alt="">
-				</div>
-				<time datetime="">March 05/26/2024</time>
-				<div class="media-card__title">Masbia Mentioned In The NYT: What Today’s Migrant Crisis Looks Like to a
-				  Holocaust Refugee</div>
-				<a href="#" class="btn">View post</a>
-			  </div>
-			</div>
-
-			<div class="swiper-slide">
-			  <div class="media-card">
-				<div class="media-card__img">
-				  <img src="{{ asset('assets/frontend/templates/masbia/') }}/images/media/media3.png" alt="">
-				</div>
-				<time datetime="">March 05/26/2024</time>
-				<div class="media-card__title">Masbia Press Release: Every Dollar Donate Is In Someone’s Stomach In Less
-				  Than Two Weeks</div>
-				<a href="#" class="btn">View post</a>
-			  </div>
-			</div>
-
-			<div class="swiper-slide">
-			  <div class="media-card">
-				<div class="media-card__img">
-				  <img src="{{ asset('assets/frontend/templates/masbia/') }}/images/media/media1.png" alt="">
-				</div>
-				<time datetime="">March 05/26/2024</time>
-				<div class="media-card__title">Masbia Relief On Pix 11: Community Sets Up Welcome Center For Asylum
-				  Seekers In Brooklyn</div>
-				<a href="#" class="btn">View post</a>
-			  </div>
-			</div>
-		  </div>
-		</div>
-	  </div>
 	</section>
 
 	<section class="events">

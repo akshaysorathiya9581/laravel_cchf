@@ -33,6 +33,7 @@ use App\Models\OrganizationMeta;
 use App\Models\TransactionDetails;
 use App\Models\AllocateDonation;
 use Carbon\Carbon;
+use App\Models\Media;
 
 class FrontendController extends Controller
 {
@@ -42,12 +43,14 @@ class FrontendController extends Controller
 
         if($domain == 'masbia.webaryco.com') {
 
+            $media = Media::getRecentMedia();
             $campaign = campaign::where('template', 'masbia')->orderBy('created_at', 'desc')->first();
 
             return view (
                 'frontend.templates.masbia-template.index',
                 array(
-                    'campaign' => $campaign
+                    'campaign' => $campaign,
+                    'media' => $media
                 )
             );
 
@@ -55,6 +58,7 @@ class FrontendController extends Controller
             return view('frontend/home');
         }
     }
+
     public function thank_you($donationKey)
     {
 

@@ -42,6 +42,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Admin\OpenGraphController;
 use App\Http\Controllers\Admin\EmailTemplatesController;
 use App\Http\Controllers\Admin\VolunteerRoleController;
+use App\Http\Controllers\MediaController;
 
 // Route::get('/', function () {
 //     return view('frontend/home');
@@ -208,6 +209,12 @@ Route::middleware('auth:admin', 'setDatabase')->group(function () {
     //_CAMPAIGN_MENU_ROUTES
     Route::post('/admin/storeMenu', [CampaignMenuController::class, 'update'])->name('admin.storeMenu');
     Route::post('/admin/getMenuSingledata', [CampaignMenuController::class, 'getMenuSingledata'])->name('admin.getMenuSingledata');
+
+    //_MEDIA_ROURES
+    Route::get('/admin/media', [MediaController::class, 'index'])->name('admin.media');
+    Route::post('/admin/media/save', [MediaController::class, 'update'])->name('media.save');
+    Route::post('/admin/media/detail', [MediaController::class, 'getMediaDetail'])->name('media.detail');
+    Route::get('/admin/media/delete/{mediaId}', [MediaController::class, 'destroy'])->name('media.delete');
 
     //_CAMPAIGN_SPONSOR
     Route::get('admin/campaign/sponsor/{id}', [SponsorController::class, 'index'])->name('admin.sponsor');
