@@ -12,12 +12,7 @@ class EmailTemplatesController extends Controller
     public function index(Request $request) {
 
         $campaign_id = $request->id;
-
-        $emailTemplate = EmailTemplates::where('campaign_id', $campaign_id)
-            ->where('page', 'thankyou')
-            ->first();
-
-        return view ('admin.email.thankyou',['campaign_id' => $campaign_id, 'emailTemplate' => $emailTemplate]);
+        return view ('admin.email.thankyou',['campaign_id' => $campaign_id]);
     }
 
     /**
@@ -54,5 +49,21 @@ class EmailTemplatesController extends Controller
                 'message' => 'Email template updated successfully'
             ]);
         }
+    }
+
+    public function getEmailSetting(Request $request) {
+
+        $page = $request->page;
+        $campaign_id = $request->campaign_id;
+
+        $emailTemplate = EmailTemplates::where('campaign_id', $campaign_id)
+            ->where('page', $page)
+            ->first();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'success',
+            'data' => $emailTemplate
+        ]);
     }
 }

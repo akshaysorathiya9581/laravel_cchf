@@ -15,7 +15,7 @@
                     <div class="card-body">
                         <div class="w-100">
 
-                            <div class="fv-row row mb-10 d-none">
+                            <div class="fv-row row mb-10 d- none">
                                 <div class="col-md-12">
                                     <input type="hidden" name="campaign_id" value="17">
                                     <label class="form-label required">Page</label>
@@ -23,6 +23,7 @@
                                         <option value="home">Home</option>
                                         <option value="donation">Donation</option>
                                         <option value="blog" selected>Blog</option>
+                                        <option value="volunteer">Volunteer</option>
                                     </select>
                                 </div>
                             </div>
@@ -85,3 +86,58 @@
         </div>
     </div>
 </div>
+
+<script>
+
+    $('body').on('click','#manageOg',function(){
+
+        $.when(send_ajax_request('{{ route("admin.getoginfo") }}', {'page':$('select[name="og_page"]').val()}, 'GET')).done(function(response) {
+
+            $('#manage_og_modal').modal('show');
+
+            if (response.success) {
+                var og_properties = response.data.og_properties;
+
+                if(og_properties) {
+                    $('input[name="og_title"]').val(og_properties.og_title);
+                    $('textarea[name="og_description"]').val(og_properties.og_description);
+
+                    $('input[name="old_og_image"]').val(og_properties.og_image)
+                    $('#og_image').css('background-image', 'url(' + og_properties.og_image + ')')
+                }
+            }
+        })
+    })
+
+    $('#updateOgData').on('submit', function (e) {
+        e.preventDefault();
+
+        var formData = new FormData(this);
+        // formData.append('page','blog');
+        _this = $(this).closest('form');
+        toggleButton(_this.find('.btn-submit'),true);
+
+        $.when(send_ajax_request($(this).attr('action'), formData, 'POST', true)).done(function(response) {
+
+            toastr_show(response.message);
+            toggleButton(_this.find('.btn-submit'),false,'SUBMIT');
+            $('#manage_og_modal').modal('hide');
+
+        }).fail(function(xhr) {
+
+            toggleButton(_this.find('.btn-submit'),false,'SUBMIT');
+
+            if (xhr.status == 422) {
+                
+                var errors = xhr.responseJSON.errors;
+
+                $('.err-msg').remove();  // Remove existing error messages
+                $.each(errors, function (key, value) {
+                    var errorElement = _this.find('input[name=' + key + '], select[name=' + key + '], textarea[name=' + key + ']');
+                    errorElement.after('<div class="err-msg text-danger">' + value[0] + '</div>'); // Display the first error message
+                });
+                $('.err-blog').closest('div').find('.form-control').focus();
+            }
+        });
+    });
+</script>

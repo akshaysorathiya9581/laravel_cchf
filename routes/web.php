@@ -41,6 +41,7 @@ use App\Http\Controllers\AllocateDonationController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\Admin\OpenGraphController;
 use App\Http\Controllers\Admin\EmailTemplatesController;
+use App\Http\Controllers\Admin\VolunteerRoleController;
 
 // Route::get('/', function () {
 //     return view('frontend/home');
@@ -223,6 +224,11 @@ Route::middleware('auth:admin', 'setDatabase')->group(function () {
     //_EMAIL_TEMPLATE
     Route::get('/admin/email-template', [EmailTemplatesController::class, 'index'])->name('admin.emailtemplate');
     Route::post('/admin/save-template', [EmailTemplatesController::class, 'update'])->name('emailtemplate.save');
+    Route::get('/admin/getemailsetting', [EmailTemplatesController::class, 'getEmailSetting'])->name('email.get-settings');
+
+    //_VOLUNTEER_ROLE
+    Route::get('/admin/volunteer/role', [VolunteerRoleController::class, 'index'])->name('volunteer.role');
+    Route::post('/admin/volunteer/managerole', [VolunteerRoleController::class, 'managerole'])->name('volunteer.managerole');
 
     /*
         |___DELETE_METHOD_
