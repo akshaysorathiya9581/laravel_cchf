@@ -34,7 +34,7 @@
     </a>
 
     <div class="header-btns">
-      <a href="#" class="btn btn--green">
+      <a href="{{ (isset($campaign)) ? route('raffle', ['campaign' => $campaign->slug]) : '' }}" class="btn btn--green">
         <img src="{{ asset('assets/frontend/templates/masbia/images/icons/donate.svg') }}" alt="">
         <span>Donate</span>
       </a>
