@@ -38,7 +38,22 @@ class FrontendController extends Controller
 {
     public function index(Request $request)
     {
-        return view('frontend/home');
+        $domain = $request->getHost();
+
+        if($domain == 'masbia.webaryco.com') {
+
+            $campaign = Campaign::where('template', 'masbia')->orderBy('created_at', 'desc')->first();
+
+            return view (
+                'frontend.templates.masbia-template.index',
+                array(
+                    'campaign' => $campaign
+                )
+            );
+
+        } else {
+            return view('frontend/home');
+        }
     }
     public function thank_you($donationKey)
     {
