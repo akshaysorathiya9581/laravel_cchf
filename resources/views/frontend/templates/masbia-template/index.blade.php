@@ -124,7 +124,7 @@
 			will include special holiday staples for families to be able to prepare their own Seder and Kosher for
 			Passover </p>
 		  <div class="btn-group">
-			<a href="#" class="btn btn--green">Donate</a>
+			<a href="{{ route('raffle', ['campaign' => $campaign->slug]) }}" class="btn btn--green">Donate</a>
 			<a href="#" class="btn btn--gray">Get food</a>
 		  </div>
 		</div>
@@ -442,7 +442,7 @@
 			<h2 class="donation__inner-title"><strong>Ready to</strong> do incredible!</h2>
 			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
 			  dolore magna aliqua. </p>
-			<a href="" class="btn btn--white">Donate now</a>
+			<a href="{{ route('raffle', ['campaign' => $campaign->slug]) }}" class="btn btn--white">Donate now</a>
 		  </div>
 		</div>
 	  </div>
