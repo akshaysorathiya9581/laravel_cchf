@@ -767,8 +767,8 @@ class DonationController extends Controller
             $dataNew['dedication_comments'] = isset($donation_masbia_details_data['dedication_comments']) ? $donation_masbia_details_data['dedication_comments'] : NULL;
             $dataNew['letter_price'] = $request->letter_amount;
             $dataNew['recognition_price'] = $request->recognition_amount;
-            $dataNew['is_recognition'] = $donation_masbia_details_data['recognition'];
-            $dataNew['is_letter'] = $donation_masbia_details_data['letter'];
+            $dataNew['is_recognition'] = isset($donation_masbia_details_data['recognition']) ? $donation_masbia_details_data['recognition'] : 0;
+            $dataNew['is_letter'] = isset($donation_masbia_details_data['letter']) ? $donation_masbia_details_data['letter'] : 0;
             $dataNew['is_notification'] = isset($donation_masbia_details_data['is_notification']) ? $donation_masbia_details_data['is_notification'] : 0;
             $dataNew['notification_mail'] = isset($donation_masbia_details_data['notification_mail']) ? $donation_masbia_details_data['notification_mail'] : NULL;
             
