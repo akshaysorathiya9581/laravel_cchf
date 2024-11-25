@@ -26,41 +26,41 @@
 								</div>
 								<div class="volunteer-form-group">
 									<label class="label" for="">Last Name<span>*</span></label>
-									<input type="text" class="volunteer-form-input" placeholder="Raju" disabled>
+									<input type="text" class="volunteer-form-input" placeholder="Raju">
 								</div>
 								<div class="volunteer-form-group">
 									<label class="label" for="">Email<span>*</span></label>
-									<input type="email" class="volunteer-form-input" value="{{ $user->email ?? '' }}" placeholder="info@masbia.com" disabled>
+									<input type="email" class="volunteer-form-input" value="{{ $user->email ?? '' }}" placeholder="info@masbia.com">
 								</div>
 								<div class="volunteer-form-group">
 									<label class="label" for="">Phone<span>*</span></label>
-									<input type="text" class="volunteer-form-input" value="{{ $user->phone ?? '' }}" placeholder="+1 (555) 123-4567" disabled>
+									<input type="text" class="volunteer-form-input" value="{{ $user->phone ?? '' }}" placeholder="+1 (555) 123-4567">
 								</div>
 								<div class="volunteer-form-group full-width">
 									<label class="label" for="">Street Address<span>*</span></label>
-									<input type="text" class="volunteer-form-input" value="{{ $user->address ?? '' }}" placeholder="123 Main Street, Hoboken, NJ 07030" disabled>
+									<input type="text" class="volunteer-form-input" value="{{ $user->address ?? '' }}" placeholder="123 Main Street, Hoboken, NJ 07030">
 								</div>
 								<div class="volunteer-form-group">
 									<label class="label" for="">City<span>*</span></label>
-									<select name="" class="volunteer-form-select" disabled>
+									<select name="" class="volunteer-form-select">
 										<option value="">Jersey City</option>
 									</select>
 								</div>
 								<div class="volunteer-form-group">
 									<label class="label" for="">State<span>*</span></label>
-									<select name="" class="volunteer-form-select" disabled>
+									<select name="" class="volunteer-form-select">
 										<option value="">New Jersey</option>
 									</select>
 								</div>
 								<div class="volunteer-form-group">
 									<label class="label" for="">Post Code<span>*</span></label>
-									<select name="" class="volunteer-form-select" disabled>
+									<select name="" class="volunteer-form-select">
 										<option value="">07102</option>
 									</select>
 								</div>
 								<div class="volunteer-form-group">
 									<label class="label" for="">Country<span>*</span></label>
-									<input type="text" class="volunteer-form-input" placeholder="Unites States" disabled>
+									<input type="text" class="volunteer-form-input" placeholder="Unites States">
 								</div>
 								<div class="volunteer-form-group">
 									<div class="volunteer__checkbox volunteer__checkbox--sm">
@@ -144,8 +144,8 @@
 							<div class="volunteer-signup__card-third">
 								<div class="volunteer-form-group">
 									<label class="label" for="">Please select an option<span>*</span></label>
-									<select name="" class="volunteer-form-select" disabled>
-										<option value="" disabled>Please Select one option</option>
+									<select name="" class="volunteer-form-select">
+										<option value="">Please Select one option</option>
 										<option value="">An ongoing opportunity</option>
 										<option value="">Occasional opportunity</option>
 										<option value="">One-time</option>
@@ -159,15 +159,15 @@
 									<div class="volunteer__group-view" id="viewVolunteeringGroup">
 										<div class="volunteer-form-group">
 											<label class="label" for="">What is the name for your group?<span>*</span></label>
-											<input type="text" class="volunteer-form-input" placeholder="" disabled>
+											<input type="text" class="volunteer-form-input" placeholder="">
 										</div>
 										<div class="volunteer-form-group">
 											<label class="label" for="">How many adults are in your group?<span>*</span></label>
-											<input type="text" class="volunteer-form-input" placeholder="" disabled>
+											<input type="text" class="volunteer-form-input" placeholder="">
 										</div>
 										<div class="volunteer-form-group">
 											<label class="label" for="">How many children are in your group?<span>*</span></label>
-											<input type="text" class="volunteer-form-input" placeholder="" disabled>
+											<input type="text" class="volunteer-form-input" placeholder="">
 										</div>
 									</div>
 								</div>
@@ -249,11 +249,11 @@
 							<div class="volunteer-signup__card-last">
 								<div class="volunteer-form-group">
 									<label class="label" for="">Emergency Contact Phone<span>*</span></label>
-									<input type="text" class="volunteer-form-input" placeholder="" disabled>
+									<input type="text" class="volunteer-form-input" placeholder="">
 								</div>
 								<div class="volunteer-form-group">
 									<label class="label" for="">Relationship<span>*</span></label>
-									<input type="text" class="volunteer-form-input" placeholder="" disabled>
+									<input type="text" class="volunteer-form-input" placeholder="">
 								</div>
 							</div>
 						</div>
