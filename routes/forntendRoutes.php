@@ -11,7 +11,7 @@ use App\Http\Controllers\MasbiaBlogsController;
 use App\Http\Controllers\BillingController;
 use App\Http\Controllers\VolunteerController;
 use Illuminate\Support\Facades\Route;
-use App\Models\Campaign;
+use App\Models\campaign;
 
 // Route::middleware('guest')->group(function () {
     Route::get('/', [FrontendController::class, 'index'])->name('home');
@@ -21,7 +21,7 @@ use App\Models\Campaign;
         return view('emails.donor-notification');
     });
 
-    $campaignSlug = Campaign::pluck('slug')->toArray();
+    $campaignSlug = campaign::pluck('slug')->toArray();
 
     Route::get('/{campaign}/{team?}', [FrontendController::class, 'raffle'])
         ->name('raffle')->middleware('visitor')

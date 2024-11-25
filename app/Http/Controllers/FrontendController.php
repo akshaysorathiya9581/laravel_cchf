@@ -42,7 +42,7 @@ class FrontendController extends Controller
 
         if($domain == 'masbia.webaryco.com') {
 
-            $campaign = Campaign::where('template', 'masbia')->orderBy('created_at', 'desc')->first();
+            $campaign = campaign::where('template', 'masbia')->orderBy('created_at', 'desc')->first();
 
             return view (
                 'frontend.templates.masbia-template.index',
