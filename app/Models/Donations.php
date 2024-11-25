@@ -21,6 +21,7 @@ class Donations extends Model
         'donor_last_name',
         'donor_email',
         'donor_phone',
+        'donor_company',
         'is_anonymous',
         'cell_number',
         'full_address',

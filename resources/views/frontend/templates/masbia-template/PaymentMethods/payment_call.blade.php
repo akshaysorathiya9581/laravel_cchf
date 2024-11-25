@@ -318,7 +318,7 @@
                 base: {
                     color: '#32325d',
                     lineHeight: '18px',
-                    fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+                    fontFamily: 'font-family: "Poppins", sans-serif;',
                     fontSmoothing: 'antialiased',
                     fontSize: '16px',
                     '::placeholder': {

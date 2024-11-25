@@ -70,4 +70,8 @@ Route::prefix('admin')->middleware('auth:admin')->name('admin.')->group(function
     Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+    // new module route
+
+    Route::resource('customer', App\Http\Controllers\Admin\CustomerController::class);
 });

@@ -108,10 +108,10 @@ function formValidation(errors) {
 
 		var _parent = $(f_elem).parent();
 		console.log('_parent=',_parent);
-		while (_parent.children('.error-msg').length > 0 || (!['radio'].includes($(f_elem).attr('type')) && $(f_elem).val() != '')) {
-			f_elem = _elem[Object.keys(_elem)[i++]];
-			_parent = $(f_elem).parent();
-		}
+		// while (_parent.children('.error-msg').length > 0 || (!['radio'].includes($(f_elem).attr('type')) && $(f_elem).val() != '')) {
+		// 	f_elem = _elem[Object.keys(_elem)[i++]];
+		// 	_parent = $(f_elem).parent();
+		// }
 		if (_parent.hasClass('form-input')) {
 			_parent = _parent.parent();
 		}

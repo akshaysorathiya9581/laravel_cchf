@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
+use App\Models\Seasons;
 
 class AdminLoginRequest extends FormRequest
 {
@@ -47,12 +48,32 @@ class AdminLoginRequest extends FormRequest
             $seasonId = $latestSeason ? $latestSeason->id : null;
     
             if ($seasonId) {
-                $request->session()->put('season_id', $seasonId);
+                request()->session()->put('season_id', $seasonId);
             }
             
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
+        }
+
+        // Retrieve the authenticated user via the web guard
+        $user = Auth::guard('admin')->user();
+
+        // dd($user);
+         // Check if the user's role is 'customer'
+        if ($user->role == 'customer') {
+             Auth::guard('admin')->logout(); // Log out the user if the role is invalid
+ 
+              // Custom error message for failed login attempt
+             throw ValidationException::withMessages([
+                 'email' => [
+                     'status' => false,
+                     'message' => 'The provided email or password is incorrect.',
+                 ],
+             ]);
+             // throw ValidationException::withMessages([
+             //     'email' => __('auth.role_not_allowed'),
+             // ]);
         }
         RateLimiter::clear($this->throttleKey());
     }

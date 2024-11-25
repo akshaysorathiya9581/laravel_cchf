@@ -20,6 +20,8 @@ class DonationMasbiaDetail extends Model
         'recognition_price',
         'is_recognition',
         'is_letter',
+        'is_notification',
+        'notification_mail'
     ];
 
     protected $dates = ['deleted_at'];

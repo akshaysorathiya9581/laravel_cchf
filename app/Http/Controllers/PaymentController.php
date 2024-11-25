@@ -39,7 +39,6 @@ class PaymentController extends Controller
             $paymentIntent = $this->paymentProcessor->createPaymentIntent($request, $campaignId);
             // dd($paymentIntent);
             $donation =  $this->donationController->handlePostPayment($request, $campaignId, $paymentIntent);
-
             if ($donation) {
                 if ($donation instanceof \Illuminate\Http\JsonResponse) {
                     $donation = $donation->getData();

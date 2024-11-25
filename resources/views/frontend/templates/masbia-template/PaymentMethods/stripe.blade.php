@@ -1,2 +1,2 @@
- <div id="card-element">
+ <div id="card-element" class="cardpayment-details">
  </div>

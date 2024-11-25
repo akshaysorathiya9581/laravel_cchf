@@ -14,7 +14,7 @@ $(document).ready(function () {
         for (let i = 0; i < localStorage.length; i++) {
             let key = localStorage.key(i);
             let value = localStorage.getItem(key);
-            console.log(`<p>Key: ${key}, Value: ${value}</p>`);
+            // console.log(`<p>Key: ${key}, Value: ${value}</p>`);
             if(value == '') { return }
 
             if(key == 'sustainer_option_id') {
@@ -53,8 +53,19 @@ $(document).ready(function () {
                 $('#customAmount').val(value);
                 $("#customAmount").trigger("blur");
             }
+
+            //console.log('is_notification5555555555=',parseInt(value));
+            if(key == 'is_notification' && parseInt(value)) {
+                $('#notification_'+localStorage.getItem('sustainer_option_id')).prop('checked', value).trigger('change');
+                add_filter_value('is_notification', value);
+            }
+
+            if(key == 'notification_mail') {
+                $('input[name="notification_mail"]').val(value);
+                add_filter_value('notification_mail', value);
+            }
         }
-     }, 200);
+     }, 300);
 
     $(document).on('click', '.option-card', function(event) {
         var _this =  $(this);
@@ -69,6 +80,8 @@ $(document).ready(function () {
     $(document).on('click', '.btn-filter', function(event) {
         var _this = $(this);
         add_filter_value(_this.attr('data-name'), _this.attr('data-id'));
+        $('#don_recurring').prop('checked', (_this.attr('data-id') != '1') ? true : false).trigger('change');
+        $('.recurring-interval').val(_this.attr('data-id')).trigger('change');
     });
 
     $(document).on('click', '.donation_location', function(event) {
@@ -196,6 +209,31 @@ $(document).ready(function () {
             }
         }
     });
+
+    // Pay in Installments
+    $(document).on('change', '#don_recurring', function(event) {
+        $('.rec_btns').hide();
+        if($(this).is(':checked')) {
+            $('.rec_btns').show();
+        }    
+    });
+
+    $('body').on('click','.btn-receive-notification', function(e) {
+        var _this = $(this);
+        var is_notification = +_this.closest('.tab-content').find('input[type="checkbox"]').is(':checked');
+        var notification_mail = _this.closest('.tab-content').find('input[name="notification_mail"]').val();
+        add_filter_value('is_notification', is_notification);
+        add_filter_value('notification_mail', notification_mail);
+    
+    });
+    
+    $('body').on('click','.goto-donate', function(e) {
+        e.preventDefault();
+        $('html, body').animate({
+            scrollTop: $('#sc-donate').offset().top
+        }, 100);
+    });
+
     renderTicketPages();
 });
 
@@ -254,6 +292,7 @@ function caculate_final_donate_amount() {
 
     $('#donate_amount').val(final_donate_amount);
     $('#usd_amount').val(final_donate_amount);
+    $('#rec_amount_full').text('$'+final_donate_amount);
     $(".js-cart-summary-amount").html(
         `${siteContent.cart.ticketsTitle} <span>${formattedAmount}</span>`
     );

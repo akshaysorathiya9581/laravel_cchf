@@ -107,6 +107,10 @@
                                                         class="menu-link px-3">Sponsor</a>
                                                 </div>
                                                 <div class="menu-item px-3 my-1">
+                                                    <a href="{{ route('admin.emailtemplate', ['id' => $campaign->id]) }}"
+                                                        class="menu-link px-3">Email Template</a>
+                                                </div>
+                                                <div class="menu-item px-3 my-1">
                                                     <a href="{{ route('admin.tips', ['id' => $campaign->id]) }}"
                                                         class="menu-link px-3">Tips</a>
                                                 </div>

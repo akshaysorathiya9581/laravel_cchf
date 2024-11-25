@@ -11,7 +11,7 @@ class CampaignOpenGraph extends Model
 
     protected $table = 'campaign_og_settings';
     protected $fillable = [
-        'campaign_id', 'og_title', 'og_description', 'og_image'
+        'page', 'campaign_id', 'og_title', 'og_description', 'og_image'
     ];
 
     public function campaign()

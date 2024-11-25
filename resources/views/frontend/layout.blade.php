@@ -7,7 +7,8 @@
 @elseif ($campaign->template == 'multi_location')
     @include('frontend.templates.multi-location-template.home')
 @elseif ($campaign->template == 'masbia')
-    @include('frontend.templates.masbia-template.index')
+    {{-- @include('frontend.templates.masbia-template.index') --}}
+    @include('frontend.templates.masbia-template.donation')
 @endif
 
 {{-- <link rel="stylesheet" href="{{ asset('assets/frontend/templates/raffle/css/general-style.css') }}"> --}}

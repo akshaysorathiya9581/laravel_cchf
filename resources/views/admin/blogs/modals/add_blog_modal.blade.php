@@ -25,7 +25,12 @@
                                     <div class="text-danger">{{ $errors->first('season_id') }}</div>
                                 @endif
                             </div>
+
                             <div class="fv-row row mb-10">
+                                <div class="col-md-6">
+                                    <label class="form-label required">Publish Date</label>
+                                    <input type="date" name="publish_date" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="form-control form-control-lg form-control-solid" />
+                                </div>
                                 <div class="col-md-6">
                                     {{-- @if (isset($prize->id)) --}}
                                     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}" />
@@ -38,17 +43,11 @@
                                         <div class="text-danger">{{ $errors->first('title') }}</div>
                                     @endif
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Slug</label>
-                                    <input name="slug" class="form-control form-control-lg form-control-solid"
-                                        value="{{ old('slug') }}" disabled />
-                                </div>
                             </div>
 
                             <div class="fv-row row mb-10">
-
                                 <div class="col-md-6">
-                                    <label class="form-label required">Author</label>
+                                    <label class="form-label">Author</label>
                                     <input name="author" class="form-control form-control-lg form-control-solid"
                                         value="{{ old('author') }}" />
                                     @if ($errors->has('author'))
@@ -57,7 +56,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label class="form-label required">Video Embed Link</label>
+                                    <label class="form-label">Video Embed Link</label>
                                     <input name="video_link" class="form-control form-control-lg form-control-solid"
                                         value="{{ old('video_link') }}" />
                                     @if ($errors->has('video_link'))
@@ -66,9 +65,9 @@
                                 </div>
                             </div>
 
-                            <div class="fv-row d-none mb-10">
+                            <div class="fv-row mb-10">
                                 <label class="d-block fw-semibold fs-6 mb-5">
-                                    <span class="required"> Image</span>
+                                    <span class=""> Image</span>
                                     <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip"
                                         title="E.g. Select a logo to represent the company that's running the campaign."></i>
                                 </label>
@@ -101,25 +100,20 @@
                                     <div class="text-danger">{{ $errors->first('image') }}</div>
                                 @endif
                             </div>
-
                             <div class="fv-row mb-10">
-                                <label class="form-label required">Description</label>
+                                <label class="form-label">Description</label>
                                 <textarea name="description" class="area_editor form-control form-control-lg form-control-solid" cols="30"
                                     rows="10">{{ old('description') }}</textarea>
                                 @if ($errors->has('description'))
                                     <div class="text-danger">{{ $errors->first('description') }}</div>
                                 @endif
                             </div>
-
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" id="" class="btn btn-lg btn-primary"
-                        data-kt-element="type-next">
-                        <span class="indicator-label">Submit</span>
-                        <span class="indicator-progress">Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                    <button type="submit" class="btn btn-submit btn-lg btn-primary"
+                        data-kt-element="type-next"><span class="indicator-label">Submit</span>
                     </button>
                 </div>
             </form>

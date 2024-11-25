@@ -48,7 +48,7 @@ class LoginRequest extends FormRequest
             ]);
         }
 
-       // Retrieve the authenticated user via the web guard
+        // Retrieve the authenticated user via the web guard
         $user = Auth::guard('web')->user();
 
         // Check if the user's role is 'customer'

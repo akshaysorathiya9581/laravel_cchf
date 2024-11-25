@@ -1,4 +1,4 @@
-<div id="uepcc_section">
+<div id="uepcc_section" class="cardpayment-details">
     <div id="paymentCardContainer">
 
     </div>

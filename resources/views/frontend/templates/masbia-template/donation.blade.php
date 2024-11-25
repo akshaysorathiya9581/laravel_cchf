@@ -120,8 +120,8 @@
 					</label>
 				  </div>
 				  <form class="sponsor__notification-form" method="POST">
-					<input type="text" class="custom-input" name="notification_email" placeholder="Enter your Email or Mobile">
-					<input type="submit" value="Submit" class="btn">
+					<input type="text" class="custom-input" name="notification_mail" placeholder="Enter your Email or Mobile">
+					<input type="button" value="Submit" class="btn btn-receive-notification">
 				  </form>
 				</div>
 			  </div>
@@ -243,17 +243,7 @@
 
 
 @section('scripts')
-
-
 	<script>
-
-		$('body').on('click','.goto-donate', function(e) {
-			e.preventDefault();
-			$('html, body').animate({
-				scrollTop: $('#sc-donate').offset().top
-			}, 100);
-		});
-
 	// setTimeout(function() {
 	//     let $donationButton = $('.sponsor__donation-btns').find('.donation-amount').first();
 	//     if ($donationButton.length > 0) {

@@ -173,7 +173,11 @@ class DonationController extends Controller
         if ($details->recurring != 'oneTime' && $details->payment_gateway != 'offline') {
             $recurring_details = $this->getRecurringDetails($details, $TransactionDetails) ?? [];
         }
-         $TipsTotalAmount = DonationTips::where('donation_id', $id)->sum('amount') ?? 0;
+
+        $masbiaDetail = DonationMasbiaDetail::where('donation_id', $id)->first();
+
+        $TipsTotalAmount = DonationTips::where('donation_id', $id)->sum('amount') ?? 0;
+
         return view(
             'admin.donation.donationDetails',
             [
@@ -181,6 +185,7 @@ class DonationController extends Controller
                 'campaign' => $campaign,
                 'teams' => $teams,
                 'stp' => $stp,
+                'masbiaDetail' => $masbiaDetail,
                 'tips' => $DonationTips,
                 'recurring_details' => $recurring_details ?? [],
                 'TipsTotalAmount'=> $TipsTotalAmount
@@ -515,6 +520,7 @@ class DonationController extends Controller
                 $recurring_intervals = 1;
             } else {
                 $recurring = $request->recurring;
+                $recurring = is_numeric($recurring) ? get_sustainer_options_list($recurring): $recurring;
                 $recurring_intervals = $request->recurring_intervals;
             }
 
@@ -626,43 +632,45 @@ class DonationController extends Controller
             $visitorId = $visitorId->toString();
             $full_address =  $request->address . ' ' .  $request->state . ' ' . $request->zipcode . ' ' .  $request->country;
 
+            $donation_insert_data = [
+                'campaign_id' => $campaignId,
+                'team_id' => $request->teamId ?? 0,
+                // vistor id is in session
+                'visitor_id' => $visitorId,
+                'status' => $status,
+                'ticket_option_id' => $ticket_option_id,
+                'donor_first_name' => $request->donor_first_name,
+                'donor_last_name' => $request->donor_last_name,
+                'donor_email' => $request->donor_email,
+                'donor_phone' => $request->donor_phone,
+                'full_address' => $full_address,
+                'address' => $request->address,
+                'comments' => $request->comments,
+                'currency' => $request->currency,
+                'city' => $request->city,
+                'recurring' => $recurring,
+                'state' => $request->state,
+                'zipcode' => $request->zipcode,
+                'country' => $request->country,
+                'amount' => $donationAmount,
+                'is_anonymous' => $is_anonymous,
+                'entries' => $entries,
+                'usd_amount' => $donationAmount,
+                'donated_amount' => $donationAmount,
+                'payment_gateway' => $request->payment_gateway,
+                'paid_by' => 1,
+                'recurring_intervals' => $recurring_intervals,
+                'subscription_id' => $subscription_id,
+                'transaction_id' => $transactionId ?? '',
+                'season_id' => $request->season_id,
+                'friendly_key' =>  substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(10 / strlen($x)))), 1, 10),
+            ];
+            
+            if($request->has('donation_masbia_details') && $request->input('donation_masbia_details') != '' ) {
+                $donation_insert_data['donor_company'] = $request->donor_company;
+            }
 
-            $Donations = Donations::create(
-                [
-                    'campaign_id' => $campaignId,
-                    'team_id' => $request->teamId ?? 0,
-                    // vistor id is in session
-                    'visitor_id' => $visitorId,
-                    'status' => $status,
-                    'ticket_option_id' => $ticket_option_id,
-                    'donor_first_name' => $request->donor_first_name,
-                    'donor_last_name' => $request->donor_last_name,
-                    'donor_email' => $request->donor_email,
-                    'donor_phone' => $request->donor_phone,
-                    'full_address' => $full_address,
-                    'address' => $request->address,
-                    'comments' => $request->comments,
-                    'currency' => $request->currency,
-                    'city' => $request->city,
-                    'recurring' => $recurring,
-                    'state' => $request->state,
-                    'zipcode' => $request->zipcode,
-                    'country' => $request->country,
-                    'amount' => $donationAmount,
-                    'is_anonymous' => $is_anonymous,
-                    'entries' => $entries,
-                    'usd_amount' => $donationAmount,
-                    'donated_amount' => $donationAmount,
-                    'payment_gateway' => $request->payment_gateway,
-                    'paid_by' => 1,
-                    'recurring_intervals' => $recurring_intervals,
-                    'subscription_id' => $subscription_id,
-                    'transaction_id' => $transactionId ?? '',
-                    'season_id' => $request->season_id,
-                    'friendly_key' =>  substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(10 / strlen($x)))), 1, 10),
-
-                ]
-            );
+            $Donations = Donations::create($donation_insert_data);
 
             $DonationsId = $Donations->id;
             $DonationSTP = DonationSplitPot::create([
@@ -673,7 +681,6 @@ class DonationController extends Controller
             // donation_masbia_details
             $this->add_masbia_details($DonationsId, $request);
             
-
             if ($request->has('tips') && $request->input('tips') != '') {
                 $tips = json_decode($request->input('tips'), true);
                 foreach ($tips as $tip) {
@@ -757,11 +764,13 @@ class DonationController extends Controller
             $dataNew['donation_id'] = $donation_id;
             $dataNew['donation_location_id'] = $donation_masbia_details_data['donation_location_id'];
             $dataNew['allocate_donation_id'] = $donation_masbia_details_data['allocate_donation'];
-            $dataNew['dedication_comments'] = $donation_masbia_details_data['dedication_comments'];
+            $dataNew['dedication_comments'] = isset($donation_masbia_details_data['dedication_comments']) ? $donation_masbia_details_data['dedication_comments'] : NULL;
             $dataNew['letter_price'] = $request->letter_amount;
             $dataNew['recognition_price'] = $request->recognition_amount;
             $dataNew['is_recognition'] = $donation_masbia_details_data['recognition'];
             $dataNew['is_letter'] = $donation_masbia_details_data['letter'];
+            $dataNew['is_notification'] = isset($donation_masbia_details_data['is_notification']) ? $donation_masbia_details_data['is_notification'] : 0;
+            $dataNew['notification_mail'] = isset($donation_masbia_details_data['notification_mail']) ? $donation_masbia_details_data['notification_mail'] : NULL;
             
             $masbia_data = DonationMasbiaDetail::create($dataNew);
             // $request->recurring = get_sustainer_options_list($donation_masbia_details_data['sustainer_option_id']);

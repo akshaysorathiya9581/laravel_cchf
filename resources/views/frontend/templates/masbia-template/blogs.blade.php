@@ -34,7 +34,7 @@
 
             var $button = $(this);
             var offset = $button.data('offset'); // Get the current offset value
-            var perPage = 1; // You can change this value to match your API's default
+            var perPage = 10;
 
             // Disable the button while the request is being made to prevent multiple clicks
             $button.prop('disabled', true);

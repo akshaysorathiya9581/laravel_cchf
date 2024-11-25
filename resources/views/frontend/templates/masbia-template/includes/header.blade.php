@@ -6,9 +6,9 @@
   <meta name="viewport"
     content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>
-        @yield('title') - {{ config('app.name', 'Masbia') }}
-    </title>
+    
+    <x-open-graph-meta :page="($page ?? '')" :campaign="($campaign ?? '')" :ogcustommeta="($ogcustommeta ?? '')" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -27,25 +27,18 @@
       <img src="{{ asset('assets/frontend/templates/masbia/images/icons/hamburger-menu.svg') }}" alt="">
     </button>
 
-    <div class="side-menu" id="sideMenu">
-        <button class="close-btn" id="closeBtn">&times;</button>
-        <ul class="header__menu">
-            @foreach ($mainMenu as $m_key => $m_value)
-              <li><a href="{{ $m_value['link'] }}">{{ $m_value['text'] }}</a></li>
-            @endforeach
-        </ul>
-    </div>
+    <x-side-menu />
 
     <a href="/" class="logo">
       <img src="{{ asset('assets/frontend/templates/masbia/images/logo.png') }}" alt="Masbia">
     </a>
 
     <div class="header-btns">
-      <a href="#" class="btn btn--green">
+      <a href="{{ (isset($campaign)) ? route('raffle', ['campaign' => $campaign->slug]) : '' }}" class="btn btn--green">
         <img src="{{ asset('assets/frontend/templates/masbia/images/icons/donate.svg') }}" alt="">
         <span>Donate</span>
       </a>
-      <a href="#" class="btn">
+      <a href="{{ route('volunteer.index') }}" class="btn">
         <img src="{{ asset('assets/frontend/templates/masbia/images/icons/volunteer.svg') }}" alt="">
         <span>Volunteer</span>
       </a>

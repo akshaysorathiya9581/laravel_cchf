@@ -16,6 +16,9 @@ class Blogs extends Model
     protected $fillable = [
         'title',
         'slug',
+        'author',
+        'video_link',
+        'publish_date',
         'image',
         'description',
         'user_id',

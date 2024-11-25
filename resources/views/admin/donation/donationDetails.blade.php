@@ -188,6 +188,14 @@
                                         @endif
                                     </td>
                                 </tr>
+                                @if (isset($details->donor_company))
+                                    <tr>
+                                        <td><b>Donor Company Name</b></td>
+                                        <td class="text-start">
+                                            {{ $details->donor_company }}
+                                        </td>
+                                    </tr>
+                                @endif
 
                                 <tr>
                                     <td><b>Donor Neighborhood</b></td>
@@ -355,6 +363,54 @@
                                     <td><b>Visitor ID</b></td>
                                     <td class="text-start"></td>
                                 </tr>
+
+                                @if($masbiaDetail)
+
+                                    <tr>
+                                        <td>
+                                            <b>Dedication / Comments</b>
+                                        </td>
+                                        <td class="text-start">
+                                            {{ $masbiaDetail->dedication_comments }}
+                                        </td>
+                                    </tr>
+
+                                    @if($masbiaDetail->is_letter)
+                                        <tr>
+                                            <td>
+                                                <b>Letter Price</b>
+                                            </td>
+                                            <td class="text-start">
+                                                {{ $masbiaDetail->letter_price }}
+                                            </td>
+                                        </tr>
+                                    @endif
+
+                                    @if($masbiaDetail->is_recognition)
+
+                                        <tr>
+                                            <td>
+                                                <b>Recognition Price</b>
+                                            </td>
+                                            <td class="text-start">
+                                                {{ $masbiaDetail->recognition_price }}
+                                            </td>
+                                        </tr>
+                                    @endif
+
+                                    @if($masbiaDetail->is_notification)
+
+                                        <tr>
+                                            <td>
+                                                <b>Notification Email / Mobile</b>
+                                            </td>
+                                            <td class="text-start">
+                                                {{ $masbiaDetail->notification_mail }}
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endif
+
                                 <tr>
                                     <td><b>Notes</b><button type="button" data-bs-toggle="modal" data-bs-target="#donation_notes_modal" class="getDonationNotes ms-3 btn btn-dark"><i class="fas fa-edit"></i>Edit</button></td>
                                     <td class="text-start">

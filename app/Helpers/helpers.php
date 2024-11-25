@@ -156,7 +156,6 @@ if (!function_exists('get_donation_location_list')) {
 if (!function_exists('get_user_notification_list')) {
     function get_user_notification_list($id = '')
     {
-
         $data = array();
         $data[] = array('id' => 'is_updates_news', 'text' => 'Updates & News');
         $data[] = array('id' => 'is_new_course', 'text' => 'New course');
@@ -181,7 +180,6 @@ if (!function_exists('get_user_notification_list')) {
     }
 }
 
-
 if (!function_exists('generateSlug')) {
     function generateSlug($title)
     {
@@ -193,4 +191,54 @@ if (!function_exists('generateSlug')) {
 
         return $slug;
     }
+}
+
+if (!function_exists('get_request_data')) {
+	function get_request_data($key)
+	{
+		if (Request()->request->has($key)) {
+			return Request()->request->all()[$key];
+		}
+		return null;
+	}
+}
+
+if (!function_exists('set_request_data')) {
+	function set_request_data($setData)
+	{
+		Request()->request->add($setData);
+	}
+}
+
+if (!function_exists('_date')) {
+	function _date($date = '', $method = 'date')
+	{
+		if ($date == '') {
+			return '';
+		}
+
+		$date = strtotime($date);
+
+		$tmp = '';
+		switch ($method) {
+			case 'time':
+				$tmp = date('H:i', $date);
+				break;
+
+			case 'date_time':
+				$tmp = date('d-m-Y H:i:s', $date);
+				break;
+
+			case 'calendar_date':
+				// date_default_timezone_set('UTC');
+				$tmp = date('Y-m-d h:i A', $date);
+				break;
+
+			default:
+				$tmp = date('d.m.Y', $date);
+				break;
+		}
+
+		return $tmp;
+	}
 }

@@ -16,13 +16,17 @@
                             <div class="mb-10 fv-row">
                                 <input type="hidden" id="EditblogId" name="blogId" value="">
                                 <label class="required form-label mb-3">Seasons</label>
-                                <select  id="Seasons" class="form-select form-select-solid form-select-sm" data-control="select2" data-placeholder="select season" data-hide-search="false" name="season_id">
+                                <select id="seasons" class="form-select form-select-solid form-select-sm" data-control="select2" data-placeholder="select season" data-hide-search="false" name="season_id">
+                                    @foreach ($seasons as $season)
+                                        <option value="{{ $season->id }}">{{ $season->name }}</option>
+                                    @endforeach
                                 </select>
-                                @if ($errors->has('season_id'))
-                                <div class="text-danger">{{ $errors->first('season_id') }}</div>
-                                @endif
                             </div>
                             <div class="fv-row row mb-10">
+                                <div class="col-md-6">
+                                    <label class="form-label required">Publish Date</label>
+                                    <input type="date" name="publish_date" id="publishDate" value="{{ \Carbon\Carbon::now()->format('Y-m-d') }}" class="form-control form-control-lg form-control-solid" />
+                                </div>
                                 <div class="col-md-6">
                                     {{-- @if(isset($prize->id)) --}}
                                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}" />
@@ -30,23 +34,22 @@
                                     <label class="form-label required">Title</label>
                                     <input name="title" class="form-control form-control-lg form-control-solid" id="editBlogtitle" value="" />
                                 </div>
+                            </div>
+
+                            <div class="fv-row row mb-10">
                                 <div class="col-md-6">
-                                    <label class="form-label required">Author</label>
+                                    <label class="form-label">Author</label>
                                     <input name="author" class="form-control form-control-lg form-control-solid" id="editBlogauthor" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Video Link</label>
+                                    <input name="video_link" class="form-control form-control-lg form-control-solid" id="videoLink" />
                                 </div>
                             </div>
 
                             <div class="fv-row mb-10">
-                                <label class="form-label required">Video Link</label>
-                                <input name="video_link" class="form-control form-control-lg form-control-solid" id="videoLink" />
-                                @if ($errors->has('video_link'))
-                                    <div class="text-danger">{{ $errors->first('video_link') }}</div>
-                                @endif
-                            </div>
-
-                            <div class="fv-row mb-10 d-none">
                                 <label class="d-block fw-semibold fs-6 mb-5">
-                                    <span class="required"> Image</span>
+                                    <span class=""> Image</span>
                                     <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title=""></i>
                                 </label>
 
@@ -67,12 +70,9 @@
                                     </span>
                                 </div>
                                 <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-                                @if ($errors->has('image'))
-                                <div class="text-danger">{{ $errors->first('image') }}</div>
-                                @endif
                             </div>
                             <div class="fv-row mb-10">
-                                <label class="form-label required">Description</label>
+                                <label class="form-label">Description</label>
                                 <textarea name="description" id="blogDescription" class="description_editor form-control form-control-lg form-control-solid" cols="30" rows="10"></textarea>
                                 @if ($errors->has('description'))
                                 <div class="text-danger">{{ $errors->first('description') }}</div>
@@ -85,8 +85,6 @@
                 <div class="modal-body" style="text-align: right">
                     <button type="submit" class="btn btn-submit btn-lg btn-primary" data-kt-element="type-next">
                         <span class="indicator-label">Submit</span>
-                        <span class="indicator-progress">Please wait...
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                     </button>
                 </div>
             </form>
