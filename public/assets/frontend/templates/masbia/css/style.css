@@ -444,6 +444,18 @@ main {
   z-index: 1;
 }
 
+.about__img iframe {
+  border: 0;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .about__img iframe {
+    width: 100% !important;
+    height: auto !important;
+  } 
+}
+
 .section-ic {
   margin-bottom: 30px;
 }

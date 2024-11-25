@@ -105,10 +105,18 @@
 			  Passover </p>
 		  </div>
 		  <div class="about__img">
-			<button class="about__img-play">
+			<iframe width="560" height="350" 
+				src="https://www.youtube.com/embed/PJOTJTSbucg?si=pPFoucJ1j23Z-CCg&autoplay=1&mute=1" 
+				title="YouTube video player" 
+				frameborder="0" 
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+				referrerpolicy="strict-origin-when-cross-origin" 
+				allowfullscreen>
+			</iframe>
+			{{-- <button class="about__img-play">
 			  <img src="{{ asset('assets/frontend/templates/masbia/images/icons/play.svg') }}" alt="">
 			</button>
-			<img src="{{ asset('assets/frontend/templates/masbia/images/about-img.png') }}" alt="">
+			<img src="{{ asset('assets/frontend/templates/masbia/images/about-img.png') }}" alt=""> --}}
 		  </div>
 		</div>
 	  </div>
