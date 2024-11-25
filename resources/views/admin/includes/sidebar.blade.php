@@ -178,6 +178,12 @@
                     </a>
                 </div>
                 <div class="menu-item">
+                    <a class="menu-link" href="{{route('admin.media')}}">
+                       <i class="fas fa-image"></i>
+                        <span class="ms-3 menu-title"> Media</span>
+                    </a>
+                </div>
+                <div class="menu-item">
                     <a class="menu-link" href="{{ route('admin.seasons') }}">
                         <i class="fa fa-calendar"></i>
                         <span class="ms-3 menu-title">Seasons</span>

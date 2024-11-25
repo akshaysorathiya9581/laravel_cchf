@@ -49,6 +49,9 @@
 
                 // Append the new blogs to the list
                 $('.blog-list').append(response.blogs);
+                if($('.blog-list').html().trim() == ''){
+                    $('.blog-list').html('<h5 class="text-center w-100">No blogs found at the moment</h4>');
+                }
 
                 // If there are no more blogs, hide the "View More" button
                 if (!response.hasMore) {

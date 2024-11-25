@@ -12,6 +12,7 @@ use App\Http\Controllers\BillingController;
 use App\Http\Controllers\VolunteerController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Campaign;
+use App\Http\Controllers\MediaController;
 
 // Route::middleware('guest')->group(function () {
     Route::get('/', [FrontendController::class, 'index'])->name('home');
@@ -39,8 +40,12 @@ use App\Models\Campaign;
     Route::get('blog/{title}', [MasbiaBlogsController::class, 'view'])->name('blogs.view');
     Route::get('blogs/get-blogs', [MasbiaBlogsController::class, 'getBlogs'])->name('blogs.get-blogs');
 
+    //_MEDIA_ROUTES
+    Route::get('media/{title}', [MediaController::class, 'view'])->name('media.view');
+
     //__ VOLUNTEER_ROUTES
     Route::get('volunteer', [VolunteerController::class, 'index'])->name('volunteer.index');
+    Route::post('volunteer/save', [VolunteerController::class, 'save'])->name('volunteer.save');
 
 // });
 
