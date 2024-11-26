@@ -37,7 +37,7 @@
                                 <tr>
                                     <td><span class="im">
                                             <p>Great news!</p>
-                                            <p> <b>{{ $donation->donor_first_namez . ' ' . $donation->donor_last_name }} donated ${{ $donation->amount }} towards your campaign "{{ $donation->campaign->camp_title }}"</b></p>
+                                            <p> <b>{{ $donation->donor_first_name. ' ' . $donation->donor_last_name }} donated ${{ $donation->amount }} towards your campaign "{{ $donation->campaign->camp_title }}"</b></p>
                                             <br>
                                         </span>
                                         <table width="100%" cellpadding="0" cellspacing="0" style="background-color:rgb(243,243,243);padding:20px">

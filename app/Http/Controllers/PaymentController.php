@@ -39,6 +39,7 @@ class PaymentController extends Controller
             $paymentIntent = $this->paymentProcessor->createPaymentIntent($request, $campaignId);
             // dd($paymentIntent);
             $donation =  $this->donationController->handlePostPayment($request, $campaignId, $paymentIntent);
+            // dd($donation);
             if ($donation) {
                 if ($donation instanceof \Illuminate\Http\JsonResponse) {
                     $donation = $donation->getData();
@@ -52,18 +53,18 @@ class PaymentController extends Controller
                     setSendgridApiKey();
 
                     try {
+                        Mail::to($donationObject->donor_email)->send(new DonorNotification($donationObject));
 
-                        // Mail::to($donationObject->donor_email)->send(new DonorNotification($donationObject));
+                        $managers = DB::table('campaign_users')
+                            ->join('users', 'campaign_users.user_id', '=', 'users.id')
+                            ->where('campaign_users.campaign_id', $donationObject->campaign_id)
+                            ->select('users.email')
+                            ->get();
+                            
+                        foreach ($managers as $manager) {
+                            Mail::to($manager->email)->send(new ManagerNotification($donationObject));
+                        }
 
-                        // $managers = DB::table('campaign_users')
-                        //     ->join('users', 'campaign_users.user_id', '=', 'users.id')
-                        //     ->where('campaign_users.campaign_id', $donationObject->campaign_id)
-                        //     ->select('users.email')
-                        //     ->get();
-
-                        // foreach ($managers as $manager) {
-                        //     Mail::to($manager->email)->send(new ManagerNotification($donationObject));
-                        // }
                         return response()->json(['success' => 'Payment successful', 'donation' => $donationObject->friendly_key], 200);
                     } catch (\Exception $e) {
                         Log::error('Email sending failed: ' . $e->getMessage());

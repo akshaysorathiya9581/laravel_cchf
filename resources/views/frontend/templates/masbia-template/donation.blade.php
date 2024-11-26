@@ -270,32 +270,3 @@
 
 <link rel="stylesheet" href="{{ asset('assets/css/common.css') }}?v={{ time() }}">
 @include('frontend.js-data')
-
-
-@section('scripts')
-	<script>
-	// setTimeout(function() {
-	//     let $donationButton = $('.sponsor__donation-btns').find('.donation-amount').first();
-	//     if ($donationButton.length > 0) {
-	//         $donationButton.click();
-	//     } else {
-	//         console.warn('Donation button not found.');
-	//     }
-	// }, 200); // Delay in milliseconds
-
-	// $(document).ready(function() {
-	//     $(document).on('click', '.donation-amount', function() {
-	//       console.log('okok');
-	//        var _this = $(this);
-	//        var price = _this.data('price');
-	//        $(_this).closest('.sponsor__donation-btns').find('.selected').removeClass('selected');
-	//        $(_this).addClass('selected');
-	//        if(!_this.hasClass('other')) {
-	//           price = '';
-	//           renderTicketPages();
-	//        }
-	//        $('#customAmount').val(price);
-	//     });
-	// });
-  </script>
-@endsection
