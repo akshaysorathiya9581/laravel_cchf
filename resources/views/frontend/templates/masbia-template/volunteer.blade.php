@@ -22,7 +22,7 @@
 							<div class="volunteer-signup__card-first">
 								<div class="volunteer-form-group">
 									<label class="label" for="">First Name<span>*</span></label>
-									<input type="text" class="volunteer-form-input" value="{{ $user->name ?? '' }}" placeholder="Md Jahid Hasan">
+									<input type="text" class="volunteer-form-input" placeholder="Md Jahid Hasan">
 								</div>
 								<div class="volunteer-form-group">
 									<label class="label" for="">Last Name<span>*</span></label>
@@ -30,15 +30,15 @@
 								</div>
 								<div class="volunteer-form-group">
 									<label class="label" for="">Email<span>*</span></label>
-									<input type="email" class="volunteer-form-input" value="{{ $user->email ?? '' }}" placeholder="info@masbia.com">
+									<input type="email" class="volunteer-form-input" placeholder="info@masbia.com">
 								</div>
 								<div class="volunteer-form-group">
 									<label class="label" for="">Phone<span>*</span></label>
-									<input type="text" class="volunteer-form-input" value="{{ $user->phone ?? '' }}" placeholder="+1 (555) 123-4567">
+									<input type="text" class="volunteer-form-input" placeholder="+1 (555) 123-4567">
 								</div>
 								<div class="volunteer-form-group full-width">
 									<label class="label" for="">Street Address<span>*</span></label>
-									<input type="text" class="volunteer-form-input" value="{{ $user->address ?? '' }}" placeholder="123 Main Street, Hoboken, NJ 07030">
+									<input type="text" class="volunteer-form-input" placeholder="123 Main Street, Hoboken, NJ 07030">
 								</div>
 								<div class="volunteer-form-group">
 									<label class="label" for="">City<span>*</span></label>
@@ -54,13 +54,11 @@
 								</div>
 								<div class="volunteer-form-group">
 									<label class="label" for="">Post Code<span>*</span></label>
-									<select name="" class="volunteer-form-select">
-										<option value="">07102</option>
-									</select>
+									<input type="text" class="volunteer-form-input">
 								</div>
 								<div class="volunteer-form-group">
 									<label class="label" for="">Country<span>*</span></label>
-									<input type="text" class="volunteer-form-input" placeholder="Unites States">
+									<input type="text" class="volunteer-form-input">
 								</div>
 								<div class="volunteer-form-group">
 									<div class="volunteer__checkbox volunteer__checkbox--sm">

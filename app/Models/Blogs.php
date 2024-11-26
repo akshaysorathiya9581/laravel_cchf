@@ -32,4 +32,12 @@ class Blogs extends Model
     {
         return $this->hasOne(User::class);
     }
+
+    public static function getRecentBlogs() {
+
+        return self::where('publish_date', '<=', now()->toDateString())
+            ->orderBy('publish_date', 'desc')
+            ->take(10)
+            ->get();
+    }
 }

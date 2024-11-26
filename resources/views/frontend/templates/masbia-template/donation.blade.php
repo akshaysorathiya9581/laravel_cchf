@@ -1,6 +1,26 @@
 @section('title', 'Masbia')
 @include('frontend.templates.masbia-template.includes.header')
 
+<style>
+.sponsor__donation-customBox {
+    position: relative;
+    display: inline-block;
+}
+
+.currency-symbol {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;  /* Disable interaction */
+    color: #333; /* Style as needed */
+}
+
+#customAmount {
+    padding-left: 38px;
+}
+</style>
+
 <main>
 
 	<section class="hero">
@@ -23,7 +43,7 @@
 							stroke-linecap="round" stroke-linejoin="round" />
 						</svg>
 					</a>
-					<a href="#" class="btn btn--outlined">DONATION CATALOG</a>
+					<a href="{{ route('donation-catalog') }}" class="btn btn--outlined">DONATION CATALOG</a>
 				</div>
 				<a href="#" class="hero__link">View current campaigns</a>
 				<img class="hero__hands-img" src="{{ asset('assets/frontend/templates/masbia/images/hands-white.svg') }}" alt="">
@@ -49,7 +69,8 @@
 		  </div>
 		  <div class="sponsor__donation-custom">
 			<div class="sponsor__donation-customBox">
-			  {{-- <span>$</span> --}}
+			  <!-- <span>$</span> -->
+			  <span class="currency-symbol">$</span>
 			  <input type="text" id="customAmount" name="DonateAmount">
 			</div>
 			<button class="btn btn--brown sponsor__donate-now" data-bs-toggle="collapse" data-bs-target="#collapseCart" aria-expanded="false">Donate Now</button>
@@ -114,15 +135,15 @@
 			  <div id="tab{{ $value['id'] }}" class="tab-content">
 				<div class="sponsor__tab-content-wrapper">
 				  <div class="donation__dedication">
-					<input type="checkbox" id="notification_{{ $value['id'] }}" name="notification_{{ $value['id'] }}" value="1" />
+					<input type="checkbox" id="notification_{{ $value['id'] }}" class="email-notification" name="notification_{{ $value['id'] }}" value="1" />
 					<label for="notification_{{ $value['id'] }}">
 					  Receive a notification each time your card is charged
 					</label>
 				  </div>
-				  <form class="sponsor__notification-form" method="POST">
+				  <!-- <form class="sponsor__notification-form" method="POST">
 					<input type="text" class="custom-input" name="notification_mail" placeholder="Enter your Email or Mobile">
 					<input type="button" value="Submit" class="btn btn-receive-notification">
-				  </form>
+				  </form> -->
 				</div>
 			  </div>
 			@endif
@@ -132,7 +153,7 @@
 	  </div>
 	</section>
 
-	<section class="donation-options-s">
+	<section class="donation-options-s" style="margin-bottom: 45px">
 	  <div class="tac">
 		<h2 class="section-title"><strong>More Donation</strong> Options</h2>
 		<div>
@@ -227,6 +248,15 @@
 		@endif
 	  </div>
 	</section>
+
+	<div class="cart__summary-btn" style="margin-bottom: 45px;align-items: center;justify-content: center;">
+		<button id="summaryCheckoutBtn" class="btn checkout-btn overlay" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCart" aria-expanded="false" style="width: 250px">
+			<span>Checkout</span>
+			<span class="divider"></span>
+			<span class="checkout-btn__amount" id="pop_checkout_1"></span>
+		</button>
+	</div>
+
   </main>
 
 @include('frontend.templates.masbia-template.includes.footer')

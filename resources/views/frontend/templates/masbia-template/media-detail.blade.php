@@ -14,7 +14,7 @@
                 @endif
 
                 @if($media->video_link)
-                    <iframe class="mt-4 mb-4" style="width: 100%; height: 350px" src="{{ $blog->video_link }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe class="mt-4 mb-4" style="width: 100%; height: 350px" src="{{ $media->video_link }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 @endif
 
 				{!! $media->description !!}

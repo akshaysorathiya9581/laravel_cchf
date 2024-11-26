@@ -1,3 +1,14 @@
+<style>
+    .checkout-btn span.divider, .btn-standard-checkout span.divider {
+        display: inline-block;
+        width: 24px;
+        height: 1px;
+        background-color: #fff;
+        transform: rotateZ(-46deg);
+        flex-shrink: 0;
+        margin: 0;
+    }
+</style>
 
 <div class="cart">
     <button class="cart-collapse" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCart" aria-expanded="false">
@@ -139,32 +150,33 @@
                                 <h6 class="info-title">Personal Information <span></span></h6>
                                 <div class="custom-form">
                                     <div class="form-group">
-                                        <input type="text" placeholder="First Name" id="donor_first_name" value="" name="donor_first_name" class="form-control">
+                                        <input type="text" placeholder="First Name" id="donor_first_name" value="{{ auth()->user()->name ?? '' }}" name="donor_first_name" class="form-control">
                                         @if ($errors->has('donor_first_name'))
                                         <span class="text-danger">{{ $errors->first('donor_first_name') }}</span>
                                         @endif
                                     </div>
+
                                     <div class="form-group">
-                                        <input type="text" placeholder="last Name" id="donor_last_name" value="" name="donor_last_name" class="form-control">
+                                        <input type="text" placeholder="Last Name" id="donor_last_name" value="" name="donor_last_name" class="form-control">
                                     </div>
                                     <div class="form-group full-width">
                                         <input type="text" placeholder="Company" id="donor_company" value="" name="donor_company" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" placeholder="Email" id="donor_email" value="" name="donor_email" class="form-control">
+                                        <input type="email" placeholder="Email" id="donor_email" value="{{ auth()->user()->email ?? '' }}" name="donor_email" class="form-control" @if(isset(auth()->user()->email)) disabled @endif>
                                     </div>
                                     <div class="form-group">
-                                        <input type="number" placeholder="Phone Number" value="" id="donor_phone" name="donor_phone" class="form-control">
+                                        <input type="number" placeholder="Phone Number" value="{{ auth()->user()->phone ?? '' }}" id="donor_phone" name="donor_phone" class="form-control">
                                     </div>
                                 </div>
                                 <div class="custom-checkbox">
                                     <input type="checkbox" value="1" name="is_anonymous" class="form-check-input" id="donate-anonymously">
-                                    <label class="form-check-label" for="donate-anonymously">Donate Anonymously*</label>
+                                    <label class="form-check-label" for="donate-anonymously">Donate Anonymously</label>
                                 </div>
                                 <h6 class="info-title">Billing Info <span></span></h6>
                                 <div class="custom-form">
                                     <div class="form-group full-width">
-                                        <input type="text" class="form-control" value="" placeholder="Enter your Address" name="address" id="address">
+                                        <input type="text" class="form-control" value="{{ auth()->user()->address ?? '' }}" placeholder="Enter your Address" name="address" id="address">
                                     </div>
                                     <div class="form-group">
                                         <input type="text" placeholder="City" value="" name="city" id="city" class="form-control">
@@ -305,7 +317,7 @@
                                         </div>
                                     @endif
 
-                                    <button class="btn btn--green" type="submit">
+                                    <button class="btn btn--green btn-standard-checkout" type="submit">
                                         <span class="standard_checkout">Checkout</span>
                                         {{-- <span class="standard_checkout divider"></span> --}}
                                         {{-- <span class="standard_checkout checkout-btn__amount" id="pop_checkout_3"></span> --}}
