@@ -223,9 +223,9 @@ $(document).ready(function () {
 
     $('body').on('change','.email-notification', function(e) {
         var _this = $(this);
-        var is_notification = _this.is(':checked');
+        var is_notification = +_this.is(':checked');
         add_filter_value('is_notification', is_notification);
-        add_filter_value('notification_mail', '');
+        // add_filter_value('notification_mail', '');
     });
 
     $('body').on('click','.goto-donate', function(e) {
