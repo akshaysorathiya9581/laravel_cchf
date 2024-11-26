@@ -47,7 +47,7 @@
 					<span class="user-payment__card-default">Default</span>
 					<div>
 					<div class="user-payment__card-num">
-						<img src="images/payment/mastercard.svg" width="59" height="40" alt="Card Icon">
+						<img src="{{ asset('assets/frontend/templates/masbia/images/payment/mastercard.svg') }}" width="59" height="40" alt="Card Icon">
 						<span class="num">**** **** ***3520</span>
 					</div>
 					<div class="user-payment__card-crud">
@@ -76,7 +76,7 @@
 					<span class="user-payment__card-name">Debit Card</span>
 					<div>
 					<div class="user-payment__card-num">
-						<img src="images/payment/visa.svg" width="59" height="40" alt="Card Icon">
+						<img src="{{ asset('assets/frontend/templates/masbia/images/payment/visa.svg') }}" width="59" height="40" alt="Card Icon">
 						<span class="num">**** **** ***3520</span>
 					</div>
 					<div class="user-payment__card-crud">
@@ -121,7 +121,7 @@
 		<div class="custom-modal__dialog custom-modal__dialog--onetime-popup">
 			<div class="custom-modal__content custom-modal__content--onetime-popup">
 				<button type="button" class="custom-modal__close">
-					<img src="images/icons/close.svg" alt="">
+					<img src="{{ asset('assets/frontend/templates/masbia/images/icons/close.svg') }}" alt="">
 				</button>
 				<h2 class="custom-modal__heading">One-Time Donation</h2>
 				<div class="billing-donation">

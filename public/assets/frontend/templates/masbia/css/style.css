@@ -468,7 +468,7 @@ main {
   overflow: hidden;
 }
 
-.about__img::after {
+/* .about__img::after {
   content: "";
   position: absolute;
   width: 100%;
@@ -476,7 +476,7 @@ main {
   inset: 0;
   box-shadow: inset 0px 0px 60px 30px rgba(23, 23, 23, 0.32);
   z-index: 1;
-}
+} */
 
 .about__img iframe {
   border: 0;
