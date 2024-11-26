@@ -27,6 +27,9 @@
     <script src="{{ $banquestReq }}"></script>
 @endif
 
+<link rel="stylesheet" href="{{ asset('assets/frontend/css/jquery.toast.css') }}">
+<script src="{{ asset('assets/frontend/js/jquery.toast.js') }}"></script>
+<script src="{{ asset('assets/frontend/js/custom.js') }}"></script>
 
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
@@ -414,9 +417,11 @@
         let submitCount = 0;
         document.getElementById('payment-form').addEventListener('submit', async (e) => {
             e.preventDefault();
+            blockUI_page($('.cart'), true);
             if (validateForm()) {
                 //  disableSubmitButton();
             } else {
+                blockUI_page($('.cart'), false);
                 return false;
             }
 
@@ -476,11 +481,11 @@
                                 });
 
                             } else {
-                                alert('Payment successful!');
+                                payment_success_message();
                                 // console.log(result);
-                                const donationKey = result.donation.original
-                                    .donation_key;
-                                window.location.href = `/thank-you/${donationKey}`;
+                                // const donationKey = result.donation.original
+                                //     .donation_key;
+                                // window.location.href = `/thank-you/${donationKey}`;
                             }
                         });
                     }
@@ -506,7 +511,8 @@
                         if (data.success) {
                             // console.error(data);
                             // console.log('data:',data.donation);
-                            // alert('Payment successful!');
+                        
+                            payment_success_message();
                             const donationKey = data.donation
                             // .original.donation_key;
                             window.location.href = `/thank-you/${donationKey}`;
@@ -548,7 +554,7 @@
                             body: JSON.stringify(formDataObject)
                         }).then(response => response.json()).then(data => {
                             if (data.success) {
-                                alert('Payment successful!');
+                                payment_success_message();
                             } else {
                                 alert('Payment failed: ' + data.message);
                             }
@@ -586,7 +592,7 @@
                                     errorElement.textContent = result.error;
                                     alert("Error: " + result.error);
                                 } else {
-                                    alert('Payment successful!');
+                                    payment_success_message();
                                 }
                             })
                             .catch(error => {
@@ -681,7 +687,7 @@
                                     errorElement.textContent = result.error;
                                     alert("Error: " + result.error);
                                 } else {
-                                    alert('Payment successful!');
+                                    payment_success_message();
                                 }
                             } catch (error) {
                                 console.error('Failed to parse JSON:', error);
@@ -709,7 +715,7 @@
                                 errorElement.textContent = result.error;
                                 alert('Error: ' + result.error);
                             } else {
-                                alert('Payment Successfull');
+                                payment_success_message();
                             }
                         } catch (error) {
                             console.error('Failed to parse JSON:' + error);
@@ -722,6 +728,13 @@
             }, 3000);
         });
     });
+
+    function payment_success_message() {
+        toastr_show("Payment successful!");
+        localStorage.clear();
+        blockUI_page($('.cart'), false);
+        location.reload();
+    }
 
     function paymentError(message) {
         swal.fire({

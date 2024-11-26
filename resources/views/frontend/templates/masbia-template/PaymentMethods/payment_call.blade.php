@@ -27,7 +27,6 @@
     <script src="{{ $banquestReq }}"></script>
 @endif
 
-
 <script>
     document.addEventListener("DOMContentLoaded", function(event) {
         const stripePublishableKey = '{{ $stripe['stripePublishableKey'] }}';
@@ -414,12 +413,14 @@
         let submitCount = 0;
         document.getElementById('payment-form').addEventListener('submit', async (e) => {
             e.preventDefault();
+            blockUI_page($('.cart'), true);
             if (validateForm()) {
                 //  disableSubmitButton();
             } else {
+                blockUI_page($('.cart'), false);
                 return false;
             }
-
+         
             const form = document.getElementById('payment-form');
             // await grecaptcha.execute();
             // const captchaRes = grecaptcha.getResponse();
@@ -717,6 +718,9 @@
                     });
 
             }
+            // localStorage.clear();
+            location.reload();
+            blockUI_page($('.cart'), false);
             setTimeout(() => {
                 submitCount = 0
             }, 3000);
