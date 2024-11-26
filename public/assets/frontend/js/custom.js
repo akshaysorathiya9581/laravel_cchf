@@ -115,6 +115,9 @@ function formValidation(errors) {
 		if (_parent.hasClass('form-input')) {
 			_parent = _parent.parent();
 		}
+		else if (_parent.hasClass('auth-form-input')) {
+			_parent = _parent.parent();
+		}
 
 		var msg = (el_errors.constructor === Array) ? el_errors[0] : el_errors;
 		var label = _parent.find('label').html();
