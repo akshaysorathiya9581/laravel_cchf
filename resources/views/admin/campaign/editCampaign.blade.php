@@ -999,7 +999,7 @@
                                                                 <span class="form-check-label">Largest Donation</span>
                                                             </label>
                                                         </div>
-                                                        @if ($campaign->slug == 'masbia')
+                                                        @if ($campaign->template == 'masbia')
                                                             <div class="mb-4">
                                                                 <label
                                                                     class="form-check form-check-sm form-check-custom form-check-solid">
