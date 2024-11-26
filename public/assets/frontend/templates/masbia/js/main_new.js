@@ -60,12 +60,12 @@ $(document).ready(function () {
                 add_filter_value('is_notification', value);
             }
 
-            if(key == 'notification_mail') {
-                $('input[name="notification_mail"]').val(value);
-                add_filter_value('notification_mail', value);
-            }
+            // if(key == 'notification_mail') {
+            //     $('input[name="notification_mail"]').val(value);
+            //     add_filter_value('notification_mail', value);
+            // }
         }
-     }, 300);
+     }, 500);
 
     $(document).on('click', '.option-card', function(event) {
         var _this =  $(this);
