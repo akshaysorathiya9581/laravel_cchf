@@ -109,7 +109,7 @@ $(document).ready(function () {
         var _this = $(this);
         $(".selected-tickets .cart__summary-list").find('.allocate_donation_option').remove();
         if(_this.val() != '') {
-            $(".selected-tickets .cart__summary-list").append('<li class="allocate_donation_option"><span>Allocate Donation : </span>'+_this.find("option:selected").attr("data-name")+'</li>');
+            $(".selected-tickets .cart__summary-list").append('<li class="allocate_donation_option"><span>Allocate Donation: </span>'+_this.find("option:selected").attr("data-name")+'</li>');
         }
         add_filter_value(_this.attr('name'), _this.val());
 
@@ -126,7 +126,7 @@ $(document).ready(function () {
         $(".selected-tickets .cart__summary-list").find('.letter-option').remove();
         $('#letter_amount').val(price);
         if(_this.is(':checked')) {
-            $(".selected-tickets .cart__summary-list").append('<li class="letter-option"><span>Letter request : </span>$'+price+'</li>');
+            $(".selected-tickets .cart__summary-list").append('<li class="letter-option"><span>Letter request: </span>Yes</li>');
         } else {
             $('#letter_amount').val('');
         }
@@ -140,7 +140,7 @@ $(document).ready(function () {
         $(".selected-tickets .cart__summary-list").find('.recognition-option').remove();
         $('#recognition_amount').val(price);
         if(_this.is(':checked')) {
-            $(".selected-tickets .cart__summary-list").append('<li class="recognition-option"><span>Recognition Request : </span>$'+price+'</li>');
+            $(".selected-tickets .cart__summary-list").append('<li class="recognition-option"><span>Recognition Request: </span>Yes</li>');
         } else {
             $('#recognition_amount').val('');
         }
@@ -197,10 +197,13 @@ $(document).ready(function () {
             $("#gift-btn").addClass("btn--gray");
             $(".remove-cart-details").hide();
             $(".cart__summary .checkout-btn").show();
-            $(".cart__summary .checkout-btn").html(`<span>${isRegularTemplate ? "Donate" : "Checkout"
-                }</span>
-      <span class="divider"></span>
-      <span class="checkout-btn__amount">${amount}</span>`);
+            $(".cart__summary .checkout-btn, .btn-standard-checkout").html(
+                `
+                    <span>${isRegularTemplate ? "Donate" : "Checkout"}</span>
+                    <span class="divider"></span>
+                    <span class="checkout-btn__amount">${amount}</span>
+                `
+            );
 
             if (isRegularTemplate && ticketAmount > 0) {
                 $(
@@ -218,21 +221,29 @@ $(document).ready(function () {
         }    
     });
 
-    $('body').on('click','.btn-receive-notification', function(e) {
+    $('body').on('change','.email-notification', function(e) {
         var _this = $(this);
-        var is_notification = +_this.closest('.tab-content').find('input[type="checkbox"]').is(':checked');
-        var notification_mail = _this.closest('.tab-content').find('input[name="notification_mail"]').val();
+        var is_notification = _this.is(':checked');
         add_filter_value('is_notification', is_notification);
-        add_filter_value('notification_mail', notification_mail);
-    
+        add_filter_value('notification_mail', '');
     });
-    
+
     $('body').on('click','.goto-donate', function(e) {
         e.preventDefault();
         $('html, body').animate({
             scrollTop: $('#sc-donate').offset().top
         }, 100);
     });
+
+    $('body').on('click','.user-auth-btn .openModalBtn',function() {
+        localStorage.setItem('checkout-login', '1');
+    });
+
+    var value = localStorage.getItem('checkout-login');
+    if(value == '1' && $('.user-auth-btn .openModalBtn').length == 0) {
+        localStorage.removeItem('checkout-login');
+        $('button.cart-collapse').trigger('click')
+    }
 
     renderTicketPages();
 });
@@ -297,10 +308,21 @@ function caculate_final_donate_amount() {
         `${siteContent.cart.ticketsTitle} <span>${formattedAmount}</span>`
     );
 
-    // alert(formattedAmountDonation)
-
     $(".checkout-btn__amount").text(formattedAmount);
-    $("#customAmount").val(formattedAmountDonation);
+    $("#customAmount").val(formattedAmountDonation.replace('$', ''));
+    add_filter_value('other_amount',formattedAmountDonation);
+
+    if(only_donation == '0') {
+        $('#customAmount').val('').focus()
+    }
+
+    $(".btn-standard-checkout").html(
+        `
+            <span>Checkout</span>
+            <span class="divider"></span>
+            <span class="checkout-btn__amount">`+formattedAmount+`</span>
+        `
+    );
 
     $(".cart").slideUp();
     setTimeout(function () {

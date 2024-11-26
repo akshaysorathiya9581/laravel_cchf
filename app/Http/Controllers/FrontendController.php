@@ -39,18 +39,21 @@ class FrontendController extends Controller
 {
     public function index(Request $request)
     {
+
         $domain = $request->getHost();
 
         if($domain == 'masbia.webaryco.com') {
 
             $media = Media::getRecentMedia();
+            $blogs = Blogs::getRecentBlogs();
             $campaign = campaign::where('template', 'masbia')->orderBy('created_at', 'desc')->first();
 
             return view (
                 'frontend.templates.masbia-template.index',
                 array(
                     'campaign' => $campaign,
-                    'media' => $media
+                    'media' => $media,
+                    'blogs' => $blogs
                 )
             );
 

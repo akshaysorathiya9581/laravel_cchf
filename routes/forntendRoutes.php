@@ -12,6 +12,7 @@ use App\Http\Controllers\BillingController;
 use App\Http\Controllers\VolunteerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\DonationCatalogController;
 use App\Models\campaign;
 
 // Route::middleware('guest')->group(function () {
@@ -36,16 +37,19 @@ use App\Models\campaign;
     Route::post('/campaign/create_team', [FrontendController::class, 'create_team'])->name('campaign.create_team');
 
     Route::get('donation', [MasbiaDonationController::class, 'index'])->name('donation.index');
-    Route::get('blogs', [MasbiaBlogsController::class, 'index'])->name('blogs.index');
+    Route::get('blog', [MasbiaBlogsController::class, 'index'])->name('blogs.index');
     Route::get('blog/{title}', [MasbiaBlogsController::class, 'view'])->name('blogs.view');
     Route::get('blogs/get-blogs', [MasbiaBlogsController::class, 'getBlogs'])->name('blogs.get-blogs');
 
     //_MEDIA_ROUTES
     Route::get('media/{title}', [MediaController::class, 'view'])->name('media.view');
 
-    //__ VOLUNTEER_ROUTES
+    //__VOLUNTEER_ROUTES
     Route::get('volunteer', [VolunteerController::class, 'index'])->name('volunteer.index');
     Route::post('volunteer/save', [VolunteerController::class, 'save'])->name('volunteer.save');
+
+    //__DONATION_CATALOG
+    Route::get('donation-catalog', [DonationCatalogController::class, 'index'])->name('donation-catalog');
 
 // });
 

@@ -345,59 +345,35 @@
 			  <p class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
 				ut
 				labore et dolore magna aliqua...</p>
-			  <a href="#" class="btn btn--green blog__inner-btn">View all</a>
+			  <a href="{{ route('blogs.index') }}" class="btn btn--green blog__inner-btn">View all</a>
 			</div>
-
+			
 			<div class="swiper swiper-blog">
-			  <div class="swiper-wrapper">
-				<div class="swiper-slide">
-				  <div class="swiper-blog__img">
-					<img src="{{ asset('assets/frontend/templates/masbia/') }}/images/blog-slider/slider-blog1.jpg" alt="">
-					<a href="#" target="_blank" class="swiper-blog__img-link">
-					  <img src="{{ asset('assets/frontend/templates/masbia/') }}/images/icons/arrow-top-right.svg" alt="">
-					</a>
-				  </div>
-				  <time datetime="" class="swiper-blog__date">OCTOBER 31, 2022</time>
-				  <p class="swiper-blog__title">It has survived not
-					only five centuries</p>
-				</div>
+				<div class="swiper-wrapper">
 
-				<div class="swiper-slide">
-				  <div class="swiper-blog__img">
-					<img src="{{ asset('assets/frontend/templates/masbia/') }}/images/blog-slider/slider-blog2.jpg" alt="">
-					<a href="#" target="_blank" class="swiper-blog__img-link">
-					  <img src="{{ asset('assets/frontend/templates/masbia/') }}/images/icons/arrow-top-right.svg" alt="">
-					</a>
-				  </div>
-				  <time datetime="" class="swiper-blog__date">OCTOBER 31, 2022</time>
-				  <p class="swiper-blog__title">It has survived not
-					only five centuries</p>
-				</div>
+					@if(count($blogs))
 
-				<div class="swiper-slide">
-				  <div class="swiper-blog__img">
-					<img src="{{ asset('assets/frontend/templates/masbia/') }}/images/blog-slider/slider-blog3.jpg" alt="">
-					<a href="#" target="_blank" class="swiper-blog__img-link">
-					  <img src="{{ asset('assets/frontend/templates/masbia/') }}/images/icons/arrow-top-right.svg" alt="">
-					</a>
-				  </div>
-				  <time datetime="" class="swiper-blog__date">OCTOBER 31, 2022</time>
-				  <p class="swiper-blog__title">It has survived not
-					only five centuries</p>
-				</div>
+						@foreach($blogs as $blog)
 
-				<div class="swiper-slide">
-				  <div class="swiper-blog__img">
-					<img src="{{ asset('assets/frontend/templates/masbia/') }}/images/blog-slider/slider-blog1.jpg" alt="">
-					<a href="#" target="_blank" class="swiper-blog__img-link">
-					  <img src="{{ asset('assets/frontend/templates/masbia/') }}/images/icons/arrow-top-right.svg" alt="">
-					</a>
-				  </div>
-				  <time datetime="" class="swiper-blog__date">OCTOBER 31, 2022</time>
-				  <p class="swiper-blog__title">It has survived not
-					only five centuries</p>
+							<div class="swiper-slide">
+								<div class="swiper-blog__img">
+
+									@if(trim($blog->image) !== '')
+										<img src="{{ asset($blog->image) }}" alt="Blog Image" />
+									@elseif($blog->video_link)
+										<iframe src="{{ $blog->video_link }}" width="560" height="315" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+									@endif
+
+									<a href="{{ route('blogs.view',$blog->id) }}" target="_blank" class="swiper-blog__img-link">
+										<img src="{{ asset('assets/frontend/templates/masbia/') }}/images/icons/arrow-top-right.svg" alt="">
+									</a>
+								</div>
+								<time datetime="" class="swiper-blog__date">{{ \Carbon\Carbon::parse($blog->publish_date)->format('F j, Y') }}</time>
+								<p class="swiper-blog__title">{{ $blog->title }}</p>
+							</div>
+						@endforeach
+					@endif
 				</div>
-			  </div>
 			</div>
 
 			<div class="swiper-media__arrows">
