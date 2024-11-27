@@ -68,7 +68,7 @@ class VolunteerController extends Controller
 
         try {
 
-            Mail::to($validated->email_id)->send(new VolunteerNotification($validated));
+            Mail::to('divyesh.developer7@gmail.com')->send(new VolunteerNotification($validated));
             $message = 'Volunteer information submitted successfully!';
 
         } catch (\Exception $e) {
