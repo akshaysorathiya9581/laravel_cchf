@@ -36,7 +36,7 @@ class VolunteerNotification extends Mailable
             'personalizations' => [
                 [
                     'to' => [
-                        ['email' => $this->volunteer->admin_email_id, 'name' => $this->volunteer->first_name . ' ' . $this->volunteer->last_name]
+                        ['email' => $this->volunteer->email_id, 'name' => $this->volunteer->first_name . ' ' . $this->volunteer->last_name]
                     ]
 
                 ],

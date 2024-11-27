@@ -59,9 +59,9 @@ class VolunteerController extends Controller
         ];
 
         // Validate the request data
-        $validated = $request->validate($rules);
-        $validated['admin_email_id'] = 'divyesh.developer7@gmail.com';
-        \Mail::to('divyesh.developer7@gmail.com')->send(new VolunteerNotification($validated));
+        $validated = (object) $request->validate($rules);
+
+        \Mail::to($validated->email_id)->send(new VolunteerNotification($validated));
 
         return response()->json([
             'message' => 'Volunteer information submitted successfully!',
