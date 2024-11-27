@@ -42,10 +42,8 @@ class VolunteerNotification extends Mailable
             'categories' => ['volunteer_welcome'],
         ]);
 
-        return $this->from(env('SENDGRID_FROM_MAIL'))
-            ->subject('Volunteer registration')
+        return $this->subject('Volunteer registration')
             ->view('emails.volunteer-notification')
-            ->with('volunteer', $this->volunteer)
-            ->with('volunteerinfo', json_encode($this->volunteer,true));
+            ->with('volunteer', $this->volunteer);
     }
 }
