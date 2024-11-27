@@ -61,6 +61,8 @@ class VolunteerController extends Controller
         // Validate the request data
         $validated = (object) $request->validate($rules);
 
+        setSendgridApiKey();
+
         \Mail::to($validated->email_id)->send(new VolunteerNotification($validated));
 
         return response()->json([
