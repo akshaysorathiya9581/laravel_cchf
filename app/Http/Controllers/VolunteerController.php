@@ -8,6 +8,9 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
 
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+
 class VolunteerController extends Controller
 {
 	/**
@@ -63,10 +66,17 @@ class VolunteerController extends Controller
 
         setSendgridApiKey();
 
-        \Mail::to($validated->email_id)->send(new VolunteerNotification($validated));
+        try {
+
+            Mail::to('divyesh.developer7@gmail.com')->send(new VolunteerNotification($validated));
+            $message = 'Volunteer information submitted successfully!';
+
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+        }
 
         return response()->json([
-            'message' => 'Volunteer information submitted successfully!',
+            'message' => $message,
             'data' => $validated
         ]);
     }
