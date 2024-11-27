@@ -62,13 +62,14 @@ class VolunteerController extends Controller
         ];
 
         // Validate the request data
-        $validated = (object) $request->validate($rules);
-
-        setSendgridApiKey();
+        $validated = $request->validate($rules);
+        $validated['is_group'] = (!empty($validated['is_group'])) ? 'no' : 'yes';
 
         try {
 
-            Mail::to('divyesh.developer7@gmail.com')->send(new VolunteerNotification($validated));
+            setSendgridApiKey();
+
+            Mail::to('divyesh.developer7@gmail.com')->send(new VolunteerNotification((object) $validated));
             $message = 'Volunteer information submitted successfully!';
 
         } catch (\Exception $e) {

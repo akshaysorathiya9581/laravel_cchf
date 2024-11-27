@@ -7,8 +7,6 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Sichikawa\LaravelSendgridDriver\SendGrid;
 
-use Illuminate\Contracts\Queue\ShouldQueue;
-
 class VolunteerNotification extends Mailable
 {
     use Queueable, SerializesModels, SendGrid;
@@ -36,16 +34,18 @@ class VolunteerNotification extends Mailable
             'personalizations' => [
                 [
                     'to' => [
-                        ['email' => $this->volunteer->email_id, 'name' => $this->volunteer->first_name . ' ' . $this->volunteer->last_name]
+                        ['email' => 'divyeshbhanderi066@gmail.com', 'name' => $this->volunteer->first_name . ' ' . $this->volunteer->last_name]
                     ]
 
                 ],
             ],
-            'categories' => ['donation_thank_you'],
+            'categories' => ['volunteer_welcome'],
         ]);
 
-        return $this->subject('Volunteer registration')
+        return $this->from('info@webaryco.com')
+            ->subject('Volunteer registration')
             ->view('emails.volunteer-notification')
-            ->with('volunteer', $this->volunteer);
+            ->with('volunteer', $this->volunteer)
+            ->with('volunteerinfo', json_encode($this->volunteer,true));
     }
 }

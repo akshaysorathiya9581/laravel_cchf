@@ -40,16 +40,22 @@
 					<div class="card-body pt-0 mt-4">
 
 						<form id="frm-email-template" action="{{ route('emailtemplate.save') }}">
-
-							<input type="hidden" value="thankyou" name="page">
 							<input type="hidden" value="{{ $campaign_id }}" name="campaign_id">
 
 							<div class="fv-row row mb-10">
 								<div class="col-md-12">
 									<label class="form-label required">Email Template</label>
 									<select name="mail_page" class="form-control form-control-lg form-control-solid">
-										<option value="thankyou">Thank You</option>
+										<option value="thankyou" data-to="user">Thank You (Donor Email)</option>
+										<option value="donation_notification" data-to="admin">Admin Email (Donation Notification)</option>
 									</select>
+								</div>
+							</div>
+
+							<div class="fv-row row mb-10 admin-emails" style="display: none">
+								<div class="col-md-12">
+									<label class="form-label required">To</label>
+									<input type="text" name="admin_emails" placeholder="john@gmail.com,jack@gmail.com" class="form-control form-control-lg form-control-solid">
 								</div>
 							</div>
 
@@ -92,6 +98,7 @@
 		$(document).ready(function () {
 
 			let editorInstance;
+			var activeInput = '';
 
 			ClassicEditor
 				.create(document.querySelector('#emailBody'), {
@@ -104,13 +111,17 @@
 				})
 				.then(editor => {
 					editorInstance = editor; // Store the editor instance for later use
-
 					editor.setData( "{!! $emailTemplate->message ?? '' !!}" );
+
+					$(editor.ui.view.editable.element).on('focus', function() {
+						activeInput = 'message';
+					});
 				})
 				.catch(error => {
 					console.error('There was a problem initializing the editor:', error);
 				});
 
+			
 			// Fetch email setting on change of name="mail_page"
 			$('body').on('change','select[name="mail_page"]',function (e) { 
 				e.preventDefault();
@@ -118,11 +129,21 @@
 
 				toggleButton($('.btn-submit'),true);
 				$('.err-msg').remove();
+
+				var to = $(this).find('option:selected').data('to');
+				$('.admin-emails').css('display', (to === 'admin') ? 'block' : 'none');
+
 				$.when(send_ajax_request("{{ route('email.get-settings') }}", { page:page, campaign_id:$('input[name="campaign_id"]').val() }, 'GET')).done(function(response) {
 
 					toggleButton($('.btn-submit'),false,'SUBMIT');
+
+					// Reset formdata
+					$('#frm-email-template input[type="text"]').val('')
+					editorInstance.setData('');
+
 					if(response.data) {
 						$('input[name="mail_subject"]').val(response.data.subject);
+						$('input[name="admin_emails"]').val(response.data.admin_emails);
 						editorInstance.setData( response.data.message );
 					}
 				});
@@ -130,10 +151,38 @@
 
 			$('select[name="mail_page"]').change()
 
-			// Handle click event on db-column elements
+			$('body').on('focus','input[name="mail_subject"]',function() {
+				activeInput = 'subject';
+			})
+			$('body').on('focus','textarea[name="email_message"]',function() {
+				activeInput = 'message';
+			})
 
+			// Handle click event on db-column elements
 			$('body').on('click', '.db-column', function () {
-				colContent = '[[ ' + $(this).data('col')+ ' ]]'; // Get content from data-col attribute
+
+				colContent = '[[ ' + $(this).data('col')+ ' ]]'; // Get dbcol name from data-col attribute
+				(activeInput == 'subject') ? editSubject(colContent) : editMessage(colContent);
+			});
+
+			// Add Db column in subject
+			function editSubject(colContent) {
+
+				const activeInput = $('input[name="mail_subject"]')[0];
+
+				const cursorPosition = activeInput.selectionStart; // Get the current cursor position in the input field
+
+				// Split the input value around the cursor position
+				const valueBefore = activeInput.value.substring(0, cursorPosition);
+				const valueAfter = activeInput.value.substring(cursorPosition);
+
+				// Insert the content at the cursor position
+				activeInput.value = valueBefore + colContent + valueAfter;
+				activeInput.selectionStart = activeInput.selectionEnd = cursorPosition + colContent.length;
+				activeInput.focus()
+			}
+
+			function editMessage(colContent) {
 
 				// Ensure editorInstance is available
 				if (editorInstance) {
@@ -148,7 +197,7 @@
 						writer.insertText(colContent, selection.getFirstPosition());
 					});
 				}
-			});
+			}
 
 			$('body').on('submit','#frm-email-template', function(e) {
 				e.preventDefault()
@@ -172,8 +221,7 @@
 						$('.err-blog').closest('div').find('.form-control').focus();
 					}
 				});
-			})
-
+			});
 		});
 
 	</script>
