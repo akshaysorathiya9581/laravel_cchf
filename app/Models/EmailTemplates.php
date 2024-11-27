@@ -8,11 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class EmailTemplates extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'email_template';
 
     protected $fillable = [
         'campaign_id',
+        'admin_emails',
         'page',
         'subject',
         'message',

@@ -185,7 +185,7 @@
 							<p class="card-des" id="sc-venue">Please click the logo to select your preferred venue(s):<span>*</span></p>
 							<div class="volunteer-signup__card-fifth">
 								<div class="volunteer__checkbox">
-									<input type="checkbox" name="venue[]" value="Masbia of Flatbush" id="masbia-of-flatbush">
+									<input type="checkbox" name="venue[]" value="Masbia of Flatbush, 1372 Coney Island Ave Brooklyn, NY 11230 718-972-4446 x208" id="masbia-of-flatbush">
 									<label for="masbia-of-flatbush">Masbia of Flatbush <span>1372 Coney Island Ave Brooklyn, NY 11230 718-972-4446 x208</span></label>
 								</div>
 								<div class="volunteer__checkbox">
@@ -285,10 +285,18 @@
 			$('.err-msg').remove();  // Remove existing error messages
 
 			_this = $(this);
+			blockUI_page(_this, true);
 
 			$.when(send_ajax_request($(this).attr('action'), formData, 'POST', true)).done(function(response) {
+
+				$('#frm-volunteer')[0].reset()
+
 				toastr_show(response.message, 'success');
+				blockUI_page(_this, false);
 			}).fail(function(xhr) {
+
+
+				blockUI_page(_this, false);
 
 				if (xhr.status == 422) {
 

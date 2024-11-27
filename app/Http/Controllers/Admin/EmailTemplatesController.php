@@ -38,7 +38,8 @@ class EmailTemplatesController extends Controller
                 ['page' => $request->page],
                 [
                     'campaign_id'  => $request->campaign_id,
-                    'page'  => $request->page,
+                    'page'  => $request->mail_page,
+                    'admin_emails'  => $request->admin_emails,
                     'subject'  => $request->mail_subject,
                     'message'  => $request->email_message
                 ]
