@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\VolunteerNotification;
+
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\JsonResponse;
-use App\Models\Blogs;
 
 class VolunteerController extends Controller
 {
@@ -23,65 +24,48 @@ class VolunteerController extends Controller
 		]);
 	}
 
-
     /**
-     * Update/Insert volunteer role
+     * save volunteer data
      */
-    public function update(Request $request, Blogs $blogs): JsonResponse
+    public function save(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'title'  => 'required|string',
-            'season_id' => 'required|numeric',
+
+        $rules = [
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email_id' => 'required|email|max:255',
+            'phone_no' => 'required|string|max:15',
+            'address' => 'required|string|max:255',
+            'city' => 'required|string|max:255',
+            'state' => 'required|string|max:255',
+            'post_code' => 'required|string|max:20',
+            'country' => 'required|string|max:255',
+            'email_updates' => 'nullable|in:yes', // Optional field
+            'roles' => 'required|array|min:1', // At least one role should be selected
+            'vol_opportunity' => 'required|string|in:An ongoing opportunity,Occasional opportunity,One-time', // Ensures valid options
+            'special_skills' => 'required|string|max:1000',
+            'venue' => 'required|array|min:1', // At least one venue should be selected
+            'avail_day' => 'required|array|min:1', // At least one day must be selected
+            'avail_day.*' => 'string|in:monday,tuesday,wednesday,thursday,friday', // Valid days
+            'avail_time' => 'required|array|min:1', // At least one time must be selected
+            'avail_time.*' => 'string|in:morning,afternoon,evening', // Valid times
+            'emergency_contact' => 'required|string|max:15',
+            'contact_relationship' => 'required|string|max:255',
+
+            // Conditional validation if volunteering as a group
+            'group_name' => 'nullable|required_if:is_group,yes|string|max:255',
+            'adults_in_group' => 'nullable|required_if:is_group,yes|integer|min:1',
+            'children_in_group' => 'nullable|required_if:is_group,yes|integer|min:0',
+        ];
+
+        // Validate the request data
+        $validated = (object) $request->validate($rules);
+
+        \Mail::to($validated->email_id)->send(new VolunteerNotification($validated));
+
+        return response()->json([
+            'message' => 'Volunteer information submitted successfully!',
+            'data' => $validated
         ]);
-        if ($validator->fails()) {
-
-            $errors = $validator->errors()->toArray();
-            return response()->json([
-                'success' => false,
-                'errors' =>  $errors
-            ]);
-        }
-        DB::beginTransaction();
-        try {
-
-            $slug = generateSlug($request->title);
-
-            $blogId = $request->input('blogId') ?? null;
-            $fileUrl = $request->hasFile('image') ? $this->fileUploadService->uploadFile($request, 'image', 'blogs'): $request->input('old_image');
-            $fileURL = $fileUrl ?? " ";
-                $blog = Blogs::updateOrCreate(
-                ['id' => $blogId],
-                [
-                    'title'  => $request->title,
-                    'video_link'  => $request->video_link,
-                    'publish_date'  => $request->publish_date,
-                    'author'  => $request->author,
-                    'image' => $fileURL,
-                    'description' => $request->description,
-                    'user_id' => $request->user_id,
-                    'season_id' => $request->season_id
-                ]
-            );
-            DB::commit();
-          if(isset($blogId)){
-            return response()->json([
-                'success' => true,
-                'message' => 'Blog updated successfully'
-            ]);
-          } else {
-            return response()->json([
-                'success' => true,
-                'message' => 'Blog created successfully'
-            ]);
-          }
-        } catch (Exception $e) {
-            dd($e->getMessage());
-            DB::rollBack();
-            Log::error('Error while Creating or updating a blog: ' . $e->getMessage());
-            return response()->json([
-                'success' => false,
-                'message' => $e->getMessage()
-            ]);
-        }
     }
 }
