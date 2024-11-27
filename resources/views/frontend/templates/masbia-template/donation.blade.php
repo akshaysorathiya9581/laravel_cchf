@@ -270,3 +270,9 @@
 
 <link rel="stylesheet" href="{{ asset('assets/css/common.css') }}?v={{ time() }}">
 @include('frontend.js-data')
+<script>
+	document.getElementById("customAmount").addEventListener("input", function(event) {
+		// Allow only numeric values (including decimal points)
+		this.value = this.value.replace(/[^0-9.]/g, "");
+	});
+</script>

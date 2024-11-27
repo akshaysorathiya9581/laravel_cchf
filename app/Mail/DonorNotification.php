@@ -30,7 +30,6 @@ class DonorNotification extends Mailable
      */
     public function build()
     {
-
         $this->sendgrid([
             'personalizations' => [
                 [
@@ -42,9 +41,8 @@ class DonorNotification extends Mailable
             'categories' => ['donation_thank_you'],
         ]);
 
-
-
-        return $this->subject('Thank You for Your Donation')
+        return $this->from(env('SENDGRID_FROM_MAIL'), env('SENDGRID_FROM_NAME'))
+            ->subject('Thank You for Your Donation')
             ->view('emails.donor-notification')
             ->with('donation', $this->donation);
     }
