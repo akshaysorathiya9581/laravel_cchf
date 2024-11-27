@@ -43,8 +43,7 @@ class ManagerNotification extends Mailable
             ],
             'categories' => ['donation_thank_you'],
         ]);
-        return $this->from(env('SENDGRID_FROM_MAIL'), env('SENDGRID_FROM_NAME'))
-            ->subject('New Donation Received')
+        return $this->subject('New Donation Received')
             ->view('emails.manager-notification')
             ->with('donation', $this->donation);
     }
