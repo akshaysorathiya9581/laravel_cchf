@@ -1,5 +1,3 @@
-<!-- resources/views/emails/volunteer-signup.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -124,8 +122,7 @@
         <h3>Preferred Venue(s)</h3>
         <table>
             <tr>
-                <th>Venue(s)</th>
-                <td>{{ isset($volunteer->venue) && !empty($volunteer->venue) ? implode(', ', $volunteer->venue) : 'N/A' }}</td>
+                <td colspan="2">{{ isset($volunteer->venue) && !empty($volunteer->venue) ? implode(', ', $volunteer->venue) : 'N/A' }}</td>
             </tr>
         </table>
 
