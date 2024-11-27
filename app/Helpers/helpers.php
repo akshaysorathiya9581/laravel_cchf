@@ -38,9 +38,16 @@ if (!function_exists('setSendgridApiKey')) {
         if (empty($sendGridKey)) {
             $settings = EmailApiSettings::first();
             if ($settings) {
-                $sendGridKey = $settings->api_key;
+               // Set dynamic configuration for SendGrid API key
+            Config::set('services.sendgrid.api_key', $settings->api_key);
+
+              // Set dynamic configuration for mail "from" and "reply-to" settings
+              Config::set('mail.from.address', $settings->from_email);
+              Config::set('mail.from.name', $settings->from_name);
+              Config::set('mail.reply_to.address', $settings->reply_to); // Global Reply-To address
+              Config::set('mail.reply_to.name', $settings->from_name); // Ensure you set reply_to.name
             }
-            Config::set('services.sendgrid.api_key', $sendGridKey);
+           
         }
     }
 
