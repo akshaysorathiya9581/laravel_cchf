@@ -42,7 +42,7 @@ class VolunteerNotification extends Mailable
             'categories' => ['volunteer_welcome'],
         ]);
 
-        return $this->from('info@webaryco.com')
+        return $this->from(env('SENDGRID_FROM_MAIL'))
             ->subject('Volunteer registration')
             ->view('emails.volunteer-notification')
             ->with('volunteer', $this->volunteer)

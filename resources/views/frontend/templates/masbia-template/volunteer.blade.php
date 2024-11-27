@@ -288,6 +288,9 @@
 			blockUI_page(_this, true);
 
 			$.when(send_ajax_request($(this).attr('action'), formData, 'POST', true)).done(function(response) {
+
+				$('#frm-volunteer')[0].reset()
+
 				toastr_show(response.message, 'success');
 				blockUI_page(_this, false);
 			}).fail(function(xhr) {
